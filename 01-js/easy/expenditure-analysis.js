@@ -13,8 +13,35 @@
   Output - [{ category: 'Food', totalSpent: 10 }] // Can have multiple categories, only one example is mentioned here
 */
 
+
+function find_unique(transactions){
+  let i,j=0;
+  let r=[];
+  for(i=0;i<transactions.length;i++){
+    if(!(r.includes(transactions[i].category))){
+      r[j++]=transactions[i].category;
+    }
+  }
+  return r;
+}
+
 function calculateTotalSpentByCategory(transactions) {
-  return [];
+  let i;
+  let result=[];
+  let unique=find_unique(transactions);
+
+  for(i=0;i<unique.length;i++){
+    result.push({
+      category:unique[i],
+      totalSpent: 0
+    })
+  }
+  for (i = 0; i < transactions.length; i++) {
+    element = transactions[i];
+    result[unique.indexOf(transactions[i].category)].totalSpent+=transactions[i].price;
+    
+  }
+  return result;
 }
 
 module.exports = calculateTotalSpentByCategory;
