@@ -4,9 +4,17 @@
 
   Once you've implemented the logic, test your code by running
 */
-
+function isVowel(ch){
+    return ch==='a' || ch==='e' || ch==='i' || ch==='o' || ch==='u' ||ch==='A' || ch==='E' || ch==='I' || ch==='O' || ch==='U'
+}
 function countVowels(str) {
-    // Your code here
+    let count = 0
+    for( let i=0; i<str.length; i++){
+        if(isVowel(str[i])){
+            ++count
+        }
+    }
+    return count
 }
 
 module.exports = countVowels;

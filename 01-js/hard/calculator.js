@@ -16,6 +16,127 @@
   Once you've implemented the logic, test your code by running
 */
 
-class Calculator {}
+class Calculator {
+    constructor() {
+        this.result = 0
+    }
+    add(num){
+        this.result+= num
+    }
+    subtract(num){
+        this.result-= num
+    }
+    multiply(num){
+        this.result = this.result*num
+    }
+    divide(num){
+        if(num===0) throw new Error()
+        this.result = this.result/num
+    }
+    clear(){
+        this.result = 0
+    }
+    getResult(){
+        return this.result
+    }
+    calculate(str){
+        // let postFix = this.infixToPostfix(str)
+        // console.log(postFix)
+        // return this.postfixEvaluation(postFix)
+        const s = eval(str)
+        if(!isFinite(s) || isNaN(s)) throw new Error()
+        this.result = s
+    }
+//     priority(ch){
+//         if (ch ==='/' || ch ==='*') return 1
+//         return 2
+//     }
+//
+//     isSymbol(ch){
+//         return ch==='+' || ch==='-'|| ch==='*'|| ch==='/'
+//     }
+//     isCharacter(ch){
+//         const isSymbol = this.isSymbol(ch)
+//         return  !isSymbol && ch!=='.' && isNaN(ch)
+//     }
+//     infixToPostfix(str){
+//         const st = []
+//         const stack = []
+//         for(let i=0; i<str.length; i++){
+//             if(this.isCharacter(str[i])){
+//                 throw new Error()
+//             }
+//             else if(str[i]===" ") continue
+//             else if(st.length ===0 || str[i]==='('){
+//                 st.push(str[i])
+//             }
+//             else if(str[i]===')'){
+//                 while(st.length===0 && st[st.length-1]!=='('){
+//                     stack.push(st[st.length-1])
+//                     st.pop()
+//                 }
+//                 if(str.length!==0){
+//                     st.pop()
+//                 }
+//             }
+//             else if(this.isSymbol(str[i])){
+//                 if(this.priority(str[i])<=this.priority(st[st.length-1])){
+//                     st.push(str[i])
+//                 }
+//                 else{
+//                     while(st.length===0 && this.priority(str[i])>this.priority(st[st.length-1])){
+//                         stack.push(st[st.length-1])
+//                         st.pop()
+//                     }
+//                     st.push(str[i])
+//                 }
+//             }
+//             else{
+//                 let n =""
+//                 while(isNaN(i<str.length && str[i]) || str[i]==="."){
+//                     n.push(str[i])
+//                     i++
+//                 }
+//                 let num = parseFloat(n)
+//                 stack.push(num)
+//             }
+//             return stack
+//         }
+//     }
+//
+//     calculateArithmetic(ch, a, b.txt, stack){
+//         switch (ch){
+//             case '+': stack.push(a+b.txt)
+//                 break
+//             case '-': stack.push(a-b.txt)
+//                 break
+//             case '*': stack.push(a*b.txt)
+//                 break
+//             case '/':
+//                 if(b.txt===0) throw new Error()
+//                 stack.push(a/b.txt)
+//                 break
+//         }
+//     }
+//
+//     postfixEvaluation(st){
+//         const stack = []
+//         for(let i=0; i<st.length; i++){
+//             if(this.isSymbol(st[i])){
+//                 let b.txt = stack[stack.length-1]
+//                 stack.pop()
+//                 let a = stack[stack.length-1]
+//                 stack.pop()
+//                 this.calculateArithmetic(st[i], a, b.txt, stack)
+//             }
+//             else{
+//                 stack.push(st[i])
+//             }
+//         }
+//         return stack[stack.length-1]
+//     }
+}
+// const c = new Calculator()
+// console.log(c.infixToPostfix("2+3*4"))
 
 module.exports = Calculator;

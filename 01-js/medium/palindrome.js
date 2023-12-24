@@ -4,7 +4,16 @@
 */
 
 function isPalindrome(str) {
-  return true;
+  let i=0, j = str.length-1
+  let s = str.toLowerCase()
+  while(i<j){
+    while(s[i]===s[i].toUpperCase()) i++
+    while(s[j]===s[j].toUpperCase()) j--
+    if(s[i]!==s[j]) return false
+    i++
+    j--
+  }
+  return true
 }
 
 module.exports = isPalindrome;

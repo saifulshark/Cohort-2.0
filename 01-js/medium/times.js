@@ -7,7 +7,22 @@ Try running it for
 Hint - use Date class exposed in JS
 There is no automated test for this one, this is more for you to understand time goes up as computation goes up
 */
-
-function calculateTime(n) {
-    return 0.01;
+function loopOneToHundred(){
+    for(let i=1; i<=100; i++){}
 }
+function loopOneToLakh(){
+    for(let i=1; i<=100000; i++){}
+}
+function loopOneToThousandMillion(){
+    for(let i=1; i<=1000000000; i++){}
+}
+function calculateTime(loopFunction) {
+    let beforeDateTimeInMilliSec  = new Date().getMilliseconds()
+    loopFunction()
+    let afterDateTimeMilliSec = new Date().getMilliseconds()
+    return afterDateTimeMilliSec-beforeDateTimeInMilliSec
+}
+
+console.log("Time taken for execution of loopOneToHundred(): "+calculateTime(loopOneToHundred))
+console.log("Time taken for execution of loopOneToLakh(): "+calculateTime(loopOneToLakh))
+console.log("Time taken for execution of loopOneToThousandMillion(): "+calculateTime(loopOneToThousandMillion))

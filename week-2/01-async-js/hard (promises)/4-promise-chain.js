@@ -5,20 +5,50 @@
  * Compare it with the results from 3-promise-all.js
  */
 
-function wait1(t) {
-
+function wait1(t){
+    return new Promise((resolve)=>{
+        setTimeout(resolve, t*1000)
+    })
 }
 
 function wait2(t) {
-
+    return new Promise((resolve)=>{
+        setTimeout(resolve, t*1000)
+    })
 }
 
 function wait3(t) {
-
+    return new Promise((resolve)=>{
+        setTimeout(resolve, t*1000)
+    })
 }
 
-function calculateTime(t1, t2, t3) {
+function calculateTime(t1, t2, t3){
+    const startTime = Date.now()
+    // return wait1(t1).then(()=>{
+    //     return wait2(t2).then(
+    //         ()=>{
+    //             return wait3(t3).then(()=>{
+    //                 const currentTime = Date.now()
+    //                 return currentTime-startTime
+    //             })
+    //         }
+    //     )
+    // })
+    return wait1(t1)
+        .then(()=> wait2(t2))
+        .then(()=> wait3(t3))
+        .then(()=>{
+            return Date.now()-startTime
+        })
 
+    /**
+     * It's important to note that the .then() method returns a new Promise, allowing for chaining of multiple
+     * .then() calls. Each .then() in the chain can handle the result of the previous one.
+     * This chaining is a powerful mechanism for managing asynchronous code in a more readable and organized manner,
+     * often referred to as "Promise chaining."
+     */
 }
+
 
 module.exports = calculateTime;

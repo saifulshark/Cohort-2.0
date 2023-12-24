@@ -21,7 +21,7 @@
     Request Body: JSON object representing the todo item.
     Response: 201 Created with the ID of the created todo item in JSON format. eg: {id: 1}
     Example: POST http://localhost:3000/todos
-    Request Body: { "title": "Buy groceries", "completed": false, description: "I should buy groceries" }
+    Request Body: { "title": "Buy groceries", "completed": false, "description": "I should buy groceries" }
     
   4. PUT /todos/:id - Update an existing todo item by ID
     Description: Updates an existing todo item identified by its ID.
@@ -41,9 +41,68 @@
  */
   const express = require('express');
   const bodyParser = require('body-parser');
+const {parse} = require("uuid");
+  const port = 3000
   
   const app = express();
+
+  const todos = [];
   
   app.use(bodyParser.json());
-  
+
+  app.get('/todos', (req, res)=>{
+    res.json(todos)
+  })
+
+  app.get('/todos/:id', (req, res)=>{
+    const id = parseInt(req.params.id)
+    for(let i=0; i<todos.length; i++){
+      if(id===todos[i].id){
+        res.json(todos[i])
+        return;
+      }
+    }
+    res.status(404).json({msg: "Item is not found"})
+  })
+
+  app.post('/todos', (req, res)=>{
+    const todo = req.body
+    const newTodo = {
+      id: Math.floor(Math.random()*1000000),
+      title: todo.title,
+      completed: todo.completed,
+      description: todo.description
+    }
+    todos.push(newTodo)
+    res.status(201).json(newTodo)
+  })
+
+  app.put('/todos/:id', (req, res)=>{
+    const newTodo = req.body
+    const id = parseInt(req.params.id)
+    for(let i=0; i<todos.length; i++){
+      if(id===todos[i].id){
+        todos[i].title = newTodo.title
+        todos[i].completed = newTodo.completed
+        res.status(200).send()
+        return;
+      }
+    }
+    res.status(404).send()
+  })
+
+  app.delete('/todos/:id', (req, res)=>{
+    const index = todos.findIndex(t => t.id === parseInt(req.params.id));
+    if (index === -1) {
+      res.status(404).send()
+    } else {
+      todos.splice(index, 1);
+      res.status(200).send()
+    }
+  })
+
+  app.use((req, res, next) => {
+    res.status(404).send();
+  });
+
   module.exports = app;
