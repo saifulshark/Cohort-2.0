@@ -4,7 +4,21 @@
 */
 
 function isPalindrome(str) {
-  return true;
+  str=str.toLowerCase();
+  var x='',y='';
+  var i=0;
+  while(i<str.length){
+    if(str[i]>='a'&& str[i]<='z'){
+      x=x+str[i];
+      y=str[i]+y;
+    }
+    
+    i++;
+  }
+  if(y===x){
+    return true;
+  }
+  return false;
 }
 
 module.exports = isPalindrome;
