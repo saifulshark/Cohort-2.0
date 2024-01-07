@@ -1,7 +1,18 @@
+const jwt = require("jsonwebtoken")
+const secretServerKey = require("../keys").SERVER_SECRET_KEY
 // Middleware for handling auth
 function adminMiddleware(req, res, next) {
-    // Implement admin auth logic
-    // You need to check the headers and validate the admin from the admin DB. Check readme for the exact headers to be expected
+    const authHeader = req.headers.authorization
+    const token = authHeader.split(' ')[1]
+    try{
+        jwt.verify(token, secretServerKey)
+        next()
+    }
+    catch(err){
+        res.status(403).json({
+            message:"Invalid credentials."
+        })
+    }
 }
 
 module.exports = adminMiddleware;
