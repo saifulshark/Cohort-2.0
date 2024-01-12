@@ -1,0 +1,9 @@
+#partodo{
+    text-align: center;
+    width: 40%;
+}
+#todo{
+    background-color: #FF6B35;
+    color: #EFEFD0;
+    border-radius: 10px;
+}

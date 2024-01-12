@@ -1,0 +1,23 @@
+#create-todo{
+    text-align: center;
+    background-color: #1A659E;
+    width: 40%;
+    border-radius: 10px;
+}
+
+.input{
+    height: 40px;
+    margin: 10px;
+    border: 5px solid #004E89;
+    border-radius: 10px;
+}
+.input:focus{
+    outline: none;
+    border-color: #F7C59F;
+    border-radius: 5px;
+}
+
+#addButton{
+    background-color: #FF6B35;
+    color: #EFEFD0
+}

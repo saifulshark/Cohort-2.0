@@ -3,25 +3,47 @@
 
 <head>
   <script>
-    let globalId = 1;
-    let todoState = [];
-    let oldTodoState = [];
+    let globalId = 5;
+    let todoState = [{title:"t1", description: "d1", id:"1"},{title:"t2", description: "d2", id:"2"}, {title:"t4", description: "d4", id:"4"}];
+    let oldTodoState = [{title:"t1", description: "d1", id:"1"},{title:"t3", description: "d3", id:"3"}, {title:"t4", description: "dummy", id:"4"}];
 
-    function addTodoToDom() {
-      
+    function addTodoToDom(todo) {
+      console.log("add")
+      const task = document.createElement("div")
+      task.setAttribute("id", `${todo.id}`)
+      const taskTitle = document.createElement("p")
+      taskTitle.innerHTML= todo.title
+      const taskDesc = document.createElement("p")
+      taskDesc.innerHTML= todo.description
+      const taskButton = document.createElement("button")
+      taskButton.innerHTML = "Mark as Done"
+      taskButton.addEventListener("click", () => {
+        taskButton.innerHTML = "Done"
+        taskTitle.style.textDecoration="line-through"
+        taskDesc.style.textDecoration="line-through"
+      })
+      task.appendChild(taskTitle)
+      task.appendChild(taskDesc)
+      task.appendChild(taskButton)
+      document.getElementById("todos").appendChild(task)
     }
 
     function removeTodoFromDom(todo) {
-      
+      console.log("remove")
+      const toBeRemoved = document.getElementById(todo.id)
+      document.getElementById("todos").removeChild(toBeRemoved)
     }
 
-    function updateTodoInDom(oldTodo, newTodo) {
-        
+    function updateTodoInDom(todo) {
+      console.log("update")
+      const toBeUpdated = document.getElementById(todo.id)
+      toBeUpdated.children[0].innerHTML = todo.title
+      toBeUpdated.children[1].innerHTML = todo.description
     }
 
     function updateState(newTodos) {
       // calculate the diff b/w newTodos and oldTodos.
-      // More specifically, find out what todos are - 
+      // More specifically, find out what todos are -
       // 1. added
       // 2. deleted
       // 3. updated
@@ -31,7 +53,41 @@
       // calculate these 3 arrays
       // call addTodo, removeTodo, updateTodo functions on each of the
       // elements
-      oldTodoState = newTodos;
+      newTodos.sort((a, b)=> a.id - b.id)
+      oldTodoState.sort((a,b)=> a.id - b.id)
+      let i=0, j=0
+      while(i < newTodos.length && j < oldTodoState.length){
+        if(newTodos[i].id===oldTodoState[j].id){
+          if(newTodos[i].title!==oldTodoState[j].title || newTodos[i].description!==oldTodoState[j].description){
+            updated.push(newTodos[i])
+            updateTodoInDom(newTodos[i])
+          }
+          i++
+          j++
+        }
+        else if(newTodos[i].id < oldTodoState[j].id){
+          added.push(newTodos[i])
+          addTodoToDom(newTodos[i])
+          i++
+        }
+        else if(newTodos[i].id > oldTodoState[j].id){
+          deleted.push(oldTodoState[j])
+          removeTodoFromDom(oldTodoState[j]);
+          j++
+        }
+      }
+      while(i< newTodos.length){
+        added.push(newTodos[i])
+        addTodoToDom(newTodos[i])
+        i++
+      }
+      while(j < oldTodoState.length){
+        deleted.push(oldTodoState[j])
+        removeTodoFromDom(oldTodoState[j]);
+        j++
+      }
+      oldTodoState =[]
+      newTodos.map(todo => oldTodoState.push(todo))
     }
 
     function addTodo() {
@@ -40,9 +96,16 @@
       todoState.push({
         title: title,
         description: description,
-        id: globalId++,
+        id: `${globalId++}`,
       })
-      updateState(todoState);
+      updateState(todoState)
+    }
+
+    function markCompleted(id){
+      const par = document.getElementById(id)
+      par.children[0].style.textDecoration = "line_through"
+      par.children[1].style.textDecoration = "line_through"
+      par.children[2].innerHTML = "Done"
     }
   </script>
 </head>
@@ -54,7 +117,24 @@
   <br /> <br />
 
   <div id="todos">
-
+    <div id="1">
+      <p>t1</p>
+      <p>d1</p>
+      <button onclick="markCompleted('1')">Mark as Done</button>
+      <br>
+    </div>
+    <div id="3">
+      <p>t3</p>
+      <p>d3</p>
+      <button onclick="markCompleted('3')">Mark as Done</button>
+      <br>
+    </div>
+    <div id="4">
+      <p>t4</p>
+      <p>dummy</p>
+      <button onclick="markCompleted('4')">Mark as Done</button>
+      <br>
+    </div>
   </div>
 </body>
 
