@@ -2,33 +2,54 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import BusinessCard from "./BusinessCard.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [details, setDetails] = useState([
+    {
+      name: "Abhishek Rathore",
+      description: "FullStack Developer and Android Developer",
+      interests: ["Playing cricket", "Playing video games", "Watching Anime"],
+      instagram: "regxl2",
+      twitter: "ShekAbhi2",
+      linkedin: "abhishek-rathore-1bb6a4254"
+    },
+    {
+      name: "Abhishek Rathore",
+      description: "FullStack Developer and Android Developer",
+      interests: ["Playing cricket", "Playing video games", "Watching Anime"],
+      instagram: "regxl2",
+      twitter: "ShekAbhi2",
+      linkedin: "abhishek-rathore-1bb6a4254"
+    },
+    {
+      name: "Abhishek Rathore",
+      description: "FullStack Developer and Android Developer",
+      interests: ["Playing cricket", "Playing video games", "Watching Anime"],
+      instagram: "regxl2",
+      twitter: "ShekAbhi2",
+      linkedin: "abhishek-rathore-1bb6a4254"
+    },
+    {
+      name: "Abhishek Rathore",
+      description: "FullStack Developer and Android Developer",
+      interests: ["Playing cricket", "Playing video games", "Watching Anime"],
+      instagram: "regxl2",
+      twitter: "ShekAbhi2",
+      linkedin: "abhishek-rathore-1bb6a4254"
+    }
+  ])
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      {
+        details.map(detail =>{
+          return(
+              <BusinessCard detail={detail}/>
+          )
+        })
+      }
+    </div>
   )
 }
 
