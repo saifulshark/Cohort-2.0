@@ -10,10 +10,9 @@ export function Assignment2() {
 
     const handleReRender = () => {
         // Update state to force re-render
+        numberOfTimesReRendered.current = numberOfTimesReRendered.current + 1;
         setCount(count + 1);
     };
-
-    numberOfTimesReRendered.current = numberOfTimesReRendered.current + 1;
 
     return (
         <div>
