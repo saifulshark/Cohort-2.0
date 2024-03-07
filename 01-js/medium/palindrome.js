@@ -4,7 +4,27 @@
 */
 
 function isPalindrome(str) {
-  return true;
+  if (str.length == 0 || str.length == 1) {
+    return true;
+  }
+  let reversedArr = [];
+  for (let i = str.length - 1; i >= 0; i--) {
+    reversedArr.push(str[i]);
+  }
+  // console.log(reversedArr);
+  if (str.length == reversedArr.length) {
+    let str1 = str.replace(/[^\w\s]/gi, "");
+    let reversedArr1 = reversedArr.join("").replace(/[^\w\s]/gi, "");
+    console.log(str1);
+    console.log(reversedArr1);
+    for (let i = 0; i < str1.length; i++) {
+      if (str1[i].toLowerCase() == reversedArr1[i].toLowerCase()) {
+        return true;
+      }
+      return false;
+    }
+  }
 }
+// console.log(isPalindrome("igga!"));
 
 module.exports = isPalindrome;
