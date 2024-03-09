@@ -1,0 +1,29 @@
+<html>
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>1-counter</title>
+    </head>
+    <body>
+      <div>
+        <div
+          style="display: flex; font-size: larger; justify-content: center"
+          id="counter"
+        >
+          0
+        </div>
+        <script>
+          let counter = 0;
+
+          function updateCounter() {
+            counter++;
+            document.getElementById("counter").innerText = counter;
+          }
+          setInterval(updateCounter, 1000);
+        </script>
+      </div>
+    </body>
+  </html>
+</html>
