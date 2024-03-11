@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clock</title>
+  </head>
+  <body>
+    <div id="Clock" style="display: flex; justify-content: center"></div>
+
+    <script>
+      function updateClock() {
+        let currentTime = new Date();
+        let hours = currentTime.getHours();
+        let minutes = currentTime.getMinutes();
+        let seconds = currentTime.getSeconds();
+        document.getElementById("Clock").innerText =
+          hours + ":" + minutes + ":" + seconds;
+        setTimeout(updateClock, 1000);
+      }
+      updateClock();
+    </script>
+  </body>
+</html>
