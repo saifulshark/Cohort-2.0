@@ -68,6 +68,8 @@ function getTodo(id) {
 function getallTodo() {
   return todo.map((todoItem) => JSON.stringify(todoItem));
 }
+//delete
+//update
 
 createTodo("fight", "boxing day !!!");
 createTodo("paly", "football day !!!");
