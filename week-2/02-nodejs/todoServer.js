@@ -68,6 +68,15 @@ function getTodo(id) {
 function getallTodo() {
   return todo.map((todoItem) => JSON.stringify(todoItem));
 }
+function deleteTodo(id) {
+  for (let i = 0; i < todo.length; i++) {
+    if (todo[i].id == id) {
+      todo.splice(id, 1);
+    }
+  }
+}
+
+function updateTodo() {}
 
 createTodo("fight", "boxing day !!!");
 createTodo("paly", "football day !!!");
@@ -76,6 +85,12 @@ createTodo("drink", "water !!!");
 createTodo("dance", "don't please !!!");
 // console.log(getTodo(2));
 console.log(getallTodo());
+deleteTodo(1);
+
+console.log(getallTodo());
+deleteTodo(1);
+console.log(getallTodo());
+
 // console.log(`Array item check:  ${JSON.stringify(todo[2])}`);
 
 // module.exports = app;
