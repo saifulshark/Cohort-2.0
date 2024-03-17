@@ -39,11 +39,43 @@
 
   Testing the server - run `npm run test-todoServer` command in terminal
  */
-  const express = require('express');
-  const bodyParser = require('body-parser');
-  
-  const app = express();
-  
-  app.use(bodyParser.json());
-  
-  module.exports = app;
+const express = require("express");
+const bodyParser = require("body-parser");
+
+const app = express();
+
+app.use(bodyParser.json());
+const todoItem = {
+  title: "",
+  description: "",
+};
+let todo = [];
+let id = 0;
+function createTodo(title, description) {
+  const todoItem = { id: id, title: title, description: description };
+  todo.push(todoItem);
+  id++;
+  // return JSON.stringify(todo[id]);
+}
+function getTodo(id) {
+  for (let i = 0; i < todo.length; i++) {
+    if (todo[i].id == id) {
+      return JSON.stringify(todo[id]);
+    }
+  }
+  return "Todo Item not found Nigga :/";
+}
+function getallTodo() {
+  return todo.map((todoItem) => JSON.stringify(todoItem));
+}
+
+createTodo("fight", "boxing day !!!");
+createTodo("paly", "football day !!!");
+createTodo("sleep", "soundly !!!");
+createTodo("drink", "water !!!");
+createTodo("dance", "don't please !!!");
+// console.log(getTodo(2));
+console.log(getallTodo());
+// console.log(`Array item check:  ${JSON.stringify(todo[2])}`);
+
+// module.exports = app;
