@@ -45,6 +45,7 @@ const bodyParser = require("body-parser");
 const app = express();
 
 app.use(bodyParser.json());
+const port = 3000;
 const todoItem = {
   title: "",
   description: "",
@@ -63,21 +64,59 @@ function getTodo(id) {
       return JSON.stringify(todo[id]);
     }
   }
-  return "Todo Item not found Nigga :/";
+  return "Todo Item not found :/";
 }
 function getallTodo() {
   return todo.map((todoItem) => JSON.stringify(todoItem));
 }
-//delete
-//update
+function deleteTodo(id) {
+  for (let i = 0; i < todo.length; i++) {
+    if (todo[i].id == id) {
+      todo.splice(id, 1);
+    }
+  }
+}
 
-createTodo("fight", "boxing day !!!");
-createTodo("paly", "football day !!!");
-createTodo("sleep", "soundly !!!");
-createTodo("drink", "water !!!");
-createTodo("dance", "don't please !!!");
+function updateTodo(id, title, description) {
+  for (let i = 0; i < todo.length; i++) {
+    if (todo[i].id == id) {
+      todo[i].title = title;
+      todo[i].description = description;
+    }
+  }
+}
+
+app.get("/todos", (req, res) => {
+  const allTodos = getallTodo();
+  res.status(200).json(allTodos);
+});
+app.post("/todos", (req, res) => {
+  const newTodo = {
+    title: req.body.title,
+    description: req.body.description,
+  };
+  createTodo(newTodo);
+  res.status(201).json(newTodo);
+});
+
+//DEBUG STATEMENTS
+// createTodo("fight", "boxing day !!!");
+// createTodo("paly", "football day !!!");
+// createTodo("sleep", "soundly !!!");
+// createTodo("drink", "water !!!");
+// createTodo("dance", "don't please !!!");
+
 // console.log(getTodo(2));
-console.log(getallTodo());
-// console.log(`Array item check:  ${JSON.stringify(todo[2])}`);
+// console.log(getallTodo());
+// deleteTodo(1);
 
-// module.exports = app;
+// console.log(getallTodo());
+// deleteTodo(1);
+// console.log(getallTodo());
+// updateTodo(2, "Don't Drink MF", "Because you will pee");
+// console.log(getallTodo());
+
+// console.log(`Array item check:  ${JSON.stringify(todo[2])}`);
+app.listen(port);
+
+module.exports = app;
