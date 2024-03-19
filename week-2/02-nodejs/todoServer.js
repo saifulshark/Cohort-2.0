@@ -64,7 +64,7 @@ function getTodo(id) {
       return JSON.stringify(todo[id]);
     }
   }
-  return "Todo Item not found :/";
+  // return "Todo Item not found :/";
 }
 function getallTodo() {
   return todo.map((todoItem) => JSON.stringify(todoItem));
@@ -72,18 +72,21 @@ function getallTodo() {
 function deleteTodo(id) {
   for (let i = 0; i < todo.length; i++) {
     if (todo[i].id == id) {
-      todo.splice(id, 1);
+      todo.splice(i, 1);
+      return true;
     }
   }
+  return false;
 }
-
-function updateTodo(id, title, description) {
+function updateTodo(id, title, completed) {
   for (let i = 0; i < todo.length; i++) {
     if (todo[i].id == id) {
       todo[i].title = title;
-      todo[i].description = description;
+      todo[i].completed = completed;
+      return true; // Return true indicating todo item was found and updated
     }
   }
+  return false; // Return false indicating todo item was not found
 }
 
 app.get("/todos", (req, res) => {
@@ -97,6 +100,37 @@ app.post("/todos", (req, res) => {
   };
   createTodo(newTodo);
   res.status(201).json(newTodo);
+});
+
+app.get("/todos/:id", (req, res) => {
+  const id = req.params.id; //extract id from url
+  const getTodoItem = getTodo(id);
+  if (getTodoItem) {
+    res.status(200).json(getTodoItem);
+  } else {
+    res.status(404).send("Todo item not found");
+  }
+});
+
+app.put("/todos/:id", (req, res) => {
+  const id = req.params.id; //extract id from url
+  const { title, completed } = req.body;
+  const updateTodoItem = updateTodo(id, title, completed);
+  if (updateTodoItem) {
+    res.status(200).send("Todo item updated successfully");
+  } else {
+    // If not found, respond with 404 Not Found
+    res.status(404).send("Todo item not found");
+  }
+});
+app.delete("/todos/:id", (req, res) => {
+  const id = req.params.id;
+  const deleteTodoItem = deleteTodo(id);
+  if (deleteTodoItem) {
+    res.status(200).send("Todo Item Deleted Successfully");
+  } else {
+    res.status(404).send("Todo item not found");
+  }
 });
 
 //DEBUG STATEMENTS
