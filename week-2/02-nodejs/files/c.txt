@@ -1,0 +1,14 @@
+## Jon Jones' Last 10 Fights
+
+| Date | Opponent | Result | Rounds | Method |
+|---|---|---|---|---|
+| February 8, 2020 | Dominick Reyes | Win | 5 | Decision (Unanimous) |
+| July 29, 2017 | Daniel Cormier | NC ( overturned to Win by DQ) | 3 | Disqualification (Illegal Strikes) |
+| April 23, 2016 | Ovince Saint Preux | Win | 5 | Submission (Rear-Naked Choke) |
+| January 23, 2015 | Daniel Cormier | Loss | 5 | Decision (Unanimous) |
+| April 19, 2014 | Daniel Cormier | Win | 3 | DQ (Illegal Strikes) | (Originally a win by TKO)
+| September 27, 2013 | Alexander Gustafsson | Win | 5 | Decision (Unanimous) |
+| April 20, 2013 | Chael Sonnen | Win | 1 | KO (Punch) |
+| December 8, 2012 | Vitor Belfort | Win | 4 | Submission (Armbar) |
+| September 24, 2011 | Quinton Jackson | Win | 4 | Submission (Rear-Naked Choke) |
+| April 23, 2011 | Ryan Bader | Win | 2 | TKO (Punches) |
