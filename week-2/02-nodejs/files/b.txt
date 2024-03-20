@@ -1,0 +1,23 @@
+Here are the last 20 fights of Mike Tyson's professional boxing career:
+
+| Date | Opponent | Result | Rounds |
+|---|---|---|---|
+| 2005-06-11 | Kevin McBride | L-RTD (Loss by Retirement) | 6 |
+| 2004-07-30 | Danny Williams | L-KO (Loss by Knockout) | 4 |
+| 2003-02-22 | Clifford Etienne | W-KO (Win by Knockout) | 1 |
+| 2002-06-08 | Lennox Lewis | L-KO | 8 |
+| 2001-10-13 | Brian Nielsen | W-RTD | 6 |
+| 2000-10-20 | Andrew Golota | NC (No Contest) | 3 |
+| 2000-06-24 | Lou Savarese | W-TKO (Win by Technical Knockout) | 1 |
+| 2000-01-29 | Julius Francis | W-TKO | 4 |
+| 1999-10-23 | Orlin Norris | NC | 3 |
+| 1999-01-16 | Frans Botha | W-KO | 5 |
+| 1997-06-28 | Evander Holyfield | L-DQ (Loss by Disqualification) | 3 |
+| 1996-11-09 | Evander Holyfield | L-TKO | 11 |
+| 1996-09-07 | Bruce Seldon | W-TKO | 1 |
+| 1996-03-16 | Frank Bruno | W-TKO | 3 |
+| 1995-12-16 | Buster Mathis Jr | W-KO | 3 |
+| 1995-08-19 | Peter McNeeley | W-DQ | 1 |
+| 1991-06-28 | Donovan Ruddock | W-UD (Win by Unanimous Decision) | 12 |
+| 1991-03-18 | Donovan Ruddock | W-TKO | 7 |
+| 1990-12-08 | Alex Stewart | W-TKO | 1 |
