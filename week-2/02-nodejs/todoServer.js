@@ -39,118 +39,240 @@
 
   Testing the server - run `npm run test-todoServer` command in terminal
  */
+// const express = require("express");
+// const bodyParser = require("body-parser");
+
+// const app = express();
+
+// app.use(bodyParser.json());
+// // const port = 3000;
+// // const todoItem = {
+// //   title: "",
+// //   description: "",
+// // };
+// let todo = [];
+// let id = 0;
+// function createTodo(title, description) {
+//   const todoItem = {
+//     id: id,
+//     title: title,
+//     description: description,
+//     completed: false,
+//   };
+//   todo.push(todoItem);
+//   id++;
+//   return todoItem;
+
+//   // return JSON.stringify(todo[id]);
+// }
+// function getTodo(id) {
+//   for (let i = 0; i < todo.length; i++) {
+//     if (todo[i].id == id) {
+//       return JSON.stringify(todo[i]);
+//     }
+//   }
+//   // return "Todo Item not found :/";
+// }
+// function getallTodo() {
+//   return todo;
+// }
+// function deleteTodo(id) {
+//   for (let i = 0; i < todo.length; i++) {
+//     if (todo[i].id == id) {
+//       todo.splice(i, 1);
+//       return true;
+//     }
+//   }
+//   return false;
+// }
+// function updateTodo(id, title, completed) {
+//   for (let i = 0; i < todo.length; i++) {
+//     if (todo[i].id == id) {
+//       todo[i].title = title;
+//       todo[i].completed = completed;
+//       return true; // Return true indicating todo item was found and updated
+//     }
+//   }
+//   return false; // Return false indicating todo item was not found
+// }
+
+// app.get("/todos", (req, res) => {
+//   const allTodos = getallTodo();
+//   res.json(allTodos);
+// });
+// app.post("/todos", (req, res) => {
+//   const newTodo = {
+//     title: req.body.title,
+//     description: req.body.description,
+//   };
+//   const createTodo = createTodo(newTodo.title, newTodo.description);
+//   res.status(201).json(newTodo);
+// });
+
+// app.get("/todos/:id", (req, res) => {
+//   const id = req.params.id; //extract id from url
+//   const getTodoItem = getTodo(id);
+//   if (getTodoItem) {
+//     res.status(200).json(getTodoItem);
+//   } else {
+//     res.status(404).send("Todo item not found");
+//   }
+// });
+
+// app.put("/todos/:id", (req, res) => {
+//   const id = req.params.id; //extract id from url
+//   const { title, completed } = req.body;
+//   const updateTodoItem = updateTodo(id, title, completed);
+//   if (updateTodoItem) {
+//     res.status(200).send("Todo item updated successfully");
+//   } else {
+//     // If not found, respond with 404 Not Found
+//     res.status(404).send("Todo item not found");
+//   }
+// });
+// app.delete("/todos/:id", (req, res) => {
+//   const id = req.params.id;
+//   const deleteTodoItem = deleteTodo(id);
+//   if (deleteTodoItem) {
+//     res.status(200).send("Todo Item Deleted Successfully");
+//   } else {
+//     res.status(404).send("Todo item not found");
+//   }
+// });
+
+// //DEBUG STATEMENTS
+// // createTodo("fight", "boxing day !!!");
+// // createTodo("paly", "football day !!!");
+// // createTodo("sleep", "soundly !!!");
+// // createTodo("drink", "water !!!");
+// // createTodo("dance", "don't please !!!");
+
+// // console.log(getTodo(2));
+// // console.log(getallTodo());
+// // deleteTodo(1);
+
+// // console.log(getallTodo());
+// // deleteTodo(1);
+// // console.log(getallTodo());
+// // updateTodo(2, "Don't Drink MF", "Because you will pee");
+// // console.log(getallTodo());
+
+// // console.log(`Array item check:  ${JSON.stringify(todo[2])}`);
+// app.use((res, req) => {
+//   res.status(404).send();
+// });
+// // app.listen(port);
+
+// module.exports = app;
+
 const express = require("express");
 const bodyParser = require("body-parser");
 
 const app = express();
 
 app.use(bodyParser.json());
-const port = 3000;
-const todoItem = {
-  title: "",
-  description: "",
-};
-let todo = [];
+
+let todos = [];
 let id = 0;
-function createTodo(title, description) {
-  const todoItem = { id: id, title: title, description: description };
-  todo.push(todoItem);
-  id++;
-  // return JSON.stringify(todo[id]);
+
+// Function to create a new todo item
+function createTodoItem(title, description) {
+  const newTodo = {
+    id: id++,
+    title: title,
+    description: description,
+    // completed: false,
+  };
+  todos.push(newTodo);
+  return newTodo;
 }
-function getTodo(id) {
-  for (let i = 0; i < todo.length; i++) {
-    if (todo[i].id == id) {
-      return JSON.stringify(todo[id]);
-    }
-  }
-  // return "Todo Item not found :/";
+
+// Function to retrieve all todo items
+function getAllTodos() {
+  return todos;
 }
-function getallTodo() {
-  return todo.map((todoItem) => JSON.stringify(todoItem));
+
+// Function to retrieve a specific todo item by ID
+function getTodoById(todoId) {
+  return todos.find((todo) => todo.id === todoId);
 }
-function deleteTodo(id) {
-  for (let i = 0; i < todo.length; i++) {
-    if (todo[i].id == id) {
-      todo.splice(i, 1);
-      return true;
-    }
+
+// Function to update a todo item by ID
+function updateTodoById(todoId, title, completed) {
+  const todoIndex = todos.findIndex((todo) => todo.id === todoId);
+  if (todoIndex !== -1) {
+    todos[todoIndex].title = title;
+    todos[todoIndex].completed = completed;
+    return true;
   }
   return false;
 }
-function updateTodo(id, title, completed) {
-  for (let i = 0; i < todo.length; i++) {
-    if (todo[i].id == id) {
-      todo[i].title = title;
-      todo[i].completed = completed;
-      return true; // Return true indicating todo item was found and updated
-    }
+
+// Function to delete a todo item by ID
+function deleteTodoById(todoId) {
+  const todoIndex = todos.findIndex((todo) => todo.id === todoId);
+  if (todoIndex !== -1) {
+    todos.splice(todoIndex, 1);
+    return true;
   }
-  return false; // Return false indicating todo item was not found
+  return false;
 }
 
+// Routes
+
+// Retrieve all todo items
 app.get("/todos", (req, res) => {
-  const allTodos = getallTodo();
-  res.status(200).json(allTodos);
+  res.json(getAllTodos());
 });
+
+// Retrieve a specific todo item by ID
+app.get("/todos/:id", (req, res) => {
+  const todoId = req.params.id;
+  const todo = getTodoById(todoId);
+  if (todo) {
+    res.json(todo);
+  } else {
+    res.status(404).send("Todo item not found");
+  }
+});
+
+// Create a new todo item
 app.post("/todos", (req, res) => {
-  const newTodo = {
-    title: req.body.title,
-    description: req.body.description,
-  };
-  createTodo(newTodo);
+  const { title, description } = req.body;
+  if (!title || !description) {
+    res.status(400).send("Title and description are required");
+    return;
+  }
+  const newTodo = createTodoItem(title, description);
   res.status(201).json(newTodo);
 });
 
-app.get("/todos/:id", (req, res) => {
-  const id = req.params.id; //extract id from url
-  const getTodoItem = getTodo(id);
-  if (getTodoItem) {
-    res.status(200).json(getTodoItem);
-  } else {
-    res.status(404).send("Todo item not found");
-  }
-});
-
+// Update an existing todo item by ID
 app.put("/todos/:id", (req, res) => {
-  const id = req.params.id; //extract id from url
+  const todoId = parseInt(req.params.id);
   const { title, completed } = req.body;
-  const updateTodoItem = updateTodo(id, title, completed);
-  if (updateTodoItem) {
+  const updated = updateTodoById(todoId, title, completed);
+  if (updated) {
     res.status(200).send("Todo item updated successfully");
   } else {
-    // If not found, respond with 404 Not Found
     res.status(404).send("Todo item not found");
   }
 });
+
+// Delete a todo item by ID
 app.delete("/todos/:id", (req, res) => {
-  const id = req.params.id;
-  const deleteTodoItem = deleteTodo(id);
-  if (deleteTodoItem) {
-    res.status(200).send("Todo Item Deleted Successfully");
+  const todoId = parseInt(req.params.id);
+  const deleted = deleteTodoById(todoId);
+  if (deleted) {
+    res.status(200).send("Todo item deleted successfully");
   } else {
     res.status(404).send("Todo item not found");
   }
 });
 
-//DEBUG STATEMENTS
-// createTodo("fight", "boxing day !!!");
-// createTodo("paly", "football day !!!");
-// createTodo("sleep", "soundly !!!");
-// createTodo("drink", "water !!!");
-// createTodo("dance", "don't please !!!");
-
-// console.log(getTodo(2));
-// console.log(getallTodo());
-// deleteTodo(1);
-
-// console.log(getallTodo());
-// deleteTodo(1);
-// console.log(getallTodo());
-// updateTodo(2, "Don't Drink MF", "Because you will pee");
-// console.log(getallTodo());
-
-// console.log(`Array item check:  ${JSON.stringify(todo[2])}`);
-app.listen(port);
+// Return 404 for any other route
+app.use((req, res) => {
+  res.status(404).send("Route not found");
+});
 
 module.exports = app;
