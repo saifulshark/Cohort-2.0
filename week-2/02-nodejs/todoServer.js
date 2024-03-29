@@ -39,11 +39,84 @@
 
   Testing the server - run `npm run test-todoServer` command in terminal
  */
+ 
   const express = require('express');
   const bodyParser = require('body-parser');
-  
   const app = express();
-  
+
   app.use(bodyParser.json());
+  const port = 3000;
+  let numberofItems = 0;
+  let todos = [];
   
+  app.get("/todos", (req, res) => {
+    res.status(200).json(todos);
+  })
+
+  app.get("/todos/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    const todo = todos.find(todo => todo.id === id);
+    
+    if(!todo) {
+      res.status(404).send("Not found");
+      return;
+    }
+
+    res.status(200).json(todo);
+  })
+
+  app.post("/todos", (req, res) => {
+    const title = req.body.title;
+    const completed = req.body.completed;
+    const description = req.body.description;
+    const id = ++numberofItems;
+    
+    todos.push({
+      id,
+      title,
+      completed,
+      description
+    })
+
+    res.status(201).json({id});
+  })
+
+  app.put("/todos/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    const title = req.body.title;
+    const completed = req.body.completed;
+    const index = todos.findIndex(todo => todo.id === id);
+    if(index === -1){
+      res.status(404).send("Item not found");
+      return;
+    }
+
+    todos[index].title = title;
+    todos[index].completed = completed;
+    res.status(200).send("Item found and updated");
+  })
+
+  app.delete("/todos/:id", (req, res) =>{
+    const id = parseInt(req.params.id);
+    const remTodo = todos.find(todo => todo.id === id);
+    
+    if(!remTodo){
+      res.status(404).send("Item not found");
+      return;
+    }
+
+    todos = todos.filter(todo => todo !== remTodo);
+
+    res.status(200).send("Item found and deleted"); 
+  })
+
+  app.use((req, res, next) =>{
+    res.status(404).send("Route not found");
+  })
+
+  app.use((err, req, res, next) => {
+    console.log(err);
+    res.status(500).send("Internal Server Error");
+  })
+
   module.exports = app;
