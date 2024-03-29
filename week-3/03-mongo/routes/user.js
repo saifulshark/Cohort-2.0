@@ -21,6 +21,7 @@ router.get("/courses", async (req, res) => {
 
 router.post("/courses/:courseId", userMiddleware, (req, res) => {
   // Implement course purchase logic
+  const username = req.body.username;
   const courseId = req.params.courseId;
 });
 
