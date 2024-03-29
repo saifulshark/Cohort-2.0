@@ -3,7 +3,7 @@ const SurveyModel = require("../models/survey_model");
 
 const surveyRouter = express.Router();
 
-surveyRouter.get("/surveys", async (req,res)=>{
+surveyRouter.get("/", async (req,res)=>{
 
     try {
         const surveys = await SurveyModel.getAllSurveys();
@@ -15,7 +15,7 @@ surveyRouter.get("/surveys", async (req,res)=>{
     }
 });
 
-surveyRouter.post("/surveys", async (req,res)=>{
+surveyRouter.post("/", async (req,res)=>{
     try {
         const data = req.body;
         const survey = await SurveyModel.createSurvey(body);
@@ -29,7 +29,7 @@ surveyRouter.post("/surveys", async (req,res)=>{
     }
 });
 
-surveyRouter.get("/surveys/:id", async (req,res)=>{
+surveyRouter.get("/:id", async (req,res)=>{
 
     try {
         const id = req.params.id;
@@ -44,7 +44,7 @@ surveyRouter.get("/surveys/:id", async (req,res)=>{
     }
 });
 
-surveyRouter.put("/surveys/:id",async (req,res)=>{
+surveyRouter.put("/:id",async (req,res)=>{
 
     try {
         const survey = await SurveyModel.updateSurveyById(req.params.id, req.body);
@@ -56,7 +56,7 @@ surveyRouter.put("/surveys/:id",async (req,res)=>{
     }
 });
 
-surveyRouter.delete("/surveys/:id", async (req,res)=>{
+surveyRouter.delete("/:id", async (req,res)=>{
 
     try {
         const survey = await SurveyModel.deleteSurveyById(req.params.id);

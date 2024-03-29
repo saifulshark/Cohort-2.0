@@ -1,5 +1,5 @@
 const express = require("express");
-import surveyRouter from "./routes/survey_routes";
+const surveyRouter = require("./routes/survey_routes");
 
 const rootRouter = express.Router();
 
@@ -9,6 +9,6 @@ rootRouter.get("/", (req,res)=>{
     })
 })
 
-rootRouter.use(surveyRouter);
+rootRouter.use("/surveys",surveyRouter);
 
 module.exports=rootRouter;
