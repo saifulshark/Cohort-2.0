@@ -49,9 +49,10 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/todos", (req, res) => {
-  fs.readFile("./todos.json", (err, data) => {
+  fs.readFile("./todos.json","utf-8", (err, data) => {
     if (err) return res.json({ error: "Error to Fetch Todos" });
-     if (!data) return res.json({ error: "TODO are Empty" });
+    console.log(data);
+     if (!data) return res.status(404).json({ error: "TODO are Empty" });
     const TODOs = JSON.parse(data);
     return res.json(TODOs);
   });
@@ -59,7 +60,7 @@ app.get("/todos", (req, res) => {
 
 app.get("/todos/:id", (req, res) => {
   const id = req.params.id;
-  fs.readFile("./todos.json", (err, data) => {
+  fs.readFile("./todos.json","utf-8", (err, data) => {
     if (err) return res.json({ error: "Error to Fetch Todos" });
     if(!data) return res.json({error: "TODO are Empty"})
     const TODOs = JSON.parse(data);
@@ -75,7 +76,7 @@ app.post("/todos", (req, res) => {
   const { id, title, description, completed } = req.body;
   const todo = { id, title, description, completed };
 
-  fs.readFile("./todos.json", (err, data) => {
+  fs.readFile("./todos.json", "utf-8", (err, data) => {
     if (err) return res.json({ error: "Error to Fetch Todos" });
     let TODOs;
     if (!data) {
@@ -99,9 +100,9 @@ app.put("/todos/:id", (req, res) => {
 
   const Updatetodo = { ...req.body };
   let check = false;
-  fs.readFile("./todos.json", (err, data) => {
+  fs.readFile("./todos.json", "utf-8", (err, data) => {
     if (err) return res.json({ error: "Error to Fetch Todos" });
-     if (!data) return res.json({ error: "TODO are Empty" });
+    if (!data) return res.json({ error: "TODO are Empty" });
     let TODOs = JSON.parse(data);
     TODOs = TODOs.map((todo) => {
       if (id === todo.id) {
@@ -121,10 +122,9 @@ app.put("/todos/:id", (req, res) => {
 
 app.delete("/todos/:id", (req, res) => {
   const id = req.params.id;
-
-  fs.readFile("./todos.json", (err, data) => {
+  fs.readFile("./todos.json", "utf-8", (err, data) => {
     if (err) return res.json({ error: "Error to Fetch Todos" });
-     if (!data) return res.json({ error: "TODO are Empty" });
+    if (!data) return res.json({ error: "TODO are Empty" });
     let TODOs = JSON.parse(data);
     let length = TODOs.length;
 
