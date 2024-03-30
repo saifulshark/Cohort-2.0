@@ -6,25 +6,13 @@ const userModel = db.User;
 const courseModel = db.Course;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const {MY_SECRET_KEY} = require("../config");
 
 // User Routes
 router.post('/signin', async (req, res) => {
     // Implement admin signup logic
     try{
-        username = req.body.username;
-        password = req.body.password;
-        const user = await userModel.findOne({username});
-        const isPasswordCorrect = await bcrypt.compare(password, user.password);
-        if (isPasswordCorrect){
-            console.log("User signIn verifed.");
-            const mysecretkey = "HAKB";
-            const payload = {
-                username: req.body.username,
-                password: req.body.password,
-            };
-            const token = jwt.sign(payload, mysecretkey, { expiresIn: '5d' });
-            res.status(200).json({token: token});
-        }
+        res.status(200).json({msg: "User signedIn successfully."});
     }
     catch(err){
         res.status(500).json({"error": err});
@@ -44,12 +32,11 @@ router.post('/signup', async (req, res) => {
         });
         user.save();
 
-        const mysecretkey = "HAKB";
         const payload = {
-            fullName: req.body.username,
+            username: req.body.username,
             password: hashedPassword,
           };
-        const token = jwt.sign(payload, mysecretkey, { expiresIn: '5d' });
+        const token = jwt.sign(payload, MY_SECRET_KEY, { expiresIn: '5d' });
 
         res.status(200).json({ message: 'User created successfully', token: token});
     }

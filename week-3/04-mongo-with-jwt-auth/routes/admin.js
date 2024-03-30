@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const adminMiddleware = require("../middleware/admin");
 const db = require("../db/index");
-const mysecretkey = require("../index");
+const {MY_SECRET_KEY} = require("../config");
 const router = Router();
 const adminModel = db.Admin;
 const courseModel = db.Course;
@@ -9,22 +9,10 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 // Admin Routes
-router.post('/signin', async (req, res) => {
+router.post('/signin', adminMiddleware, async (req, res) => {
     // Implement admin signup logic
     try{
-        username = req.body.username;
-        password = req.body.password;
-        const user = await adminModel.findOne({username});
-        const isPasswordCorrect = await bcrypt.compare(password, user.password);
-        if (isPasswordCorrect){
-            console.log("Admin signIn verifed.");
-            const payload = {
-                username: req.body.username,
-                password: req.body.password,
-            };
-            const token = jwt.sign(payload, mysecretkey, { expiresIn: '5d' });
-            res.status(200).json({token: token});
-        }
+        res.status(200).json({msg: "Admin signedIn successfully "});
     }
     catch(err){
         res.status(500).json({error: err});
@@ -40,12 +28,12 @@ router.post('/signup', async (req, res) => {
         });
         admin.save();
 
-        const mysecretkey = "HAKB";
+        // const mysecretkey = "HAKB";
         const payload = {
-            fullName: req.body.username,
+            username: req.body.username,
             password: hashedPassword,
           };
-        const token = jwt.sign(payload, mysecretkey, { expiresIn: '5d' });
+        const token = jwt.sign(payload, MY_SECRET_KEY, { expiresIn: '5d' });
 
         res.status(200).json({msg: "Admin registered ", token: token});
     }
