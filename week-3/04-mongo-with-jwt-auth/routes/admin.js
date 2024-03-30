@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const adminMiddleware = require("../middleware/admin");
 const db = require("../db/index");
+const mysecretkey = require("../index");
 const router = Router();
 const adminModel = db.Admin;
 const courseModel = db.Course;
@@ -17,7 +18,6 @@ router.post('/signin', async (req, res) => {
         const isPasswordCorrect = await bcrypt.compare(password, user.password);
         if (isPasswordCorrect){
             console.log("Admin signIn verifed.");
-            const mysecretkey = "HAKB";
             const payload = {
                 username: req.body.username,
                 password: req.body.password,
