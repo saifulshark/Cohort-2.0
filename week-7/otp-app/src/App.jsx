@@ -19,10 +19,18 @@ const handleInput = (index, e) => {
       inputRefs[index + 1].current.focus();
     }
   };
-const handelBackspace = (index, e) => {
+const handelKeyDown = (index, e) => {
+
+    if(e.keyCode === 39 && index < 3 && e.target.value.length === 0){
+        inputRefs[index + 1].current.focus()
+    }
+
+
+    if(e.keyCode === 37 && index > 0 && e.target.value.length === 0){
+        inputRefs[index - 1].current.focus()
+    }
     
     if(e.keyCode === 8 && index > 0 && e.target.value.length === 0){
-        console.log("backspace")
         inputRefs[index - 1].current.focus()
     }
 }
@@ -64,7 +72,7 @@ const handelBackspace = (index, e) => {
                     maxLength="1"
                     style={{ marginRight: '0.5em', marginTop: '2.5rem', height: '2.25rem', width: '35px', borderRadius: '0.375rem', borderWidth: '0.1rem', borderColor: 'rgb(164 163 175)', textAlign: 'center' }}
                     onChange={(e) => handleInput(index, e)}
-                    onKeyDown={(e) => handelBackspace(index, e)}
+                    onKeyDown={(e) => handelKeyDown(index, e)}
                     />
                 ))}
                     

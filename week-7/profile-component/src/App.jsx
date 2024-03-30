@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <div className="flex h-screen items-center justify-center font-sans">
-        <div className="flex h-[500px] w-[500px] flex-col">
+        <div className="flex h-[670px] sm:h-[500px] w-[500px] flex-col">
           <div className="h-[200px] w-[100%]">
             <img className="h-full w-full object-cover" src="https://static.vecteezy.com/system/resources/previews/000/677/302/original/abstract-technology-banner-background.jpg" alt="" srcset="" />
           </div>
@@ -24,7 +24,7 @@ function App() {
           <div className="flex h-[110px] w-[100%]">
             <div className="flex h-[100%] w-1/3 flex-col items-center justify-center ">
               <p className="text-4xl font-black text-gray-800">80k</p>
-              <p className="text-gray-600">Followers</p>
+              <p className="text-gray-600 ">Followers</p>
             </div>
             <div className="flex h-[100%] w-1/3 flex-col items-center justify-center ">
               <p className="text-4xl font-black text-gray-800">803k</p>
