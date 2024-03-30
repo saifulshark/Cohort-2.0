@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Todo</title>
+    </head>
+    <body>
+        <div id="container">
+            <div>Todo App</div> <br> <br>
+            Title: <input type="text" id="title"> <br> <br>
+            Description: <input type="text" name="" id="description"> <br> <br>
+            <Button id="btn-submit" onclick="add2do()">Add Todo</Button>
+        </div>
+        <br>
+        <div id="dispTodos">
+
+        </div>
+    </body>
+    <script>
+        function removeItem(item){
+            let parent = document.getElementById("dispTodos");
+            let todoToRemove = document.getElementById(item).parentElement;
+            parent.removeChild(todoToRemove);
+            console.log("removed todo");
+        }
+
+        function markAsDone(item){
+            console.log("Hi frpm markAsDone!" + item);
+            document.getElementById(item).innerText = "Remove";
+            document.getElementById(item).onclick = function() {removeItem(item)};
+            let parent = document.getElementById(item).parentElement;
+            let children = parent.children;
+            // children[0].style.text-decoration = "line-through";
+            /*In JavaScript, when you access a CSS property with dashes in its name using the style property, you need to convert the property name to camelCase. So, text-decoration becomes textDecoration.*/
+            children[0].style.textDecoration = "line-through";
+            children[1].style.textDecoration = "line-through";
+            // console.log(children[1]);
+
+        }
+        function add2do(){
+            console.log("Hi there!");
+            let item = document.getElementById("title").value;
+            let itemDesc = document.getElementById("description").value;
+            console.log("Hi there!"+item, itemDesc);
+            let parent = document.getElementById("dispTodos");
+            let todoDiv = `<div>
+                <div>${item}</div>
+                <div>${itemDesc}</div>
+                <button onclick="markAsDone('${item}')" id="${item}">Mark As Done</button>
+                </div>`
+            parent.innerHTML = parent.innerHTML + todoDiv;
+
+            
+        }
+    </script>
+</html>
