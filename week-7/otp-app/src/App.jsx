@@ -3,6 +3,7 @@ import './App.css'
 
 function App() {
   const [phoneNumberState, setPhoneNumberState] = useState(true)
+  const [checkPhoneNumber, setCheckPhoneNumber] = useState("")
   const inputRefs = [
     useRef(null),
     useRef(null),
@@ -20,7 +21,7 @@ const handleInput = (index, e) => {
     }
   };
 const handelKeyDown = (index, e) => {
-
+    console.log(e.keyCode)
     if(e.keyCode === 39 && index < 3 && e.target.value.length === 0){
         inputRefs[index + 1].current.focus()
     }
@@ -30,9 +31,9 @@ const handelKeyDown = (index, e) => {
         inputRefs[index - 1].current.focus()
     }
     
-    if(e.keyCode === 8 && index > 0 && e.target.value.length === 0){
-        inputRefs[index - 1].current.focus()
-    }
+    // if(e.keyCode === 8 && index > 0 && e.target.value.length === 0){
+    //     inputRefs[index - 1].current.focus()
+    // }
 }
   return (
     <>
@@ -45,9 +46,9 @@ const handelKeyDown = (index, e) => {
                 <div class="mx-auto max-w-md flex flex-col align-middle justify-center items-center">
                 <div class="text-4xl font-bold">Login Via OTP</div>
                 <div class="relative">
-                    <input class="mt-10 w-full h-9 rounded-md border-gray-400 border-2 text-center" type="text" name="" placeholder="Enter your phone number" id="" />
+                    <input onChange={(e) => setCheckPhoneNumber(e.target.value)} class="mt-10 w-full h-9 rounded-md border-gray-400 border-2 text-center" type="text" name="" placeholder="Enter your phone number" id="" />
                 </div>
-                <button onClick={(e) => {setPhoneNumberState(false)}} class=" mt-10 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded w-[120px] ">
+                <button onClick={(e) => {if(checkPhoneNumber != ""){setPhoneNumberState(false)}}} class=" mt-10 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded w-[120px] ">
             Send OTP
             </button>
                 </div>
