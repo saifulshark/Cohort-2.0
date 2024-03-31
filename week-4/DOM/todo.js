@@ -71,10 +71,37 @@ function enableSubmitButton() {
 
 function createTodoElement(item, itemDesc) {
     const todo = document.createElement("div");
-    todo.innerHTML = `<div>${item}</div>
-        <div>${itemDesc}</div>
-        <button class="markAsDone" data-item-id="${item}">Mark As Done</button>
-        <button class="editTodo" data-item-id="${'edit'+item}">Edit</button>`;
+    todo.classList.add("todo-item"); // Add todo-item class to the container div
+
+    // Create todo text element
+    const todoText = document.createElement("div");
+    todoText.textContent = item;
+    todoText.classList.add("todo-text", "todo-title"); // Add todo-text class
+    todo.appendChild(todoText);
+
+    // Create todo description element
+    const todoDesc = document.createElement("div");
+    todoDesc.textContent = itemDesc;
+    todoDesc.classList.add("todo-description");
+    todo.appendChild(todoDesc);
+
+    const padding = document.createElement("br");
+    todo.appendChild(padding);
+
+    // Create "Mark As Done" button
+    const markAsDoneBtn = document.createElement("button");
+    markAsDoneBtn.textContent = "Mark As Done";
+    markAsDoneBtn.classList.add("markAsDone"); // Add markAsDone class
+    markAsDoneBtn.setAttribute("data-item-id", item);
+    todo.appendChild(markAsDoneBtn);
+
+    // Create "Edit" button
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "Edit";
+    editBtn.classList.add("editTodo"); // Add editTodo class
+    editBtn.setAttribute("data-item-id", 'edit' + item);
+    todo.appendChild(editBtn);
+
     return todo;
 }
 
