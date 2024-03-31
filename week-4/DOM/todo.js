@@ -1,78 +1,110 @@
 // todo.js
 
+// Cache frequently accessed elements
+const titleInput = document.getElementById("title");
+const descriptionInput = document.getElementById("description");
+const todoContainer = document.getElementById("dispTodos");
+const submitButton = document.getElementById("btn-submit");
+
+function getTodoItem(item) {
+    return document.querySelector(`[data-item-id="${item}"]`);
+}
+
 function updateTodo(item) {
-    const attributeSelector = `[data-item-id="${item}"]`;
-    let element = document.querySelector(attributeSelector);
-    let parent = element.parentElement;
-    let children = parent.children;
-    children[0].removeAttribute("contenteditable");
-    children[1].removeAttribute("contenteditable");
-    element.innerText = "Edit";
-    element.classList.remove('updateTodo');
-    element.classList.add('editTodo');
+    const todoItem = getTodoItem(item);
+    if (!todoItem) return;
+    toggleContentEditable(todoItem, false);
+    toggleButtonText(todoItem, "Edit");
+    toggleButtonClass(todoItem, 'updateTodo', 'editTodo');
 }
 
 function editTodo(item){
-    const attributeSelector = `[data-item-id="${item}"]`;
-    let element = document.querySelector(attributeSelector);
-    element.innerText = "Update";
-    let parent = element.parentElement;
-    let children = parent.children;
-    children[0].setAttribute("contenteditable", true);
-    children[1].setAttribute("contenteditable", true);
-    element.classList.remove('editTodo');
-    element.classList.add('updateTodo');
+    const todoItem = getTodoItem(item);
+    if (!todoItem) return;
+    toggleContentEditable(todoItem, true);
+    toggleButtonText(todoItem, "Update");
+    toggleButtonClass(todoItem, 'editTodo', 'updateTodo');
 }
 
 function removeItem(item){
-    const grandParent = document.getElementById("dispTodos");
-    const attributeSelector = `[data-item-id="${item}"]`;
-    const element = document.querySelector(attributeSelector);
-    let parent = element.parentElement;
-    grandParent.removeChild(parent);
+    const todoItem = getTodoItem(item);
+    if (!todoItem) return;
+    todoContainer.removeChild(todoItem.parentElement);
 }
 
 function markAsDone(item){
-    const attributeSelector = `[data-item-id="${item}"]`;
-    let element = document.querySelector(attributeSelector);
-    let parent = element.parentElement;
-    let children = parent.children;
-    /*In JavaScript, when you access a CSS property with dashes in its name using the style property, you need to convert the property name to camelCase. So, text-decoration becomes textDecoration.*/
-    children[0].style.textDecoration = "line-through";
-    children[1].style.textDecoration = "line-through";
-    element.innerText = 'Remove';
-    element.classList.remove('markAsDone');
-    element.classList.add('removeItem');
+    const todoItem = getTodoItem(item);
+    if (!todoItem) return;
+    toggleTextDecoration(todoItem, "line-through");
+    toggleButtonText(todoItem, 'Remove');
+    toggleButtonClass(todoItem, 'markAsDone', 'removeItem');
+}
+
+function toggleContentEditable(element, editable) {
+    const children = element.parentElement.children;
+    children[0].contentEditable = editable;
+    children[1].contentEditable = editable;
+}
+
+function toggleButtonText(element, text) {
+    element.innerText = text;
+}
+
+function toggleTextDecoration(element, style) {
+    const children = element.parentElement.children;
+    children[0].style.textDecoration = style;
+    children[1].style.textDecoration = style;
+}
+
+function toggleButtonClass(element, removeClass, addClass) {
+    element.classList.remove(removeClass);
+    element.classList.add(addClass);
+}
+
+function disableSubmitButton() {
+    submitButton.disabled = true;
+}
+
+function enableSubmitButton() {
+    submitButton.disabled = false;
+}
+
+function createTodoElement(item, itemDesc) {
+    const todo = document.createElement("div");
+    todo.innerHTML = `<div>${item}</div>
+        <div>${itemDesc}</div>
+        <button class="markAsDone" data-item-id="${item}">Mark As Done</button>
+        <button class="editTodo" data-item-id="${'edit'+item}">Edit</button>`;
+    return todo;
+}
+
+function clearInputs() {
+    titleInput.value = "";
+    descriptionInput.value = "";
 }
 
 function add2do(){
-    let item = document.getElementById("title").value;
-    let itemDesc = document.getElementById("description").value;
-    if(item == "" || itemDesc == ""){
-        document.getElementById("btn-submit").disabled = true;
-        document.getElementById("title").value = "Enter todo";
-        document.getElementById("description").value = "Enter Description";
-        setTimeout(function() {
-            document.getElementById("btn-submit").disabled = false;
-            document.getElementById("title").value = "";
-            document.getElementById("description").value = "";
+    let item = titleInput.value.trim();
+    let itemDesc = descriptionInput.value.trim();
+    if (!item || !itemDesc) {
+        disableSubmitButton();
+        titleInput.value = "Enter todo";
+        descriptionInput.value = "Enter Description";
+        setTimeout(() => {
+            enableSubmitButton();
+            titleInput.value = "";
+            descriptionInput.value = "";
         }, 500);
-    }
-    else{
-        const parent = document.getElementById("dispTodos");
-        const todo = document.createElement("div");
-        todo.innerHTML = `<div>${item}</div>
-            <div>${itemDesc}</div>
-            <button class="markAsDone" data-item-id="${item}">Mark As Done</button>
-            <button class="editTodo" data-item-id="${'edit'+item}">Edit</button>`
-        parent.appendChild(todo);
-        document.getElementById("title").value = "";
-        document.getElementById("description").value = "";
-    }    
+    } else {
+        const todo = createTodoElement(item, itemDesc);
+        todoContainer.appendChild(todo);
+        clearInputs();
+    }  
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('dispTodos').addEventListener('click', function(event) {
+    
+    todoContainer.addEventListener('click', function(event) {
         const target = event.target;
         if (target.tagName === 'BUTTON') {
             const itemId = target.getAttribute('data-item-id');
@@ -87,13 +119,5 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-    document.getElementById('container').addEventListener('click', function(event) {
-        const target = event.target;
-        if (target.tagName === 'BUTTON') {
-            // const itemId = target.getAttribute('data-item-id');
-            if (target.getAttribute('id') == 'btn-submit') {
-                add2do();
-            }
-        }
-    });
+    submitButton.addEventListener('click', add2do);
 });
