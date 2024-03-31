@@ -1,56 +1,99 @@
 // todo.js
 
+function updateTodo(item) {
+    const attributeSelector = `[data-item-id="${item}"]`;
+    let element = document.querySelector(attributeSelector);
+    let parent = element.parentElement;
+    let children = parent.children;
+    children[0].removeAttribute("contenteditable");
+    children[1].removeAttribute("contenteditable");
+    element.innerText = "Edit";
+    element.classList.remove('updateTodo');
+    element.classList.add('editTodo');
+}
+
 function editTodo(item){
-    document.getElementById(item).innerText = "Update";
-    let parent = document.getElementById("dispTodos");
-    let todo = document.getElementById(item).parentElement;
-    let children = todo.children;
+    const attributeSelector = `[data-item-id="${item}"]`;
+    let element = document.querySelector(attributeSelector);
+    element.innerText = "Update";
+    let parent = element.parentElement;
+    let children = parent.children;
     children[0].setAttribute("contenteditable", true);
     children[1].setAttribute("contenteditable", true);
-    console.log(todo, children[0].innerText, children[1].innerText);
-    document.getElementById(item).onclick = function() {
-        children[0].removeAttribute("contenteditable");
-        children[1].removeAttribute("contenteditable");
-        document.getElementById(item).innerText = "Edit";
-        document.getElementById(item).onclick = function() {editTodo(item)}
-    };
+    element.classList.remove('editTodo');
+    element.classList.add('updateTodo');
 }
 
 function removeItem(item){
-    let parent = document.getElementById("dispTodos");
-    let todoToRemove = document.getElementById(item).parentElement;
-    parent.removeChild(todoToRemove);
-    console.log("removed todo");
+    const grandParent = document.getElementById("dispTodos");
+    const attributeSelector = `[data-item-id="${item}"]`;
+    const element = document.querySelector(attributeSelector);
+    let parent = element.parentElement;
+    grandParent.removeChild(parent);
 }
 
 function markAsDone(item){
-    console.log("Hi frpm markAsDone!" + item);
-    document.getElementById(item).innerText = "Remove";
-    document.getElementById(item).onclick = function() {removeItem(item)};
-    let parent = document.getElementById(item).parentElement;
+    const attributeSelector = `[data-item-id="${item}"]`;
+    let element = document.querySelector(attributeSelector);
+    let parent = element.parentElement;
     let children = parent.children;
-    // children[0].style.text-decoration = "line-through";
     /*In JavaScript, when you access a CSS property with dashes in its name using the style property, you need to convert the property name to camelCase. So, text-decoration becomes textDecoration.*/
     children[0].style.textDecoration = "line-through";
     children[1].style.textDecoration = "line-through";
-    // console.log(children[1]);
-
+    element.innerText = 'Remove';
+    element.classList.remove('markAsDone');
+    element.classList.add('removeItem');
 }
 
 function add2do(){
-    console.log("Hi there!");
     let item = document.getElementById("title").value;
     let itemDesc = document.getElementById("description").value;
-    console.log("Hi there!"+item, itemDesc);
-    let parent = document.getElementById("dispTodos");
-    console.log(parent);
-    let todo = document.createElement("div");
-    console.log(todo);
-    todo.innerHTML = `<div>${item}</div>
-        <div>${itemDesc}</div>
-        <button onclick="markAsDone('${item}')" id="${item}">Mark As Done</button>
-        <button onclick="editTodo('${item+'edit'}')" id="${item+'edit'}">Edit</button>`
-    parent.appendChild(todo);
-    document.getElementById("title").value = "";
-    document.getElementById("description").value = "";    
+    if(item == "" || itemDesc == ""){
+        document.getElementById("btn-submit").disabled = true;
+        document.getElementById("title").value = "Enter todo";
+        document.getElementById("description").value = "Enter Description";
+        setTimeout(function() {
+            document.getElementById("btn-submit").disabled = false;
+            document.getElementById("title").value = "";
+            document.getElementById("description").value = "";
+        }, 500);
+    }
+    else{
+        const parent = document.getElementById("dispTodos");
+        const todo = document.createElement("div");
+        todo.innerHTML = `<div>${item}</div>
+            <div>${itemDesc}</div>
+            <button class="markAsDone" data-item-id="${item}">Mark As Done</button>
+            <button class="editTodo" data-item-id="${'edit'+item}">Edit</button>`
+        parent.appendChild(todo);
+        document.getElementById("title").value = "";
+        document.getElementById("description").value = "";
+    }    
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('dispTodos').addEventListener('click', function(event) {
+        const target = event.target;
+        if (target.tagName === 'BUTTON') {
+            const itemId = target.getAttribute('data-item-id');
+            if (target.classList.contains('markAsDone')) {
+                markAsDone(itemId);
+            } else if (target.classList.contains('editTodo')) {
+                editTodo(itemId);
+            }else if (target.classList.contains('updateTodo')) {
+                updateTodo(itemId);
+            } else if (target.classList.contains('removeItem')) {
+                removeItem(itemId);
+            }
+        }
+    });
+    document.getElementById('container').addEventListener('click', function(event) {
+        const target = event.target;
+        if (target.tagName === 'BUTTON') {
+            // const itemId = target.getAttribute('data-item-id');
+            if (target.getAttribute('id') == 'btn-submit') {
+                add2do();
+            }
+        }
+    });
+});
