@@ -129,6 +129,25 @@ function add2do(){
     }  
 }
 
+function updateTodoAccordingToState(state){
+    todoContainer.innerHTML = "";
+    for(let i=0; i<state.length; i++){
+        const todoElement = createTodoElement(state[i].title, state[i].description);
+        todoContainer.appendChild(todoElement);
+
+    }
+}
+
+window.setInterval(async () => {
+    try{
+        const res = await fetch("https://sum-server.100xdevs.com/todos");
+        const data = await res.json();
+        updateTodoAccordingToState(data.todos);
+    }catch(error){
+        console.error("Error fetching todos:", error);
+    }
+},500000);
+
 document.addEventListener('DOMContentLoaded', function() {
     
     todoContainer.addEventListener('click', function(event) {
