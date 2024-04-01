@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import {PrismaClient} from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -13,7 +13,13 @@ const prisma = new PrismaClient();
  * }
  */
 export async function createUser(username: string, password: string, name: string) {
-    
+    return prisma.user.create({
+        data: {
+            username,
+            password,
+            name
+        }
+    });
 }
 
 /*
@@ -25,5 +31,9 @@ export async function createUser(username: string, password: string, name: strin
  * }
  */
 export async function getUser(userId: number) {
-    
+    return prisma.user.findUnique({
+        where: {
+            id: userId
+        }
+    });
 }
