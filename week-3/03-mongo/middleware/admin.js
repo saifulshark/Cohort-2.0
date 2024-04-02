@@ -15,7 +15,7 @@ async function adminMiddleware(req, res, next) {
   if (alreadyExist) {
     next();
   } else {
-    reses.status(403).json({
+    res.status(403).json({
       msg: "Admin doesnt exist",
     });
   }
