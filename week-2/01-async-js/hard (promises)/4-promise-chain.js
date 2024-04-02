@@ -24,12 +24,24 @@ return new Promise((res)=>{
 }
 
 function calculateTime(t1, t2, t3) {
-    const startTime = Date.now();
-    
-    return Promise.allSettled([wait1(t1),wait2(t2),wait3(t3)])
+    // const startTime = Date.now();
+    // return Promise.allSettled([wait1(t1),wait2(t2),wait3(t3)])
+    // .then(()=>{
+    //     const endTime = Date.now();
+    //     return endTime - startTime;
+    // })
+
+    const startTime = Date.now()
+    return wait1(t1)
     .then(()=>{
-        const endTime2 = Date.now();
-        return endTime2-startTime;
+        return wait2(t2)
+    })
+    .then(()=>{
+        return wait3(t3)
+    })
+    .then(()=>{
+        const endTime = Date.now();
+        return endTime-startTime
     })
     
 }
