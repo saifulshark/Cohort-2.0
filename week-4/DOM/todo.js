@@ -110,6 +110,53 @@ function clearInputs() {
     descriptionInput.value = "";
 }
 
+function addTodoToDom(todo) {
+    const todoElement = createTodoElement(todo.title, todo.description);
+    todoElement.setAttribute('data-item-id', todo.id);
+    todoContainer.appendChild(todoElement);
+}
+
+function removeTodoFromDom(todoId) {
+    const todoElement = getTodoItem(todoId);
+    if (todoElement) {
+        todoContainer.removeChild(todoElement);
+    }
+}
+
+function updateTodoInDom(todo) {
+    const todoElement = getTodoItem(todo.id);
+    if (todoElement) {
+        const titleElement = todoElement.querySelector('.todo-title');
+        const descriptionElement = todoElement.querySelector('.todo-description');
+        titleElement.textContent = todo.title;
+        descriptionElement.textContent = todo.description;
+    }
+}
+
+function updateState(newTodos) {
+    const oldTodos = Array.from(todoContainer.querySelectorAll('.todo-item'));
+
+    newTodos.forEach(newTodo => {
+        const oldTodoIndex = oldTodos.findIndex(todo => todo.dataset.itemId === newTodo.id);
+
+        if (oldTodoIndex !== -1) {
+            // Update existing todo
+            updateTodoInDom(newTodo);
+            oldTodos.splice(oldTodoIndex, 1); // Remove the updated todo from oldTodos array
+        } else {
+            // Add new todo
+            addTodoToDom(newTodo);
+        }
+    });
+
+    // Remove todos that are no longer in the new state
+    oldTodos.forEach(oldTodo => {
+        const oldTodoId = oldTodo.dataset.itemId;
+        removeTodoFromDom(oldTodoId);
+    });
+}
+
+
 function add2do(){
     let item = titleInput.value.trim();
     let itemDesc = descriptionInput.value.trim();
@@ -142,11 +189,12 @@ window.setInterval(async () => {
     try{
         const res = await fetch("https://sum-server.100xdevs.com/todos");
         const data = await res.json();
-        updateTodoAccordingToState(data.todos);
+        console.log(data.todos);
+        updateState(data.todos);
     }catch(error){
         console.error("Error fetching todos:", error);
     }
-},500000);
+},10000);
 
 document.addEventListener('DOMContentLoaded', function() {
     
