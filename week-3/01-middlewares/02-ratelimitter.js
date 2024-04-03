@@ -16,6 +16,24 @@ setInterval(() => {
     numberOfRequestsForUser = {};
 }, 1000)
 
+const rateLimiter = (req, res, next) => {
+  const user = req.header["user-id"]
+  if (!user) {
+    res.statue(400).json({ error: "User ID not sent" })
+  }
+
+  if (!numberOfRequestsForUser[user]) {
+    numberOfRequestsForUser[user] = 0
+  }
+  numberOfRequestsForUser[user]++
+  if (numberOfRequestsForUser[user] > 5) {
+    res.status(404).json({ error: "Rate Limit Exceeded" })
+  }
+  next()
+}
+
+app.use(rateLimiter)
+
 app.get('/user', function(req, res) {
   res.status(200).json({ name: 'john' });
 });
