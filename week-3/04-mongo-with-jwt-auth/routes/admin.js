@@ -3,7 +3,8 @@ const adminMiddleware = require("../middleware/admin");
 const { Admin, Course } = require("../db");
 const router = Router();
 const jwt = require("jsonwebtoken");
-const { estimateGas } = require("web3/lib/commonjs/eth.exports");
+const { JWT_SECRET } = require("../config");
+
 // Admin Routes
 router.post("/signup", async (req, res) => {
   // Implement admin signup
@@ -26,6 +27,7 @@ router.post("/signin", async (req, res) => {
 
   const alreadyExist = Admin.findOne({ username, password });
   if (alreadyExist) {
+    console.log(`JWT SECRET: ${JWT_SECRET}`);
     const token = jwt.sign({ username }, JWT_SECRET);
     res.json({
       token,
