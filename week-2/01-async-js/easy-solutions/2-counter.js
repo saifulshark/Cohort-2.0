@@ -7,4 +7,4 @@ function mySetInterval() {
     }, 1000)
 }
 
-mySetInterval(1)
+mySetInterval()
