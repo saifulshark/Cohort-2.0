@@ -134,17 +134,23 @@ function updateTodoInDom(todo) {
 }
 
 function updateState(newTodos) {
+    console.log("Inside updateState Fn.");
     const oldTodos = Array.from(todoContainer.querySelectorAll('.todo-item'));
+    console.log('OldTodos:', oldTodos);
+    console.log('newTodos:', newTodos);
+
 
     newTodos.forEach(newTodo => {
         const oldTodoIndex = oldTodos.findIndex(todo => todo.dataset.itemId === newTodo.id);
-
+        console.log('OldTodoIndex = ',oldTodoIndex)
         if (oldTodoIndex !== -1) {
             // Update existing todo
+            console.log('Updating existing todo.');
             updateTodoInDom(newTodo);
             oldTodos.splice(oldTodoIndex, 1); // Remove the updated todo from oldTodos array
         } else {
             // Add new todo
+            console.log('Adding new todo');
             addTodoToDom(newTodo);
         }
     });
@@ -185,16 +191,20 @@ function updateTodoAccordingToState(state){
     }
 }
 
-window.setInterval(async () => {
+const intervalId = window.setInterval(async () => {
     try{
         const res = await fetch("https://sum-server.100xdevs.com/todos");
         const data = await res.json();
-        console.log(data.todos);
+        // console.log(data.todos);
         updateState(data.todos);
     }catch(error){
         console.error("Error fetching todos:", error);
     }
-},10000);
+},5000);
+
+setTimeout(() => {
+    clearInterval(intervalId);
+}, 20000);
 
 document.addEventListener('DOMContentLoaded', function() {
     
