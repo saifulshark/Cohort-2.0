@@ -1,4 +1,3 @@
-const { User } = require("../db");
 const { JWT_SECRET } = require("../config");
 const jwt = require("jsonwebtoken");
 
