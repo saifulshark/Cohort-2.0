@@ -184,19 +184,24 @@ import './App.css'
     </div>
   );
   */
+  function CustomButton(props){
+    function onclickHandler(){
+        // state.count = state.count + 1;
+        props.setCount(props.count + 1);
+        console.log(props.count);
+    }
+
+    return <button onClick={onclickHandler}>
+        Counter {props.count}
+    </button>
+}
 
  function App(){
 
     const [count, setCount] = useState(0);
-
-    function onClickButtonHandler(){
-        // state.count = state.count + 1;
-        setCount(count + 1);
-        console.log(count);
-    }
     return (
         <div>
-            <button onClick={onClickButtonHandler}>Counter {count}</button>
+            <CustomButton count={count} setCount={setCount}></CustomButton>
         </div>
     )
 }
