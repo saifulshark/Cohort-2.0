@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import { useState } from 'react'
 import './App.css'
 
-function App() {
+   /*function App() {
+ 
   useEffect(() => {
       const todoContainer = document.getElementById("dispTodos");
       const titleInput = document.getElementById("title");
@@ -162,7 +163,6 @@ function App() {
         });
         submitButton.addEventListener('click', add2do);
     });
-  
 
   return (
     <div>
@@ -183,6 +183,22 @@ function App() {
         <div id="dispTodos" className="todo-list"></div>
     </div>
   );
+  */
+
+ function App(){
+
+    const [count, setCount] = useState(0);
+
+    function onClickButtonHandler(){
+        // state.count = state.count + 1;
+        setCount(count + 1);
+        console.log(count);
+    }
+    return (
+        <div>
+            <button onClick={onClickButtonHandler}>Counter {count}</button>
+        </div>
+    )
 }
 
 export default App;
