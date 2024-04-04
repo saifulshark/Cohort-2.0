@@ -26,6 +26,7 @@ router.post("/signin", async (req, res) => {
   const password = req.body.password;
 
   const alreadyExist = Admin.findOne({ username, password });
+  console.log(alreadyExist);
   if (alreadyExist) {
     console.log(`JWT SECRET: ${JWT_SECRET}`);
     const token = jwt.sign({ username }, JWT_SECRET);

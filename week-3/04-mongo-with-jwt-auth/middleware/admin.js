@@ -1,4 +1,3 @@
-const { Admin } = require("../db");
 const { JWT_SECRET } = require("../config");
 const jwt = require("jsonwebtoken");
 
@@ -20,6 +19,7 @@ async function adminMiddleware(req, res, next) {
       });
     }
   } catch (err) {
+    console.log(err);
     res.json({
       msg: "Incorrect inputs",
     });
