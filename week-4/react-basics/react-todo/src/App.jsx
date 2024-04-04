@@ -208,11 +208,29 @@ function ToDo(props){
  function App(){
 
     const [count, setCount] = useState(0);
+    const [todos, setTodos] = useState([{
+        title:'go to gym',
+        description:'gym from 7 to 9',
+        completed: false
+    },{
+        title:'Complete DSA class',
+        description:'DSA class from 9 to 11',
+        completed: true
+    },{
+        title:'Complete DSA class 222',
+        description:'DSA class from 9 to 11',
+        completed: true
+    }]);
     return (
         <div>
-            <ToDo title="hello" description="Hi there!"></ToDo>
-            <ToDo title="hello2" description="Hi there2!"></ToDo>
-            <ToDo title="hello2" description="Hi there!2"></ToDo>
+            {todos.map(
+                function(todo){
+                    return <ToDo title={todo.title} description={todo.description}></ToDo>
+                }
+            )}
+            {/* <ToDo title={todos[0].title} description={todos[0].description}></ToDo>
+            <ToDo title={todos[1].title} description={todos[1].description}></ToDo>
+            <ToDo title="hello2" description="Hi there!2"></ToDo> */}
 
             <CustomButton count={count} setCount={setCount}></CustomButton>
         </div>
