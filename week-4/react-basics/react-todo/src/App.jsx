@@ -205,6 +205,7 @@ function ToDo(props){
     )
 }
 
+
  function App(){
 
     const [count, setCount] = useState(0);
@@ -221,8 +222,18 @@ function ToDo(props){
         description:'DSA class from 9 to 11',
         completed: true
     }]);
+
+    function addRandomTodo(){
+        setTodos([...todos, {
+            title:'Just a random todo',
+            description:'dbwdhwbdh',
+            completed: true
+        }])
+    }
+
     return (
         <div>
+            <button onClick={addRandomTodo}>Add todo</button>
             {todos.map(
                 function(todo){
                     return <ToDo title={todo.title} description={todo.description}></ToDo>
