@@ -184,7 +184,7 @@ import './App.css'
     </div>
   );
   */
-  function CustomButton(props){
+function CustomButton(props){
     function onclickHandler(){
         // state.count = state.count + 1;
         props.setCount(props.count + 1);
@@ -196,11 +196,24 @@ import './App.css'
     </button>
 }
 
+function ToDo(props){
+    return(
+        <div>
+            <h2>{props.title}</h2>
+            <h3>{props.description}</h3>
+        </div>
+    )
+}
+
  function App(){
 
     const [count, setCount] = useState(0);
     return (
         <div>
+            <ToDo title="hello" description="Hi there!"></ToDo>
+            <ToDo title="hello2" description="Hi there2!"></ToDo>
+            <ToDo title="hello2" description="Hi there!2"></ToDo>
+
             <CustomButton count={count} setCount={setCount}></CustomButton>
         </div>
     )
