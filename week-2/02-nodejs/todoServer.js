@@ -43,7 +43,65 @@
   const bodyParser = require('body-parser');
   
   const app = express();
-  
+  const port = 3000;
   app.use(bodyParser.json());
+
+
+  const todo = [
+    {
+      id:1,
+      title : "Going to the Gym vroms",
+      description : "I have to go to gym at 7 pm in the night"
+    },
+    {
+      id :2,
+      title : "Going to the class vroms",
+      description : "I have to go to gym at 7 am in the morning."
+    },
+    {
+      id:3,
+      title : "Going to the moive vroms",
+      description : "I have to go for a moive at 7 pm in the nght"
+    },
+    {
+      id:4,
+      title : "Going for a car ride vroms",
+      description : "I have to go for a car ride at 7 pm in the night"
+    }
+  ]
   
+  // to get all the todos
+
+  app.get('/todos', (req, res)=>{
+        console.log("Get all todos hit !!!");
+        res.status(200).json(todo);
+  })
+
+  // to get a specific todo we want to search for the specific to do.
+  // get the id from the url and then search for it in the array.
+
+  app.get('/todos/:id', (req,res ) =>{
+    console.log("get selected todo hit !!!");
+    
+    //extract the id from url 
+    const id = parseInt(req.params.id);
+    console.log(id);
+
+    // now we will check weather there is any todo for the coressponding id.
+    const response = todo.find((i) =>{
+        return i.id === id;
+    })
+
+     // if exists then send response .
+    if(response){
+      return res.status(200).json(response);
+    }else{
+      res.status(401);
+    }
+  })
+
+  app.listen(port, ()=>{
+    console.log(`Running on the port ${port}`);
+  });
+
   module.exports = app;
