@@ -47,7 +47,7 @@
   app.use(bodyParser.json());
 
 
-  const todo = [
+  const todos = [
     {
       id:1,
       title : "Going to the Gym vroms",
@@ -74,7 +74,7 @@
 
   app.get('/todos', (req, res)=>{
         console.log("Get all todos hit !!!");
-        res.status(200).json(todo);
+        res.status(200).json(todos);
   })
 
   // to get a specific todo we want to search for the specific to do.
@@ -88,7 +88,7 @@
     console.log(id);
 
     // now we will check weather there is any todo for the coressponding id.
-    const response = todo.find((i) =>{
+    const response = todos.find((i) =>{
         return i.id === id;
     })
 
@@ -99,6 +99,43 @@
       res.status(401);
     }
   })
+
+  // Create a new Todo 
+  app.post('/todos', (req , res)=>{
+
+      const data = req.body;
+      let ids = todos.length + 1;
+      // console.log(data);
+      let re = {};
+      re.id = ids;
+      re.title = data.title;
+      re.description = data.description;
+      todos.push(re);
+      res.status(201).json(todos);
+  })
+
+  app.put('/todos/:id', (req ,res) =>{
+    const data = req.body;
+    // find the data with the corresponding id
+    todos.forEach(element => {
+       if(element.id === parseInt(req.params.id)){
+        element.title = data.title;
+        element.description = data.description;
+       }
+    });
+
+    return res.status(203).json(todos);
+  })
+
+  app.delete('/todos/:id', (req, res) => {
+    const todoIndex = todos.findIndex(t => t.id === parseInt(req.params.id));
+    if (todoIndex === -1) {
+      res.status(404).send();
+    } else {
+      todos.splice(todoIndex, 1);
+      res.status(200).send();
+    }
+  });
 
   app.listen(port, ()=>{
     console.log(`Running on the port ${port}`);
