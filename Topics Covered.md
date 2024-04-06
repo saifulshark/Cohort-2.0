@@ -13,5 +13,12 @@ Week-1:
 Week-2:
       :Easy Done
       :Medium Done
-      :Hard remaining
+      :Hard Remaining.
+
+
+
+
+
+Week-4:
+      :can be skipped      
       
