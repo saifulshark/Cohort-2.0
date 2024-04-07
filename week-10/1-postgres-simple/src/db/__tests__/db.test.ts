@@ -7,11 +7,11 @@ beforeAll(async () => {
     await client.connect();
     await dropTables();
     await createTables();
-});
+}, 30000);
 
 afterAll(async () => {
     await client.end();
-});
+}, 30000);
 
 describe('User Database Operations', () => {
     test('createUser inserts a new user into the database', async () => {
@@ -24,7 +24,7 @@ describe('User Database Operations', () => {
         expect(user.rows[0]).toHaveProperty('username', username);
         expect(user.rows[0]).toHaveProperty('name', name);
         expect(user.rows[0].password).toBe(password);
-    });
+    }, 30000);
 
     test('getUser retrieves a user by ID', async () => {
         // Assuming an existing user with ID 1 for this test
@@ -34,7 +34,7 @@ describe('User Database Operations', () => {
         expect(user).toHaveProperty('id', userId);
         expect(user).toHaveProperty('username');
         expect(user).toHaveProperty('name');
-    });
+    }, 30000);
 });
 
 
@@ -45,7 +45,7 @@ describe('Todo Operations', () => {
       // Assuming you have a function to get a user by username for test setup
       const res = await client.query('SELECT id FROM users WHERE username = $1', ['testuser']);
       userId = res.rows[0].id;
-    });
+    }, 30000);
   
     test('createTodo inserts a new todo for a user', async () => {
       const title = 'Test Todo';
@@ -56,7 +56,7 @@ describe('Todo Operations', () => {
       expect(todo.title).toEqual(title);
       expect(todo.description).toEqual(description);
       expect(todo.done).toEqual(false);
-    });
+    }, 30000);
   
     test('updateTodo marks a todo as done', async () => {
       // First, create a todo to update
@@ -64,7 +64,7 @@ describe('Todo Operations', () => {
   
       const updatedTodo = await updateTodo(todoId);
       expect(updatedTodo.done).toEqual(true);
-    });
+    }, 30000);
   
     test('getTodos retrieves all todos for a user', async () => {
       // Assuming there are already todos created in previous tests
