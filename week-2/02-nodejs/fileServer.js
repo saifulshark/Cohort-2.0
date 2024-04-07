@@ -17,5 +17,35 @@ const fs = require('fs');
 const path = require('path');
 const app = express();
 
+const BASE_URL = path.join(__dirname, 'files/');
+
+app.get('/files', function(req, res) {
+	fs.readdir(BASE_URL, (err, files) => {
+		res.json({ files });
+	});
+});
+
+app.get('/file/:filename', function(req, res) {
+	const FILE_URL = path.join(BASE_URL, req.params.filename);
+	console.log(req.params.filename);
+	if (fs.existsSync(FILE_URL)) {
+		fs.readFile(FILE_URL, (err, data) => {
+			res.status(200);
+			res.send(data);
+		});
+	} else {
+		res.status(404);
+		res.send("File not found");
+	}
+	fs.readFile(FILE_URL, (err, data) => { });
+	res.send();
+});
+
+app.get('*', function(req, res) {
+	res.status(404);
+	res.send("where you going nigga");
+});
+
+app.listen(3000);
 
 module.exports = app;
