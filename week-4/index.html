@@ -7,7 +7,17 @@
     let todoState = [];
     let oldTodoState = [];
 
-    function addTodoToDom() {
+    function addTodoToDom(todo) {
+      const todoContainer = document.getElementById("todos");
+      const todoElement = document.createElement("div");
+      todoElement.id = `todo-${todo.id}`;
+      todoElement.innerHTML= `
+        <h3>${todo.title}</h3>
+        <p>${todo.description}</p>
+      `;
+      todoContainer.appendChild(todoElement);
+
+      
       
     }
 
@@ -31,7 +41,22 @@
       // calculate these 3 arrays
       // call addTodo, removeTodo, updateTodo functions on each of the
       // elements
-      oldTodoState = newTodos;
+       // Find added and updated todos
+       newTodos.forEach(newTodo => {
+        const oldTodoIndex = oldTodoState.findIndex(todo => todo.id === newTodo.id);
+        if (oldTodoIndex === -1) {
+          added.push(newTodo);
+        } else {
+          const oldTodo = oldTodoState[oldTodoIndex];
+          if (oldTodo.title !== newTodo.title || oldTodo.description !== newTodo.description) {
+            updated.push({ oldTodo, newTodo });
+          }
+        }
+      });
+       // Call addTodoToDom for added todos
+       added.forEach(todo => addTodoToDom(todo));
+
+      oldTodoState = newTodos.splice();
     }
 
     function addTodo() {
