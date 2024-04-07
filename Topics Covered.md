@@ -11,9 +11,14 @@ Week-1:
 
          
 Week-2:
+      01-async-jd
       :Easy Done
       :Medium Done
-      :Hard Remaining.
+      :Hard Done.
+      
+      02-node.js
+      :todoServer Done
+      :fileServer Done
 
 
 
