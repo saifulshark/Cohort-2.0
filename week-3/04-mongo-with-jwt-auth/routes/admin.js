@@ -53,12 +53,41 @@ router.post('/signin', async(req, res) => {
     }
 });
 
-router.post('/courses', adminMiddleware, (req, res) => {
+router.post('/courses', adminMiddleware, async(req, res) => {
     // Implement course creation logic
+    const title = req.body.title
+    const description = req.body.description
+    const imageLink = req.body.imageLink
+    const price = req.body.price
+
+    const course = await Admin.create({
+        title,
+        description,
+        imageLink,
+        price
+    })
+
+    res.json({
+        msg: "Courses have been created", courseId: course._id
+    })
 });
 
-router.get('/courses', adminMiddleware, (req, res) => {
+router.get('/courses', adminMiddleware, async(req, res) => {
     // Implement fetching all courses logic
+    const admin = await Admin.find({
+        username: req.body.username
+    })
+    .populate('Courses')
+
+    res.json({
+        msg: "courses have found"
+    })
+
+    // if(admin){
+    //     return res.json({
+    //         msg: "courses have feteched", course: admin
+    //     })
+    // }
 });
 
 module.exports = router;
