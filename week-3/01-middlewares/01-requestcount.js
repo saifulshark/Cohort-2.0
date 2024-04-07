@@ -27,6 +27,9 @@ app.get('/requestCount', function(req, res) {
   res.status(200).json({ requestCount });
 });
 
-app.listen(3000);
+
+listen(3000 , ()=>{
+ console.log("Listening on the port 3000");
+})
 
 module.exports = app;
