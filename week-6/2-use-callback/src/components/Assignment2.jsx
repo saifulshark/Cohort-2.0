@@ -8,9 +8,10 @@ export function Assignment2() {
     const [inputText, setInputText] = useState('');
 
     // Your code starts here
-    function showAlert() {
-
-    }
+    const showAlert = useCallback(() => {
+        alert(`Button has been pressed ${inputText}`)
+        console.log('pressed')
+    }, [inputText])
     // Your code ends here
 
     return (
