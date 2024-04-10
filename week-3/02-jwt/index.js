@@ -75,5 +75,3 @@ module.exports = {
   decodeJwt,
   jwtPassword,
 };
-
-app.listen(3000)
