@@ -48,6 +48,21 @@ function ToDo(props){
         }])
     }
 
+    const intervalId = window.setInterval(async () => {
+        try{
+            const res = await fetch("https://sum-server.100xdevs.com/todos");
+            const data = await res.json();
+            // console.log(data.todos);
+            setTodos(data.todos);
+        }catch(error){
+            console.error("Error fetching todos:", error);
+        }
+    },5000);
+    
+    setTimeout(() => {
+        clearInterval(intervalId);
+    }, 20000);
+
     return (
         <div>
             <button onClick={addRandomTodo}>Add todo</button>
