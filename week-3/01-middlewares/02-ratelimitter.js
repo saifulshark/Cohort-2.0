@@ -16,6 +16,23 @@ setInterval(() => {
     numberOfRequestsForUser = {};
 }, 1000)
 
+const ratelimitter = (req, res, next) => {
+  const usrId = req.headers['user-id'];
+  if(numberOfRequestsForUser.hasOwnProperty(usrId)) {
+    if(numberOfRequestsForUser[usrId]>=5) {
+      res.status(404).send('Too many requests; Ideally status code should be 429');
+      return;
+    } else {
+      numberOfRequestsForUser[usrId]++;
+    }
+  } else {
+    numberOfRequestsForUser[usrId] = 1;
+  }
+  next();
+}
+
+app.use(ratelimitter);
+
 app.get('/user', function(req, res) {
   res.status(200).json({ name: 'john' });
 });
