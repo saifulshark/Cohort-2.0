@@ -21,9 +21,22 @@ Week-2:
       :fileServer Done
 
 
+Week-3 : 
+      01-middlewares
+       :01-reqcout Done
+       :02-ratelimiter Done
+       :03-errorcount  Done
+
+      02-jwt 
+       :
 
 
 
 Week-4:
-      :can be skipped      
+      :Can be skipped 
+
+Week-5 :
+       Business Card
+             
+            
       
