@@ -11,11 +11,11 @@ function App() {
     </div>
   }
 
-  function CardWrapper({innerComponent}){
-    console.log(innerComponent);
+  function CardWrapper({children}){
+    console.log(children);
     return <div style={{ border: "2px solid #000000", padding:200 }}>
         <div>hehednejdedmede</div>
-        {innerComponent}
+        {children}
       </div>
   }
 
@@ -34,8 +34,12 @@ function App() {
 
   return (
     <>
-      <CardWrapper innerComponent={<Header title="Sameena"/>} />
-      <CardWrapper innerComponent={<HeaderWithApp />} />
+      <CardWrapper>
+        <Header title="Sameena"/>
+      </CardWrapper>
+      <CardWrapper>
+        <HeaderWithApp/>
+      </CardWrapper>
     </>
   )
 }
