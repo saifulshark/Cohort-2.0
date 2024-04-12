@@ -1,13 +1,22 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  function Header({title}){
+
+  const Header = function ({title}){
     return <div>
       {title}
     </div>
+  }
+
+  function CardWrapper({innerComponent}){
+    console.log(innerComponent);
+    return <div style={{ border: "2px solid #000000", padding:200 }}>
+        <div>hehednejdedmede</div>
+        {innerComponent}
+      </div>
   }
 
   function HeaderWithApp() {
@@ -25,8 +34,8 @@ function App() {
 
   return (
     <>
-      <Header title="Sameena"/>
-      <HeaderWithApp/>
+      <CardWrapper innerComponent={<Header title="Sameena"/>} />
+      <CardWrapper innerComponent={<HeaderWithApp />} />
     </>
   )
 }
