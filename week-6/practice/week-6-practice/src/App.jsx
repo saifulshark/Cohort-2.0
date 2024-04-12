@@ -1,7 +1,9 @@
 function App() {
   return (
+    <>
       <Header tittle="Hashir"/>
       <Header tittle="Sameena"/>
+    </>
   )
 }
 
