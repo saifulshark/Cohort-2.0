@@ -9,5 +9,17 @@ There is no automated test for this one, this is more for you to understand time
 */
 
 function calculateTime(n) {
-    return 0.01;
+    const startDate = new Date();
+    sum=0
+    for(let i=1;i<=n;i++)
+    {
+        sum+=i
+    }
+    const endDate = new Date();
+    const differenceOfTime=endDate-startDate
+    console.log("Summing from 1 to "+n+" i.e,"+sum+" took time of "+differenceOfTime+ " milli seconds to complete")
+
 }
+calculateTime(100) //o/p: 0 milliseconds
+calculateTime(100000) //o/p: 2 milliseconds
+calculateTime(1000000000) //o/p: 12249 milliseconds
