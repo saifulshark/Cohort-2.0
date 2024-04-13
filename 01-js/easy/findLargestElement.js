@@ -7,14 +7,14 @@
 
 function findLargestElement(numbers) {
 
-    let ans=numbers[0];
+    let largetElement=numbers[0];
     for(let i=0;i<numbers.length;i++){
-        if(numbers[i]>ans){
-            ans=numbers[i];
+        if(numbers[i]>largetElement){
+            largetElement=numbers[i];
         }
         
     }
-    return ans;
+    return largetElement;
     
 }
 
