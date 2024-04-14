@@ -21,7 +21,10 @@ const BASE_URL = path.join(__dirname, 'files/');
 
 app.get('/files', function(req, res) {
 	fs.readdir(BASE_URL, (err, files) => {
-		res.json({ files });
+		if (err) {
+			return res.status(500).json({ eroor: 'File not found' });
+		}
+		res.status(200).json(files);
 	});
 });
 
@@ -29,23 +32,21 @@ app.get('/file/:filename', function(req, res) {
 	const FILE_URL = path.join(BASE_URL, req.params.filename);
 	console.log(req.params.filename);
 	if (fs.existsSync(FILE_URL)) {
-		fs.readFile(FILE_URL, (err, data) => {
-			res.status(200);
-			res.send(data);
+		fs.readFile(FILE_URL, "utf-8", (err, data) => {
+			if (err) return res.status(500).json({ msg: "file not found" });
+			return res.status(200).send(data);
 		});
 	} else {
 		res.status(404);
 		res.send("File not found");
 	}
-	fs.readFile(FILE_URL, (err, data) => { });
-	res.send();
 });
 
-app.get('*', function(req, res) {
+app.all('*', function(req, res) {
 	res.status(404);
-	res.send("where you going nigga");
+	res.send("Route not found");
 });
 
-app.listen(3000);
+app.listen(8081);
 
 module.exports = app;
