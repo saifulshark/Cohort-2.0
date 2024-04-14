@@ -39,11 +39,34 @@
 
   Testing the server - run `npm run test-todoServer` command in terminal
  */
-  const express = require('express');
-  const bodyParser = require('body-parser');
-  
-  const app = express();
-  
-  app.use(bodyParser.json());
-  
-  module.exports = app;
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
+
+app.use(bodyParser.json());
+
+const todos = [];
+
+app.get('/todos', (req, res) => {
+	if (todos.length == 0) return res.status(404).json({ msg: "Empty todo" });
+	res.json({ todos });
+});
+
+app.get("/todo/:todoId", (req, res) => {
+	const id = req.params.todoId;
+	todos.forEach(x => {
+		if (x.id == id) return res.json(x);
+	});
+	return res.status(404).json({ msg: "Didn't find it" });
+});
+
+app.post("/todos", (req, res) => { });
+
+app.put("/todo/:todoId", (req, res) => { });
+
+app.delete("/todo/:todoId", (req, res) => { });
+
+app.listen(8081);
+
+module.exports = app;
