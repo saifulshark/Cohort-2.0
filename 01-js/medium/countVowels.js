@@ -7,6 +7,18 @@
 
 function countVowels(str) {
     // Your code here
+  let count = 0;
+  const arr = [A,E,I,O,U,a,e,i,o,u];
+  let arr2 = str.split('');
+  for(let i = 0; i<arr2.length; i++){
+    for(let j = 0; arr.length; j++){
+      if(arr[i]==arr2[j]){
+        count++
+        continue;
+      }
+    }
+  }
+  return count;
 }
 
 module.exports = countVowels;
