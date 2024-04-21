@@ -5,8 +5,22 @@
   Once you've implemented the logic, test your code by running
 */
 
-function countVowels(str) {
-    // Your code here
+function isVowel(x) {
+
+  return ("aeiouAEIOU".indexOf(x) != -1); 
 }
 
-module.exports = countVowels;
+function countVowels(str) {
+    // Your code here
+    let ans = 0;
+
+    for(let i = 0; i<str.length; i++)
+    {
+        if(isVowel(str[i]))
+        ans+=1;
+    }
+    return ans;
+}
+
+// module.exports = countVowels;
+console.log(countVowels("Hello"));

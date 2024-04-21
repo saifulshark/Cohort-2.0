@@ -4,7 +4,29 @@
 */
 
 function isPalindrome(str) {
-  return true;
+  str = str.toLowerCase().trim();
+  let str1 = "";
+ 
+ 
+   let i = 0, j = str.length-1;
+ 
+   for(let k = 0; k<str.length; k++)
+   {
+     if(str[k]<='z' && str[k]>='a')
+         str1+=str[k];
+   }
+ 
+   
+ i = 0, j = str1.length-1;
+   while(i<j)
+   {
+     
+     if(str1[i]!=str1[j])
+     return false;
+   i++;
+   j--;
+   }
+   return true;
 }
 
 module.exports = isPalindrome;
