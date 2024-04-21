@@ -14,7 +14,26 @@
 */
 
 function calculateTotalSpentByCategory(transactions) {
-  return [];
+  transactionsSize=transactions.length
+  let categoryWiseTotalPrice= []
+  let dictObjOfCategoryWiseTotalPrice= {}
+  for(let i=0;i<transactionsSize;i++)
+  {
+    if(transactions[i].category in dictObjOfCategoryWiseTotalPrice) // Method 1
+    //if(dictObjOfCategoryWiseTotalPrice.hasOwnProperty(transactions[i].category)) // Method 2
+    {
+      dictObjOfCategoryWiseTotalPrice[transactions[i].category]+=transactions[i].price
+    }
+    else{
+      dictObjOfCategoryWiseTotalPrice[transactions[i].category]=transactions[i].price
+
+    }    
+  }
+  for( let category in dictObjOfCategoryWiseTotalPrice)
+  {
+    categoryWiseTotalPrice.push({category: category, totalSpent: dictObjOfCategoryWiseTotalPrice[category]})
+  }
+  return categoryWiseTotalPrice
 }
 
 module.exports = calculateTotalSpentByCategory;
