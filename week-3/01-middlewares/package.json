@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-reCount": "nodemon 01-requestcount.js"
+    "start-01": "nodemon 01-requestcount.js",
+    "start-02": "nodemon 02-ratelimitter.js",
+    "start-03": "nodemon 03-errorcount.js"
   },
   "keywords": [],
   "author": "",
