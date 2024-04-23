@@ -14,7 +14,24 @@
 */
 
 function calculateTotalSpentByCategory(transactions) {
-  return [];
+  return simpleSoln(transactions);
+}
+
+function simpleSoln(transactions) {
+  const response = [];
+  transactions.forEach((transaction) => {
+    let responseCategoryObj = response.find((item) => item.category === transaction.category);
+    if (responseCategoryObj) {
+      response.find((item) => item.category === transaction.category).totalSpent += transaction.price;
+    }
+    else {
+      response.push({
+        category: transaction.category,
+        totalSpent: transaction.price
+      });
+    }
+  });
+  return response;
 }
 
 module.exports = calculateTotalSpentByCategory;
