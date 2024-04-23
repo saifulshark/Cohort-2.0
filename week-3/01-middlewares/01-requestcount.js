@@ -12,7 +12,7 @@ let requestCount = 0;
 
 app.use(function(req, res, next) {
   requestCount++;
-  nect();
+  next();
 });
 
 app.get('/user', function(req, res) {
