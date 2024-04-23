@@ -5,7 +5,19 @@
 */
 
 function isAnagram(str1, str2) {
+  const str1FreqMap = {};
+  const str2FreqMap = {};
 
+  str1.toLowerCase().split('')
+  .forEach((char) => {
+    str1FreqMap[char] = (str1FreqMap[char] || 0) + 1;
+  });
+  str2.toLowerCase().split('')
+  .forEach((char) => {
+    str2FreqMap[char] = (str2FreqMap[char] || 0) + 1;
+  });
+
+  return str1.length === str2.length && Object.keys(str1FreqMap).every((char) => str1FreqMap[char] === str2FreqMap[char]);
 }
 
 module.exports = isAnagram;
