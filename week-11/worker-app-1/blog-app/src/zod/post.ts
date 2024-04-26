@@ -1,0 +1,7 @@
+import { z } from "zod";
+
+export const createPostSchema = z.object({
+    title: z.string(),
+    body: z.string(),
+    tag: z.string()
+})
