@@ -15,6 +15,7 @@ type SigninResponse = {
     email: string,
     password: string
 }
+
 userRoutes.post('/signup', async (c)=>{
     
 

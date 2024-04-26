@@ -5,8 +5,8 @@ import blogRoutes from './routes/blog'
 const app = new Hono<{
 	Bindings: {
 		DATABASE_URL: string ,
-    datasourceUrl: string,
-	JWT_TOKEN_KEY: string
+		datasourceUrl: string,
+		JWT_TOKEN_KEY: string
 	}
 }>()
 
