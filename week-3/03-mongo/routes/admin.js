@@ -27,11 +27,11 @@ router.post('/signup',async (req, res) => {
 router.post('/courses', adminMiddleware,async (req, res) => {
     // Implement course creation logic
     try {
-    const { title, description, price, imageLink, published,id } = { ...req.body };
-    await Course.create({id,title, description, price, imageLink, published})
+    const { title, description, price, imageLink, published } = { ...req.body };
+   const newCourse= await Course.create({title, description, price, imageLink, published})
      res.json({
        message: "Course created successfully",
-       courseId: id,
+       courseId: newCourse._id,
      });
     } catch (error) {
         res.status(404).json({Error:"Error in creating Course",error})
