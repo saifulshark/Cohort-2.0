@@ -12,7 +12,7 @@ function signJwt(username, password) {
         return null;
     }
 
-    const signature = jwt.sign({
+    const token = jwt.sign({
         username
     }, jwtPassword);
 
