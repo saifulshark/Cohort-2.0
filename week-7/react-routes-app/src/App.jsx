@@ -11,8 +11,9 @@ function App() {
 
   return (
     <>
-    <div style={{background: "black", color: "white"}}>
-      This is the topbar.
+    <div /*style={{background: "black", color: "white"}}*/>
+      <button onClick={() => {window.location.href = "/";}}>Home</button>
+      <button onClick={() => {window.location.href = "/Dashboard";}}>Dashboard</button>
     </div>
       < BrowserRouter>
         <Routes>
