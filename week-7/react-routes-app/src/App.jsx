@@ -10,12 +10,18 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    < BrowserRouter>
-      <Routes>
-        <Route path='/Dashboard' element={<Dashboard/>}/>
-        <Route path='/' element={<Landing/>}/>
-      </Routes>
+    <>
+    <div style={{background: "black", color: "white"}}>
+      This is the topbar.
+    </div>
+      < BrowserRouter>
+        <Routes>
+          <Route element={<div>Hi There</div>}/>
+          <Route path='/Dashboard' element={<Dashboard/>}/>
+          <Route path='/' element={<Landing/>}/>
+        </Routes>
     </BrowserRouter>
+    </>
   )
 }
 
