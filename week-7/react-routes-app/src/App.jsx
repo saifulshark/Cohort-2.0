@@ -1,11 +1,10 @@
-import { useState } from 'react'
+import { useState, lazy, Suspense } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
-import { Dashboard } from './components/Dashboard'
-import { Landing } from './components/Landing'
-
+const DashBoard = lazy(() => import('./components/Dashboard'));
+const  Landing = lazy(() => import('./components/Landing'));
 function App() {
   const [count, setCount] = useState(0);
   return (
@@ -14,8 +13,15 @@ function App() {
       <TopBar/>
         <Routes>
           <Route element={<div>Hi There</div>}/>
-          <Route path='/Dashboard' element={<Dashboard/>}/>
-          <Route path='/' element={<Landing/>}/>
+          <Route path='/Dashboard' element={
+            <Suspense fallback="Loading...">
+              <DashBoard/>
+            </Suspense>
+          } />
+          <Route path='/' element={
+            <Suspense fallback="Loading...">
+              <Landing/>
+            </Suspense>}/>
         </Routes>
     </BrowserRouter>
     </>
