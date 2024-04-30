@@ -35,15 +35,14 @@ export function Assignment1() {
         <div>
             <p>Count: {count}</p>
             <CounterButtons onIncrement={handleIncrement} onDecrement={handleDecrement} />
-            <PerfromComponent/>
-            <button onClick={handleButtonClick}>Update State</button> {/* Button to update dummyState */}
         </div>
     );
 };
 
-const CounterButtons = ({ onIncrement, onDecrement }) => (
+const CounterButtons = memo(({ onIncrement, onDecrement }) => (
     <div>
         <button onClick={onIncrement}>Increment</button>
         <button onClick={onDecrement}>Decrement</button>
     </div>
+)
 );
