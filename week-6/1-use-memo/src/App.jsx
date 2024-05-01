@@ -1,14 +1,14 @@
 import './App.css'
-import { Assignment1 } from './components/Assignment1'
+import { Factorial } from './components/Factorial'
 import { Assignment2 } from './components/Assignment2'
 import { Assignment3 } from './components/Assignment3'
 
 function App() {
   return (
     <>
-      <Assignment1 />
+      {/* <Factorial /> */}
       {/* <Assignment2 /> */}
-      {/* <Assignment3 /> */}
+      <Assignment3 />
     </>
   )
 }
