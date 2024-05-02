@@ -33,17 +33,22 @@ router.post('/courses/:courseId', userMiddleware, async(req, res) => {
     const courseId = req.params.courseId;
     const username = req.headers.username;
 
-    await User.updateOne({
-        username: username
-    }, {
-        "$push": {
-            purchasedCourses: courseId
-        }
-    })
-    res.json({
-        message: "Purchase complete!"
-    })
-});
+    try {
+        await User.updateOne({
+            username: username
+        }, {
+            "$push": {
+                "purchasedCourse": courseId
+            }
+        });
+        res.json({
+            message: "Purchase complete!"
+        });
+    } catch (error) {
+        console.error("Error while updating user:", error);
+        res.status(500).json({ error: "An error occurred while updating user" });
+    }
+});    
 
 router.get('/purchasedCourses', userMiddleware, async (req, res) => {
     // Implement fetching purchased courses logic
