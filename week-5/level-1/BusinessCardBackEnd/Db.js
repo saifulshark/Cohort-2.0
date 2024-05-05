@@ -1,5 +1,5 @@
 const mongoose=require("mongoose")
-mongoose.connect("mongodb+srv://lasyacodes:DjIYVcDCrWzNddB7@cluster0.ydstk0l.mongodb.net/businesscard")
+mongoose.connect("mongodb+srv://lasyacodes:***/businesscard")
 const socialmediaSchema=mongoose.Schema({
     linkedin:String,
     twitter:String
