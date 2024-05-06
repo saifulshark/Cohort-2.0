@@ -1,4 +1,4 @@
-const { Admin } = require("../solution/db");
+const { Admin } = require("../db");
 
 // Middleware for handling auth
 function adminMiddleware(req, res, next) {
