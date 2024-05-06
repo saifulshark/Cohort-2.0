@@ -23,6 +23,7 @@ router.post('/courses', adminMiddleware, async(req, res) => {
     const description = req.body.description;
     const imagelink = req.body.imagelink;
     const price = req.body.price
+    
 });
 const cource_new = await Course.create({
     title, 
