@@ -12,9 +12,6 @@ const app = express();
 // clears every one second
 
 let numberOfRequestsForUser = {};
-setInterval(() => {
-    numberOfRequestsForUser = {};
-}, 1000)
 
 function rateLimiter(req, res, next) {
   const user = req.header('user-id');
@@ -24,8 +21,13 @@ function rateLimiter(req, res, next) {
     numberOfRequestsForUser[user] = 1;
   }
 
+  // clear the requests for this user
+  setTimeout(function(){
+    delete numberOfRequestsForUser[user]
+  }, 1000)
+
   if (numberOfRequestsForUser[user] >= 5) {
-    res.sendStatus(404);
+    return res.sendStatus(404).json({"msg":"Too many requests"});
   } else {
     next();
   }
