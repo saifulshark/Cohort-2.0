@@ -1,6 +1,9 @@
 const jwt = require('jsonwebtoken');
 const jwtPassword = 'secret';
+const z = require('zod');
 
+const emailSchema = z.string().email();
+const passSchema = z.string().min(6);
 
 /**
  * Generates a JWT for a given username and password.
@@ -15,6 +18,14 @@ const jwtPassword = 'secret';
  */
 function signJwt(username, password) {
     // Your code here
+    try {
+        emailSchema.parse(username)
+        passSchema.parse(password);
+        return jwt.sign({ username }, jwtPassword);
+    } catch (e) {
+        console.log("Invalid fr");
+        return null
+    }
 }
 
 /**
@@ -27,6 +38,12 @@ function signJwt(username, password) {
  */
 function verifyJwt(token) {
     // Your code here
+    try {
+        const res = jwt.verify(token, jwtPassword);
+        return true;
+    } catch (e) {
+        return false;
+    }
 }
 
 /**
@@ -38,12 +55,28 @@ function verifyJwt(token) {
  */
 function decodeJwt(token) {
     // Your code here
+    let ans = false;
+    try {
+        jwt.verify(token, jwtPassword);
+        ans = true;
+    } catch (e) {
+        return false;
+    }
+    return ans;
 }
+
+console.log(signJwt("a@gmaiom", "abcdefgh"));
+console.log(signJwt("a@gmail.com", "abcdefgh"));
+console.log(verifyJwt("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzEzOTE1Njk5fQ.11RPm1c8gLKka5e5_x5YyEqTmtcSZF10JQLAyO18l1A"));
+console.log(verifyJwt("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6"));
+console.log(decodeJwt("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzEzOTE1Njk5fQ.11RPm1c8gLKka5e5_x5YyEqTmtcSZF10JQLAyO18l1A"));
+console.log(decodeJwt(signJwt("abcd@gmail.com", "aaaaaaaaaaaa")));
+console.log(decodeJwt(jwt.sign({ "username": "abcd@gmail.com" }, "12344444")));
 
 
 module.exports = {
-  signJwt,
-  verifyJwt,
-  decodeJwt,
-  jwtPassword,
+    signJwt,
+    verifyJwt,
+    decodeJwt,
+    jwtPassword,
 };
