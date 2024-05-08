@@ -14,7 +14,7 @@ function App() {
   )
 }
 
-const Count = ({setCount}) => {
+const Count = ({count, setCount}) => {
   return (
     <>
       <CountRenderer count={count}/>
@@ -23,15 +23,13 @@ const Count = ({setCount}) => {
   )
 }
 
-const CountRenderer = () => {
-  const count = 5;
+const CountRenderer = ({count}) => {
   return(
     <div>{count}</div>
   )
 }
 
-const Buttons = ({ setCount}) => {
-  const count = 5;
+const Buttons = ({count, setCount}) => {
   return(
     <div>
       <button onClick={() => {
