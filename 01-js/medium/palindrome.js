@@ -4,7 +4,12 @@
 */
 
 function isPalindrome(str) {
-  return true;
+  str = str.replace(/[^a-z0-9]/ig, '').toLowerCase();
+  str2 = str.split('').reverse().join('');
+  return str === str2;
+  // console.log(str2);
 }
 
 module.exports = isPalindrome;
+// let ans = isPalindrome("i, am the good person!");
+// console.log(ans);
