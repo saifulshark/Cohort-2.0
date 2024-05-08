@@ -1,50 +1,44 @@
-import { useState, lazy, Suspense, useContext } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
-const DashBoard = lazy(() => import('./components/Dashboard'));
-const  Landing = lazy(() => import('./components/Landing'));
+import { useState, useContext } from 'react'
 import { CountContext } from './context'
 function App() {
   const [count, setCount] = useState(0);
   return (
     <>
-      <CountContext.Provider value={count}>
-        <Count setCount={setCount}/>
+      <CountContext.Provider value={{ count, setCount }}>
+        <Count />
       </CountContext.Provider>
     </>
   )
 }
 
-const Count = ({setCount}) => {
+const Count = () => {
   return (
     <>
       <CountRenderer/>
-      <Buttons setCount={setCount}/>
+      <Buttons />
     </>
   )
 }
 
 const CountRenderer = () => {
-  const count = useContext(CountContext);
+  const {count, setCount} = useContext(CountContext);
   return(
     <div>{count}</div>
   )
 }
 
-const Buttons = ({setCount}) => {
-  const count = useContext(CountContext);
+const Buttons = () => {
+  const {count, setCount} = useContext(CountContext);
   return(
     <div>
       <button onClick={() => {
         console.log("Increase Count");
-        setCount(count + 1);
+        setCount(prevCount => prevCount + 1);
         }
         }>Increase Count</button>
       <button onClick={() => {
         console.log("Decrease Count");
-        setCount(count - 1);
+        setCount(prevCount => prevCount - 1);
         }}>Decrease Count</button>
     </div>
   )
