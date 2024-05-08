@@ -9,31 +9,23 @@ function App() {
   const [count, setCount] = useState(0);
   return (
     <>
-      < BrowserRouter>
-      <TopBar/>
-        <Routes>
-          <Route element={<div>Hi There</div>}/>
-          <Route path='/Dashboard' element={
-            <Suspense fallback="Loading...">
-              <DashBoard/>
-            </Suspense>
-          } />
-          <Route path='/' element={
-            <Suspense fallback="Loading...">
-              <Landing/>
-            </Suspense>}/>
-        </Routes>
-    </BrowserRouter>
+      <Count count={count}/>
+      <Buttons />
     </>
   )
 }
 
-const TopBar = () => {
-  const navigate =useNavigate();
+const Count = ({count}) => {
   return (
-    <div /*style={{background: "black", color: "white"}}*/>
-      <button onClick={() => {navigate('/')}}>Home</button>
-      <button onClick={() => {navigate('/Dashboard')}}>Dashboard</button>
+    <div>{count}</div>
+  )
+}
+
+const Buttons = () => {
+  return(
+    <div>
+      <button onClick={() => {console.log("Increase Count")}}>Increase Count</button>
+      <button onClick={() => {console.log("Decrease Count")}}>Decrease Count</button>
     </div>
   )
 }
