@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from 'react'
+import { useState, lazy, Suspense, useContext } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -11,28 +11,30 @@ function App() {
   return (
     <>
       <CountContext.Provider value={count}>
-        <Count count={count} setCount={setCount}/>
+        <Count setCount={setCount}/>
       </CountContext.Provider>
     </>
   )
 }
 
-const Count = ({count, setCount}) => {
+const Count = ({setCount}) => {
   return (
     <>
-      <CountRenderer count={count}/>
-      <Buttons count={count} setCount={setCount}/>
+      <CountRenderer/>
+      <Buttons setCount={setCount}/>
     </>
   )
 }
 
-const CountRenderer = ({count}) => {
+const CountRenderer = () => {
+  const count = useContext(CountContext);
   return(
     <div>{count}</div>
   )
 }
 
-const Buttons = ({count, setCount}) => {
+const Buttons = ({setCount}) => {
+  const count = useContext(CountContext);
   return(
     <div>
       <button onClick={() => {
