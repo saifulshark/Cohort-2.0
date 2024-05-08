@@ -5,11 +5,14 @@ import './App.css'
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
 const DashBoard = lazy(() => import('./components/Dashboard'));
 const  Landing = lazy(() => import('./components/Landing'));
+import { CountContext } from './context'
 function App() {
   const [count, setCount] = useState(0);
   return (
     <>
-      <Count count={count} setCount={setCount}/>
+      <CountContext.Provider value={count}>
+        <Count count={count} setCount={setCount}/>
+      </CountContext.Provider>
     </>
   )
 }
