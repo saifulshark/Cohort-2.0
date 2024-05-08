@@ -9,23 +9,40 @@ function App() {
   const [count, setCount] = useState(0);
   return (
     <>
-      <Count count={count}/>
-      <Buttons />
+      <Count count={count} setCount={setCount}/>
     </>
   )
 }
 
-const Count = ({count}) => {
+const Count = ({setCount}) => {
   return (
+    <>
+      <CountRenderer count={count}/>
+      <Buttons count={count} setCount={setCount}/>
+    </>
+  )
+}
+
+const CountRenderer = () => {
+  const count = 5;
+  return(
     <div>{count}</div>
   )
 }
 
-const Buttons = () => {
+const Buttons = ({ setCount}) => {
+  const count = 5;
   return(
     <div>
-      <button onClick={() => {console.log("Increase Count")}}>Increase Count</button>
-      <button onClick={() => {console.log("Decrease Count")}}>Decrease Count</button>
+      <button onClick={() => {
+        console.log("Increase Count");
+        setCount(count + 1);
+        }
+        }>Increase Count</button>
+      <button onClick={() => {
+        console.log("Decrease Count");
+        setCount(count - 1);
+        }}>Decrease Count</button>
     </div>
   )
 }
