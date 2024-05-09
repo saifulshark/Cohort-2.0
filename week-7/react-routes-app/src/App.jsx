@@ -1,12 +1,13 @@
-import { useState, useContext } from 'react'
-import { CountContext } from './context'
+import { useState } from 'react'
+import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
+import { countAtom } from './store/atoms/count';
 function App() {
   const [count, setCount] = useState(0);
   return (
     <>
-      <CountContext.Provider value={{ count, setCount }}>
+      <RecoilRoot>
         <Count />
-      </CountContext.Provider>
+      </RecoilRoot>
     </>
   )
 }
@@ -19,6 +20,8 @@ state management libraries are those who does the both.
 A react application ideally have 2 components on a very high level, the state logic and the component logic.
 Recoil is a state management library that helps in doing this.
 
+If we know a state variable needs to be used inside a componnet and only inside that component only we can use useState instead of recoil. It's like recoil is more towards global like state variables.
+
 */
 const Count = () => {
   return (
@@ -30,8 +33,8 @@ const Count = () => {
 }
 
 const CountRenderer = () => {
+  const count = useRecoilValue(countAtom);
   console.log("CountRenderer");
-  const {count, setCount} = useContext(CountContext);
   return(
     <div>{count}</div>
   )
@@ -39,7 +42,7 @@ const CountRenderer = () => {
 
 const Buttons = () => {
   console.log("Buttons");
-  const {count, setCount} = useContext(CountContext);
+  const [count, setCount] = useRecoilState(countAtom);
   return(
     <div>
       <button onClick={() => {
