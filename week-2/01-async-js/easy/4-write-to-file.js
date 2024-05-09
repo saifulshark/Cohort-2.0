@@ -7,7 +7,7 @@ fs.readFile("hello.txt", "utf-8", (err, data) => {
   if (err) {
     console.log(err);
   } else {
-    data = data + "\nthis is the added line";
+    data = data + "\nThis is the second line";
     console.log(data);
   }
 });
