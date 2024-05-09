@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { countAtom, evenSelector } from './store/atoms/count';
 function App() {
@@ -54,6 +54,9 @@ const EvenCountRenderer = () => {
    */
   const isEven = useRecoilValue(evenSelector);
   console.log("Is even is",isEven);
+  useEffect(() =>{
+    console.log("This is a useEffect which'll work with useEffect.");
+  }, [isEven]);
 
   return(
     <div>
