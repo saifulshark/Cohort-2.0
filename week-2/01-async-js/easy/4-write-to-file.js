@@ -3,11 +3,11 @@
 // You can use the fs library to as a black box, the goal is to understand async tasks. -->
 
 const fs = require("fs");
-fs.readFile("hello.txt","utf-8",(err,data) => {
-    if(err){
-        console.log(err);
-    }else{
-        data = data + "\nthis is the added line";
-        console.log(data);
-    }
+fs.readFile("hello.txt", "utf-8", (err, data) => {
+  if (err) {
+    console.log(err);
+  } else {
+    data = data + "\nthis is the added line";
+    console.log(data);
+  }
 });
