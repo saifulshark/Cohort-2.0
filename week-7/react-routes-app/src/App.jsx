@@ -15,6 +15,10 @@ function App() {
 Context API is used for more cleaner code/syntax  and to avoid prop drilling.
 Context API don't do anything on perfromance improvements.
 state management libraries are those who does the both.
+
+A react application ideally have 2 components on a very high level, the state logic and the component logic.
+Recoil is a state management library that helps in doing this.
+
 */
 const Count = () => {
   return (
