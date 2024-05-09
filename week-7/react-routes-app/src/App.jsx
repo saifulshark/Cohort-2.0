@@ -51,6 +51,8 @@ const EvenCountRenderer = () => {
   /**
    * Here, isEven completely depends on count. So we can use selectors from recoil for this.
    * What is the optimization happening here? if a re-render happened and the count is not changed the code won't execute, instead it'll return the cached  result of the previous execution.
+   * 
+   * useMemo remain restricted on your component, whereas a selector comes outside the state. So other selectors or things can depend on your selector (even if it is outside the component.)
    */
   const isEven = useRecoilValue(evenSelector);
   console.log("Is even is",isEven);
