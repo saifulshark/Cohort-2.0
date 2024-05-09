@@ -11,6 +11,11 @@ function App() {
   )
 }
 
+/*
+Context API is used for more cleaner code/syntax  and to avoid prop drilling.
+Context API don't do anything on perfromance improvements.
+state management libraries are those who does the both.
+*/
 const Count = () => {
   return (
     <>
@@ -21,6 +26,7 @@ const Count = () => {
 }
 
 const CountRenderer = () => {
+  console.log("CountRenderer");
   const {count, setCount} = useContext(CountContext);
   return(
     <div>{count}</div>
@@ -28,6 +34,7 @@ const CountRenderer = () => {
 }
 
 const Buttons = () => {
+  console.log("Buttons");
   const {count, setCount} = useContext(CountContext);
   return(
     <div>
