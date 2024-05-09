@@ -22,6 +22,7 @@ Recoil is a state management library that helps in doing this.
 
 If we know a state variable needs to be used inside a componnet and only inside that component only we can use useState instead of recoil. It's like recoil is more towards global like state variables.
 
+learned: RecoilRoot, atom, useRecoilState, useRecoilValue, useSetRecoilState, selector
 */
 const Count = () => {
   console.log('Count');
@@ -37,7 +38,20 @@ const CountRenderer = () => {
   const count = useRecoilValue(countAtom);
   console.log("CountRenderer");
   return(
-    <div>{count}</div>
+    <>
+      <div>{count}</div>
+      <EvenCountRenderer />
+    </>
+  )
+}
+
+const EvenCountRenderer = () => {
+  console.log("Hi hebe");
+  const count = useRecoilValue(countAtom);
+  return(
+    <div>
+      {(count % 2 == 0) ? "It is even" : "It is odd"}
+    </div>
   )
 }
 
