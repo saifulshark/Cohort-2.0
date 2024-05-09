@@ -24,6 +24,7 @@ If we know a state variable needs to be used inside a componnet and only inside 
 
 */
 const Count = () => {
+  console.log('Count');
   return (
     <>
       <CountRenderer/>
