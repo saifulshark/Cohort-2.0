@@ -12,12 +12,12 @@ export const jobAtom = atom({
 
 export const messagingAtom = atom({
     key: "messagingAtom",
-    default: 12
+    default: 0
 })
 
 export const notificationsAtom = atom({
     key: "notificationsAtom",
-    default: 8
+    default: 12
 })
 
 
