@@ -2,7 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil'
+import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { jobAtom, meAtom, messagingAtom, networkAtom, notificationsAtom } from './atoms'
 
 function App() {
@@ -16,6 +16,7 @@ function App() {
   return(
     <RecoilRoot>
       <MainApp />
+      <NotificationUpdater />
     </RecoilRoot>
   )
 }
@@ -24,7 +25,7 @@ const MainApp = () => {
   const networkNotificationCount = useRecoilValue(networkAtom);
   const jobsNotificationsCount = useRecoilValue(jobAtom);
   const messagingNotificationCount = useRecoilValue(messagingAtom);
-  const [generalNotificationCount, setGeneralNotificationCount] = useRecoilState(notificationsAtom);
+  const generalNotificationCount = useRecoilValue(notificationsAtom);
   const profileNotificationCount = useRecoilValue(meAtom);
   return (
     <>
@@ -34,8 +35,16 @@ const MainApp = () => {
         <button>Messaging ({messagingNotificationCount})</button>
         <button>Notifications ({generalNotificationCount})</button>
         <button>Me ({profileNotificationCount})</button>
-        <button onClick={() => {
-            setGeneralNotificationCount(generalNotificationCount + 1);
+    </>
+  )
+}
+
+const NotificationUpdater = () => {
+  const setGeneralNotificationCount = useSetRecoilState(notificationsAtom);
+  return (
+    <>
+      <button onClick={() => {
+            setGeneralNotificationCount(count => count + 1);
         }}>Manipulate Notifications</button>
     </>
   )
