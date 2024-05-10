@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil'
-import { networkAtom } from './atoms'
+import { jobAtom, meAtom, messagingAtom, networkAtom, notificationsAtom } from './atoms'
 
 function App() {
   /**
@@ -22,14 +22,18 @@ function App() {
 
 const MainApp = () => {
   const networkNotificationCount = useRecoilValue(networkAtom);
+  const jobsNotificationsCount = useRecoilValue(jobAtom);
+  const messagingNotificationCount = useRecoilValue(messagingAtom);
+  const generalNotificationCount = useRecoilValue(notificationsAtom);
+  const profileNotificationCount = useRecoilValue(meAtom);
   return (
     <>
         <button>Home</button>
         <button>My Network ({networkNotificationCount >= 100 ? "99+" : networkNotificationCount})</button>
-        <button>Jobs ()</button>
-        <button>Messaging ()</button>
-        <button>Notifications ()</button>
-        <button>Me ()</button>
+        <button>Jobs ({jobsNotificationsCount})</button>
+        <button>Messaging ({messagingNotificationCount})</button>
+        <button>Notifications ({generalNotificationCount})</button>
+        <button>Me ({profileNotificationCount})</button>
     </>
   )
 }

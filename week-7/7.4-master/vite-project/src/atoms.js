@@ -15,6 +15,10 @@ export const messagingAtom = atom({
     default: 12
 })
 
+export const notificationsAtom = atom({
+    key: "notificationsAtom",
+    default: 8
+})
 
 
 export const meAtom = atom({
