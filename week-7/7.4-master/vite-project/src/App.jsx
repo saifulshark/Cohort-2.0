@@ -27,6 +27,8 @@ const MainApp = () => {
   const messagingNotificationCount = useRecoilValue(messagingAtom);
   const generalNotificationCount = useRecoilValue(notificationsAtom);
   const profileNotificationCount = useRecoilValue(meAtom);
+  const totalNotificationsCount = networkNotificationCount + jobsNotificationsCount + messagingNotificationCount + generalNotificationCount + profileNotificationCount;
+  console.log(totalNotificationsCount);
   return (
     <>
         <button>Home</button>
@@ -34,7 +36,8 @@ const MainApp = () => {
         <button>Jobs ({jobsNotificationsCount})</button>
         <button>Messaging ({messagingNotificationCount})</button>
         <button>Notifications ({generalNotificationCount})</button>
-        <button>Me ({profileNotificationCount})</button>
+         {/* Ugly way of implementing total notifications count over the profile bar */}
+        <button>Me ({totalNotificationsCount})</button>
     </>
   )
 }
