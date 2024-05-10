@@ -24,7 +24,7 @@ const MainApp = () => {
   const networkNotificationCount = useRecoilValue(networkAtom);
   const jobsNotificationsCount = useRecoilValue(jobAtom);
   const messagingNotificationCount = useRecoilValue(messagingAtom);
-  const generalNotificationCount = useRecoilValue(notificationsAtom);
+  const [generalNotificationCount, setGeneralNotificationCount] = useRecoilState(notificationsAtom);
   const profileNotificationCount = useRecoilValue(meAtom);
   return (
     <>
@@ -34,6 +34,9 @@ const MainApp = () => {
         <button>Messaging ({messagingNotificationCount})</button>
         <button>Notifications ({generalNotificationCount})</button>
         <button>Me ({profileNotificationCount})</button>
+        <button onClick={() => {
+            setGeneralNotificationCount(generalNotificationCount + 1);
+        }}>Manipulate Notifications</button>
     </>
   )
 }
