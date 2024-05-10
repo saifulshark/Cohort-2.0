@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { jobAtom, meAtom, messagingAtom, networkAtom, notificationsAtom } from './atoms'
+import { allNotificationsSelector, jobAtom, meAtom, messagingAtom, networkAtom, notificationsAtom } from './atoms'
 
 function App() {
   /**
@@ -26,9 +26,9 @@ const MainApp = () => {
   const jobsNotificationsCount = useRecoilValue(jobAtom);
   const messagingNotificationCount = useRecoilValue(messagingAtom);
   const generalNotificationCount = useRecoilValue(notificationsAtom);
-  const profileNotificationCount = useRecoilValue(meAtom);
-  const totalNotificationsCount = networkNotificationCount + jobsNotificationsCount + messagingNotificationCount + generalNotificationCount + profileNotificationCount;
-  console.log(totalNotificationsCount);
+  // const profileNotificationCount = useRecoilValue(meAtom);
+  // Here, we used recoil 'selector' replacing the ugly approach since the 'totalNotificationsCount' entirely depends on few other atoms.
+  const totalNotificationsCount = useRecoilValue(allNotificationsSelector);
   return (
     <>
         <button>Home</button>
@@ -36,7 +36,6 @@ const MainApp = () => {
         <button>Jobs ({jobsNotificationsCount})</button>
         <button>Messaging ({messagingNotificationCount})</button>
         <button>Notifications ({generalNotificationCount})</button>
-         {/* Ugly way of implementing total notifications count over the profile bar */}
         <button>Me ({totalNotificationsCount})</button>
     </>
   )
