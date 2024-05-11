@@ -6,6 +6,8 @@ export const todosAtomFamily = atomFamily({
   default: selectorFamily({
     key: "todoSelectorFamily",
     get: (id) => async ({get}) => {
+      //Added a timeout to demonstrate a loader scenario.
+      await new Promise(r => setTimeout(r, 5000));
       const res = await axios.get(`https://sum-server.100xdevs.com/todo?id=${id}`);
       return res.data.todo;
     },
