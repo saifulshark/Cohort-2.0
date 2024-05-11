@@ -27,7 +27,7 @@ const MainApp = () => {
   const messagingNotificationCount = useRecoilValue(messagingAtom);
   const generalNotificationCount = useRecoilValue(notificationsAtom);
   // const profileNotificationCount = useRecoilValue(meAtom);
-  // Here, we used recoil 'selector' replacing the ugly approach since the 'totalNotificationsCount' entirely depends on few other atoms.
+  // Here, we used recoil 'selector' replacing the ugly approach since the 'totalNotificationsCount' entirely depends on few other atoms. In the ugly approach we're not memoising the value. At the very least we can do the useMemo but selector is the more optimal/better. 
   const totalNotificationsCount = useRecoilValue(allNotificationsSelector);
   return (
     <>
