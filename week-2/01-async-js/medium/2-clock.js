@@ -8,10 +8,10 @@
 // - HH:MM::SS AM/PM (Eg 01:45:23 PM)
 
 function time() {
-  let currDate = new Date();
-  var timeString = currDate.toLocaleTimeString();
-  console.log(timeString);
-  // console.log(currDate.getHours()+":"+currDate.getMinutes()+":"+currDate.getSeconds());
+  let date = new Date();
+  console.log(
+    date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
+  );
 }
 
 setInterval(() => {
