@@ -75,7 +75,7 @@ mapExample([1, 2, 3]);
 function filterExample(arr) {
   console.log("Original Array:", arr);
 
-  let newArr = arr.filter(function(item) {
+  let newArr = arr.filter((item) => {
     return item > 3;
   });
   console.log("After filter:", newArr);
@@ -97,8 +97,8 @@ findExample([1, 2, 3, 4, 5]);
 function sortExample(arr) {
   console.log("Original Array:", arr);
 
-  arr.sort(function(a, b) {
-    return a - b;
+  arr.sort((a,b)=>{
+    return a > b;
   });
   console.log("After sort:", arr);
 }
