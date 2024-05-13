@@ -17,18 +17,6 @@ function App() {
       <h1>Profile Card Creator</h1>
       <div>
         <h2>Enter your details:</h2>
-        {/* <h3>Name:</h3>
-        <input type='text'></input>
-        <h3>Age:</h3>
-        <h3>Location:</h3>
-        <h3>FollowersCount: </h3>
-        <h3>LikesCount: </h3>
-        <h3>PostsCount:</h3>
-        <h3>Photo:</h3>
-        <button>Create Profile</button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p> */}
       </div>
       <SignupForm />
     </>
