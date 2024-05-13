@@ -1,7 +1,11 @@
 import { useFormik } from "formik";
 import './Form.css';
 import * as Yup from 'yup';
+import { profileAtom } from "../atoms/appState";
+import {useSetRecoilState, useRecoilValue, useRecoilState} from 'recoil';
+
 export const SignupForm = () => {
+    const [profileData, setProfileData] = useRecoilState(profileAtom);
     const formik = useFormik({
       initialValues: {
         email: "",
@@ -37,11 +41,21 @@ export const SignupForm = () => {
           .required('Required')
       }),
       onSubmit: values => {
-        alert(JSON.stringify(values, null, 2));
+        alert(JSON.stringify(values));
+        setProfileData(values);
+        console.log(profileData);    
       }
     });
+
+    const showState = () => {
+        console.log("hi");
+        const state = useRecoilValue(profileAtom);
+        console.log(state);
+    }
+
     return (
-      <form onSubmit={formik.handleSubmit}>
+    <>
+      <form>
         <label htmlFor='name'>Name</label>
         <input
           id='name'
@@ -107,7 +121,9 @@ export const SignupForm = () => {
         />
         {formik.touched.photo && formik.errors.photo ? (<div className="error">{formik.errors.photo}</div>) : null}
         <div></div>
-        <button type='submit'>Create Profile</button>
+        <button type='submit' onClick={formik.handleSubmit}>Create Profile</button>
       </form>
+      <button onClick={() => { showState() }}>Display State</button>
+    </>
     );
   };
