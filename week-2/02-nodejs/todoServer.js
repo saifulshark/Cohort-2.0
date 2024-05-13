@@ -39,11 +39,69 @@
 
   Testing the server - run `npm run test-todoServer` command in terminal
  */
-  const express = require('express');
-  const bodyParser = require('body-parser');
-  
-  const app = express();
-  
-  app.use(bodyParser.json());
-  
-  module.exports = app;
+const express = require("express");
+const bodyParser = require("body-parser");
+
+const app = express();
+
+app.use(bodyParser.json());
+
+const data = [
+    {
+        id : 1,
+        title : "Learn Nodejs",
+        desc : "Node js is the run time environment of js",
+        completed : true
+    },
+    {
+        id : 2,
+        title : "Learn Express",
+        desc : "Express is the backend framework",
+        completed : false
+    },
+]
+app.get("/todos", (req, res) => {
+    res.json({
+        data
+    })
+});
+
+app.post("/todos" , (req, res) =>{
+    let newTodo = {
+        id: Math.floor(Math.random() * 1000000),
+        title : req.body.title,
+        desc : req.body.desc,
+        completed : req.body.completed
+    }
+    data.push(newTodo);
+    res.send("new todo added ")
+})
+
+app.put("/todos/:todoid" , (req, res) =>{
+    const todoIndex = data.findIndex((todo) => todo.id === parseInt(req.params.todoid));
+    if(todoIndex === -1){
+        res.status(404).send("No route found");
+        return;
+    }
+    data[todoIndex].title = req.body.title;
+    data[todoIndex].desc = req.body.desc;
+    data[todoIndex].completed = req.body.completed;
+    res.send("You todo will updated");
+})
+
+app.delete("/todos/:todoid" , (req, res) =>{
+    const todoIndex = data.findIndex((todo) => todo.id === parseInt(req.params.todoid));
+    console.log(todoIndex);
+    if(todoIndex === -1){
+        res.status(404).send("No todo found");
+        return;
+    }
+    data.splice(todoIndex, 1);
+    res.send("Your todo deleted successfully");
+})
+
+
+app.listen(3000, ()=>{
+    console.log("Listing ");
+})
+module.exports = app;
