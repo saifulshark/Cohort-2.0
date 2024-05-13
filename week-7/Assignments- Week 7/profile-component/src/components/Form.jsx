@@ -3,9 +3,19 @@ import './Form.css';
 import * as Yup from 'yup';
 import { profileAtom } from "../atoms/appState";
 import {useSetRecoilState, useRecoilValue, useRecoilState} from 'recoil';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { Profile } from "./Profile";
+import reactLogo from '../assets/react.svg'
 
 export const SignupForm = () => {
     const [profileData, setProfileData] = useRecoilState(profileAtom);
+    const navigate = useNavigate();
+
+    const showProfile = () => {
+        console.log("inside useNavigate");
+        navigate('/profileView');
+    };
+
     const formik = useFormik({
       initialValues: {
         email: "",
@@ -43,7 +53,8 @@ export const SignupForm = () => {
       onSubmit: values => {
         alert(JSON.stringify(values));
         setProfileData(values);
-        console.log(profileData);    
+        console.log(profileData);
+        showProfile();   
       }
     });
 
@@ -51,10 +62,19 @@ export const SignupForm = () => {
         console.log("hi");
         const state = useRecoilValue(profileAtom);
         console.log(state);
-    }
+    };
 
     return (
     <>
+    <div>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+    </div>
+      <h1>Profile Card Creator</h1>
+    <div>
+        <h2>Enter your details:</h2>
+    </div>
       <form>
         <label htmlFor='name'>Name</label>
         <input
@@ -123,7 +143,7 @@ export const SignupForm = () => {
         <div></div>
         <button type='submit' onClick={formik.handleSubmit}>Create Profile</button>
       </form>
-      <button onClick={() => { showState() }}>Display State</button>
+      <button onClick={() => { showState() }}>Display State</button>  
     </>
     );
   };
