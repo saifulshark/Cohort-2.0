@@ -14,7 +14,7 @@
 */
 
 
-// Approach: 
+// Approach:
 // Create an object with commodity name and price
 // Convert that object to array
 function calculateTotalSpentByCategory(transactions) {
