@@ -51,19 +51,11 @@ export const SignupForm = () => {
           .required('Required')
       }),
       onSubmit: values => {
-        alert(JSON.stringify(values));
         setProfileData(values);
         console.log(profileData);
         showProfile();   
       }
     });
-
-    const showState = () => {
-        console.log("hi");
-        const state = useRecoilValue(profileAtom);
-        console.log(state);
-    };
-
     return (
     <>
     <div>
@@ -143,7 +135,6 @@ export const SignupForm = () => {
         <div></div>
         <button type='submit' onClick={formik.handleSubmit}>Create Profile</button>
       </form>
-      <button onClick={() => { showState() }}>Display State</button>  
     </>
     );
   };
