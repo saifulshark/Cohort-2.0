@@ -4,7 +4,7 @@ export function Signup(){
             <div className=" w-1/2 h-screen flex flex-col justify-center content-center flex-wrap">
                 <div className="flex flex-col text-center">
                     <h1 className="text-5xl font-bold">Create an account</h1>
-                    <h3 className="text-xl font-light text-gray-500">Already have an account? <a href=""><u>Login</u></a></h3>
+                    <h3 className="text-xl font-light text-gray-500 mt-4">Already have an account? <a href="/signin"><u>Login</u></a></h3>
                 </div>
                 <br />
                 <br />
