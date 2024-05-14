@@ -1,11 +1,11 @@
 import { useFormik } from "formik";
 import './Form.css';
 import * as Yup from 'yup';
-import { profileAtom } from "../atoms/appState";
+import { profileAtom } from "../../atoms/appState";
 import {useSetRecoilState, useRecoilValue, useRecoilState} from 'recoil';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
-import { Profile } from "./Profile";
-import reactLogo from '../assets/react.svg'
+import { Profile } from "../Profile/Profile";
+import reactLogo from '../../assets/react.svg'
 
 export const SignupForm = () => {
     const [profileData, setProfileData] = useRecoilState(profileAtom);
@@ -23,7 +23,8 @@ export const SignupForm = () => {
         age: "",
         location: "", 
         likesCount: "", 
-        postsCount: "", 
+        postsCount: "",
+        followersCount: "",
         photo: "",
     },
     validationSchema: Yup.object({
@@ -47,6 +48,10 @@ export const SignupForm = () => {
           .required('Required')
           .positive('Must be a positive number')
           .integer('Must be an integer'),
+        followersCount: Yup.number()
+          .required('Required')
+          .positive('Must be a positive number')
+          .integer('Must be an integer'),
         photo: Yup.mixed()
           .required('Required')
       }),
@@ -58,7 +63,7 @@ export const SignupForm = () => {
     });
     return (
     <>
-    <div>
+    <div className="container">
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
@@ -123,11 +128,22 @@ export const SignupForm = () => {
         />
         {formik.touched.postsCount && formik.errors.postsCount ? (<div className="error">{formik.errors.postsCount}</div>) : null}
 
-        <label htmlFor='photo'>Photo</label> {/* New field: Photo */}
+        <label htmlFor='followersCount'>Followers Count</label> {/* New field: PostsCount */}
+        <input
+            id='followersCount'
+            name='followersCount'
+            type='number'
+            onChange={formik.handleChange}
+            value={formik.values.followersCount}
+        />
+        {formik.touched.followersCount && formik.errors.followersCount ? (<div className="error">{formik.errors.followersCount}</div>) : null}
+
+
+        <label htmlFor='photo'>Photo URL</label> {/* New field: Photo */}
         <input
             id='photo'
             name='photo'
-            type='file'
+            type='text'
             onChange={formik.handleChange}
             value={formik.values.photo}
         />

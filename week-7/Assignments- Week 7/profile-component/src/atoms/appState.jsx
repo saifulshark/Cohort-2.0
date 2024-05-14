@@ -9,6 +9,7 @@ export const profileAtom = atom({
         location: "", 
         likesCount: "", 
         postsCount: "", 
+        followersCount: "",
         photo: "",
     }
 })
