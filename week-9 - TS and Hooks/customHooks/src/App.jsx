@@ -1,43 +1,18 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import useSWR from 'swr';
 
-const useTodos = (n) => {
-  const [todos, setTodos] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const todoLoader = () => {
-    axios.get("https://sum-server.100xdevs.com/todos")
-      .then(res => {
-        setTodos(res.data.todos);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error("error fetching todos.");
-        setLoading(false);
-      });
-  }
-
-  useEffect(() => {
-    todoLoader();
-
-    const intervalId = setInterval(() => {
-      todoLoader();
-    }, n * 1000);
-
-    return () => clearInterval(intervalId);
-  },[n]);
-
-  return {
-    todos: todos,
-    loading: loading,
-  };
+const fetcher = async (url) => {
+  const data = await fetch(url);
+  const json = await data.json(data);
+  return json;
 }
 
 function App() {
-  const {todos, loading} = useTodos(7);
+  const {data, error, isLoading} = useSWR('https://sum-server.100xdevs.com/todos',fetcher);
   return (
     <>
-      {loading ? <div> Loading...</div> : todos.map(todo => <Track todo={todo} />)}
+      {isLoading ? <div> Loading...</div> : data.todos.map(todo => <Track todo={todo} />)}
     </>
   )
 }
