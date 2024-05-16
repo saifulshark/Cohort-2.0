@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-function App() {
+const useTodos = () => {
   const [todos, setTodos] = useState([])
 
   useEffect(() => {
@@ -11,6 +11,11 @@ function App() {
       })
   }, [])
 
+  return todos;
+}
+
+function App() {
+  const todos = useTodos();
   return (
     <>
       {todos.map(todo => <Track todo={todo} />)}
