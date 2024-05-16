@@ -129,7 +129,7 @@ app.delete('/todos/:id', (req, res) => {
 /**
  * For any other route not defined in the server return 404
  */
-app.use((req, res) => {
+app.all("**", (req, res) => {
   return res.status(404).send();
 });
 
