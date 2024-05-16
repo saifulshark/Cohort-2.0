@@ -1,41 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 function App() {
-  const [render, setRender] = useState(true);
+  const [todos, setTodos] = useState([])
 
   useEffect(() => {
-    // Toggle the state every 5 seconds
-    const intervalId = setInterval(() => {
-      setRender(r => !r);
-    }, 5000);
-
-    // Cleanup function: Clear the interval when the component is unmounted
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
+    axios.get("https://sum-server.100xdevs.com/todos")
+      .then(res => {
+        setTodos(res.data.todos);
+      })
+  }, [])
 
   return (
     <>
-      {render ? <MyComponent /> : <div></div>}
+      {todos.map(todo => <Track todo={todo} />)}
     </>
-  );
+  )
 }
 
-function MyComponent() {
-  useEffect(() => {
-    console.error("Component mounted");
-
-    // Cleanup function: Log when the component is unmounted
-    return () => {
-      console.log("Component unmounted");
-    };
-  }, []);
-
+function Track({ todo }) {
   return <div>
-    From inside MyComponent
-  </div>;
+    {todo.title}
+    <br />
+    {todo.description}
+  </div>
 }
 
-export default App;
+export default App
