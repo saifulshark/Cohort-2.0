@@ -6,7 +6,7 @@ const GreetMe = (input: string) => {
 const user = "Hashir";
 GreetMe(user);
 
-const CalculateSum = (inputOne: number, inputTwo: number) => {
+const CalculateSum = (inputOne: number, inputTwo: number) => number {
     const sum: number = inputOne + inputTwo;
     console.log("The sume is "+sum);
 }
