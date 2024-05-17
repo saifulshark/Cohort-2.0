@@ -1,2 +1,2 @@
-const x: number = 101;
+const x: number = "nhferbghfre";
 console.log(x);
