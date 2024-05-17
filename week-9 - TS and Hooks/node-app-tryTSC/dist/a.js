@@ -21,8 +21,6 @@ const isLegal = (age) => {
 };
 console.log(isLegal(20));
 console.log(isLegal(8));
-//The TS compiler can oversee the type of the returned varible.
-//TypeInference
 let result = isLegal(35);
 const DelayExcecution = (callback, delay) => {
     setTimeout(callback, delay);
