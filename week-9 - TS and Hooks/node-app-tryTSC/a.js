@@ -10,3 +10,13 @@ const CalculateSum = (inputOne, inputTwo) => {
     console.log("The sume is " + sum);
 };
 CalculateSum(2, 8);
+const isLegal = (age) => {
+    if (age > 18) {
+        return true;
+    }
+    else {
+        return false;
+    }
+};
+console.log(isLegal(20));
+console.log(isLegal(8));
