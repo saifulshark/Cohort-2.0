@@ -24,8 +24,11 @@ app.get('/errorCount', function(req, res) {
 });
 
 app.use(function(err,req,res,next){
-  res.status(404).send({})
+  res.status(404).send({msg:"Error occured"})
   errorCount++;
+})
+app.listen(3000,()=>{
+  console.log("server started")
 })
 
 module.exports = app;
