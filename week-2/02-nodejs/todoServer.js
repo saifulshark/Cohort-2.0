@@ -41,9 +41,76 @@
  */
   const express = require('express');
   const bodyParser = require('body-parser');
+  const fs = require('fs');
   
   const app = express();
   
   app.use(bodyParser.json());
   
+  let todos = [];
+
+  const todoFilepath = 'todos.json';
+  if(fs.existsSync(todoFilepath)) {
+    todos = JSON.parse(fs.readFileSync(todoFilepath, 'utf-8'));
+  }
+
+  app.use((req,res,next)=>{
+    fs.writeFileSync(todoFilepath, JSON.stringify(todos,null,2));
+    next();
+  })
+
+  const findTodoById = (id) =>{
+    return todos.find(todo => todo.id === id);
+  }
+
+  app.get('/todos', (req,res)=>{
+    res.status(200).json(todos);
+  })
+
+  app.get('/todos/:id', (req,res)=>{
+    const id = parseInt(req.params.id);
+    const todo = findTodoById(id);
+    if(todo){
+      res.status(200).json(todo);
+    }
+    else{
+      res.status(404).send('Todos not found');
+    }
+  })
+
+  app.post('/todos', (req,res)=>{
+    const todo = req.body;
+    todo.id = todos.length+1;
+    todos.push(todo);
+
+    res.status(201).json(todo);
+  })
+
+  app.put('/todos/:id', (req,res)=>{
+    const id = parseInt(req.params.id);
+    const todoIndex = todos.findIndex(todo => todo.id === id);
+    if(todoIndex !== -1){
+      todos[todoIndex] = {...todos[todoIndex], ...req.body};
+      res.status(200).send('Todos updated successfully');
+    }
+    else{
+      res.status(404).send('Todo not found');
+    }
+  })
+
+  app.delete('/todos/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const todoIndex = todos.findIndex(todo => todo.id === id);
+    if (todoIndex !== -1) {
+        todos.splice(todoIndex, 1);
+        res.status(200).send('Todo deleted successfully');
+    } else {
+        res.status(404).send('Todo not found');
+    }
+});
+
+app.use((req, res) => {
+  res.status(404).send('Not Found');
+});
+
   module.exports = app;
