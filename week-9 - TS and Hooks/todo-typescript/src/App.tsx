@@ -1,20 +1,22 @@
+import React from "react";
+
 interface todoInterface{
   title: string;
   description: string;
   completed: boolean;
 };
 
-const Todos = (todo: todoInterface) => {
+const Todos = ({todo}) => {
   return(
     <>
       <div>{todo.title}</div>
       <div>{todo.description}</div>
-      <div>{todo.completed}</div>
+      <div>{todo.completed ? "Completed" : "Pending"}</div>
     </>
   )
 };
 
-function App() {
+const App = () => {
   const todos: todoInterface[] = [
     {
     title: "Task 1",
@@ -34,15 +36,15 @@ function App() {
     {
       title: "Task 4",
       description: "Task 4 description",
-      completed: true
+      completed: false  
       },
   ];
   
   return (
     <>
-      {todos.map(todo => Todos(todo))}
+      { todos.map((eachtodo, index) => (<Todos key={index} todo ={eachtodo}/>)) }
     </>
-  )
-}
+  );
+};
 
 export default App
