@@ -46,3 +46,12 @@ const personOne = {
     id: "2342ewdf"
 };
 printUser(personOne);
+;
+const userXO = {
+    name: "Hashir",
+    age: 23,
+    id: "0x432",
+    purchasedCourse: "Web 3 Bootcamp",
+    purchasedDate: new Date()
+};
+console.log(userXO);

@@ -75,3 +75,36 @@ const personOne  = {
 };
 
 printUser(personOne);
+
+type memberInfo = {
+    name: string,
+    age: number,
+    id: string
+};
+
+interface proMemberInfo{
+    name: string;
+    age: number;
+    id: string,
+    purchasedCourse: string;
+    purchasedDate: Date;
+};
+
+type proMemberOne = memberInfo & proMemberInfo;
+
+const userXO: proMemberOne = {
+    name:"Hashir",
+    age:23,
+    id:"0x432",
+    purchasedCourse:"Web 3 Bootcamp",
+    purchasedDate: new Date()
+}
+
+// Below is a demo of faulty usage of intersections.
+// const userXO2: proMemberOne = {
+//     name:"Hashir",
+//     age:23,
+//     id:"0x432",
+// }
+
+console.log(userXO);
