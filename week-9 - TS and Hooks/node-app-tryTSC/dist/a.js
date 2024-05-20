@@ -26,3 +26,14 @@ const DelayExcecution = (callback, delay) => {
     setTimeout(callback, delay);
 };
 DelayExcecution(() => CalculateSum(4, 8), 3000);
+class Employee {
+    constructor(inputOne, inputTwo) {
+        this.name = inputOne;
+        this.age = inputTwo;
+    }
+    greet(phrase) {
+        console.log("hello " + phrase + " " + this.name);
+    }
+}
+const emp1 = new Employee("Hashir", 20);
+emp1.greet("Employeee");

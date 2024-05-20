@@ -34,3 +34,26 @@ const DelayExcecution = (callback: () => {}, delay: number) => {
 }
 
 DelayExcecution(() => CalculateSum(4,8), 3000);
+
+interface Person{
+    name: string,
+    age: number,
+    greet(phrase: string): void
+}
+
+class Employee implements Person {
+    name: string;
+    age: number;
+
+    constructor(inputOne: string, inputTwo:number){
+        this.name = inputOne;
+        this.age = inputTwo;
+    }
+
+    greet(phrase: string): void {
+        console.log("hello "+phrase+" "+ this.name);
+    }
+}
+
+const emp1 = new Employee("Hashir",20);
+emp1.greet("Employeee");
