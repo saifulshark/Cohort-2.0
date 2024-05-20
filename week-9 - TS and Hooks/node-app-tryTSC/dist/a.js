@@ -37,3 +37,12 @@ class Employee {
 }
 const emp1 = new Employee("Hashir", 20);
 emp1.greet("Employeee");
+function printUser(input) {
+    console.log(input);
+}
+const personOne = {
+    name: "Hashir",
+    age: 28,
+    id: "2342ewdf"
+};
+printUser(personOne);

@@ -61,7 +61,7 @@ emp1.greet("Employeee");
 type User = {
     name: string,
     age: number,
-    id: number
+    id: number | string
 }
 
 function printUser(input: User){
