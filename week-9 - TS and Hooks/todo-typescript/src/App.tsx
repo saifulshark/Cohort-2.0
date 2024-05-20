@@ -1,12 +1,16 @@
 import React from "react";
 
 interface todoInterface{
-  title: string;
-  description: string;
-  completed: boolean;
+  title: string,
+  description: string,
+  completed: boolean,
 };
 
-const Todos = ({todo}) => {
+interface todoInput{
+  todo: todoInterface;
+}
+
+const Todos = ({todo}: todoInput) => {
   return(
     <>
       <div>{todo.title}</div>
