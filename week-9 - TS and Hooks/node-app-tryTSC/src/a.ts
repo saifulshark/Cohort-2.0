@@ -91,6 +91,7 @@ interface proMemberInfo{
 };
 
 type proMemberOne = memberInfo & proMemberInfo;
+type potentialMember = memberInfo | proMemberInfo;
 
 const userXO: proMemberOne = {
     name:"Hashir",
@@ -100,11 +101,12 @@ const userXO: proMemberOne = {
     purchasedDate: new Date()
 }
 
-// Below is a demo of faulty usage of intersections.
-// const userXO2: proMemberOne = {
-//     name:"Hashir",
-//     age:23,
-//     id:"0x432",
-// }
+//how I fixed the faulty method.
+const userXO2: potentialMember = {
+    name:"AKB",
+    age:38,
+    id:"0xehfb443",
+}
 
 console.log(userXO);
+console.log(userXO2);

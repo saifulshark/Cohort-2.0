@@ -54,4 +54,10 @@ const userXO = {
     purchasedCourse: "Web 3 Bootcamp",
     purchasedDate: new Date()
 };
+const userXO2 = {
+    name: "AKB",
+    age: 38,
+    id: "0xehfb443",
+};
 console.log(userXO);
+console.log(userXO2);
