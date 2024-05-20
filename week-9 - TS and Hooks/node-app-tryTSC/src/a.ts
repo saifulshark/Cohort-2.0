@@ -57,3 +57,21 @@ class Employee implements Person {
 
 const emp1 = new Employee("Hashir",20);
 emp1.greet("Employeee");
+
+type User = {
+    name: string,
+    age: number,
+    id: number
+}
+
+function printUser(input: User){
+    console.log(input)
+}
+
+const personOne  = {
+    name: "Hashir",
+    age: 28,
+    id: "2342ewdf"
+};
+
+printUser(personOne);
