@@ -142,9 +142,8 @@ try {
   console.log(error.message); // Output: Invalid expression: 5 + abc
 }
 
-// Test divide by zero
 try {
   calculator.divide(0);
 } catch (error) {
-  console.log(error.message); // Output: Cannot divide by zero
+  console.log(error.message);
 }
