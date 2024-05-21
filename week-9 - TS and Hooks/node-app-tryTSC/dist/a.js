@@ -70,15 +70,16 @@ doSomething0("left");
 doSomething0("right");
 var Directions;
 (function (Directions) {
-    Directions[Directions["up"] = 0] = "up";
-    Directions[Directions["down"] = 1] = "down";
-    Directions[Directions["left"] = 2] = "left";
-    Directions[Directions["right"] = 3] = "right";
+    Directions["up"] = "up";
+    Directions["down"] = "down";
+    Directions["left"] = "left";
+    Directions["right"] = "right";
 })(Directions || (Directions = {}));
 function doSomething(direction) {
     direction == Directions.down ? console.log("Went Down") : console.log("Went other way");
 }
 doSomething(Directions.down);
+console.log(Directions.down);
 doSomething(Directions.left);
 doSomething(Directions.up);
 doSomething(Directions.right);

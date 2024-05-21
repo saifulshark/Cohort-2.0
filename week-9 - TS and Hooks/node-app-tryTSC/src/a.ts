@@ -125,10 +125,10 @@ doSomething0("right");
 
 //Correct approach
 enum Directions{
-    up,
-    down,
-    left,
-    right
+    up = "up",
+    down = "down",
+    left = "left",
+    right = "right"
 }
 
 function doSomething(direction: Directions) {
@@ -136,6 +136,7 @@ function doSomething(direction: Directions) {
 }
 
 doSomething(Directions.down);
+console.log(Directions.down);
 doSomething(Directions.left);
 doSomething(Directions.up);
 doSomething(Directions.right);
