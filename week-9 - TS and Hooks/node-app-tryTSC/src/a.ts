@@ -110,3 +110,15 @@ const userXO2: potentialMember = {
 
 console.log(userXO);
 console.log(userXO2);
+
+type Directions = "up"| "down" | "left" | "right";
+
+function doSomething(direction: Directions) {
+    console.log("Went "+direction);
+}
+
+doSomething("up");
+doSomething("down");
+doSomething("left");
+doSomething("right");
+doSomething("round"); //'round' won't work because we're using enum here using TS type.
