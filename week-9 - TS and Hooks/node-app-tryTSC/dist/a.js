@@ -61,3 +61,24 @@ const userXO2 = {
 };
 console.log(userXO);
 console.log(userXO2);
+function doSomething0(direction) {
+    console.log("Went " + direction);
+}
+doSomething0("up");
+doSomething0("down");
+doSomething0("left");
+doSomething0("right");
+var Directions;
+(function (Directions) {
+    Directions[Directions["up"] = 0] = "up";
+    Directions[Directions["down"] = 1] = "down";
+    Directions[Directions["left"] = 2] = "left";
+    Directions[Directions["right"] = 3] = "right";
+})(Directions || (Directions = {}));
+function doSomething(direction) {
+    direction == Directions.down ? console.log("Went Down") : console.log("Went other way");
+}
+doSomething(Directions.down);
+doSomething(Directions.left);
+doSomething(Directions.up);
+doSomething(Directions.right);

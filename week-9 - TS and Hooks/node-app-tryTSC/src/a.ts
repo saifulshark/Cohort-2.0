@@ -110,15 +110,32 @@ const userXO2: potentialMember = {
 
 console.log(userXO);
 console.log(userXO2);
+ 
+type Directions0 = "up"| "down" | "left" | "right"; //ugly way
 
-type Directions = "up"| "down" | "left" | "right";
-
-function doSomething(direction: Directions) {
+function doSomething0(direction: Directions0) {
     console.log("Went "+direction);
 }
 
-doSomething("up");
-doSomething("down");
-doSomething("left");
-doSomething("right");
-doSomething("round"); //'round' won't work because we're using enum here using TS type.
+doSomething0("up");
+doSomething0("down");
+doSomething0("left");
+doSomething0("right");
+// doSomething0("round"); //'round' won't work because we're using enum here using TS type.
+
+//Correct approach
+enum Directions{
+    up,
+    down,
+    left,
+    right
+}
+
+function doSomething(direction: Directions) {
+    direction == Directions.down ? console.log("Went Down") : console.log("Went other way");
+}
+
+doSomething(Directions.down);
+doSomething(Directions.left);
+doSomething(Directions.up);
+doSomething(Directions.right);
