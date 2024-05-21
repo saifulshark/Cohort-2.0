@@ -71,10 +71,18 @@ for (let i = array.length - 1; i >= 0; i--) {
 
 //Functions
 
-function sumOfNumbers(a, b)  
+//Callback is a function which call back the another funciton
+
+function sumOfNumbers(a, b, fnToCall)  
 {
-  return a + b;
+  const result = a +b ;
+  fnToCall(result);
 }
 
-const value = sumOfNumbers(1,1);
-console.log(value);
+function displayName(data)
+{
+  console.log("Result of the sum is : " + data);
+}
+
+const ans = sumOfNumbers(1,1,displayName);
+
