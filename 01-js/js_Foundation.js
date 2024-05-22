@@ -86,3 +86,32 @@ function displayName(data)
 
 const ans = sumOfNumbers(1,1,displayName);
 
+
+
+//Create a counter in javascript (counts down from 30 to 0)
+let count = 30;
+
+const intervalId = setInterval(() => {
+  console.log(count);
+  count--;
+
+  if(count < 0)
+    {
+      clearInterval(intervalId);
+    }
+}, 1000);
+
+//Calculate the time it takes between a settimeout call and the inner function actually running in the javascript
+const startTime = performance.now();
+setTimeout(() => {
+  
+  const endTime = performance.now();
+  const elapsedTime = startTime - endTime;
+  console.log("Expected Delay : 1000ms");
+  console.log("Actual Delay : " + elapsedTime + " ms");
+}, 1000);
+
+
+//Create a Terminal Clock in HH:MM:SS
+const Dates = new Date();
+console.log(Dates.getHours() + ":" + Dates.getMinutes() + ":" + Dates.getSeconds());
