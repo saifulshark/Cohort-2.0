@@ -13,15 +13,28 @@ async function getUsers() {
 }
 
 async function getUserFromEmail(email: string) {
-    const client = await getClient();
-    
-    const selectUserText = 'SELECT * FROM users WHERE email = $1';
-    const userRes = await client.query(selectUserText, [email]);
-    
-    console.log("Single User detail:");
-    for (let user of userRes.rows) {
-        console.log(`ID: ${user.id}, Email: ${user.email}`);
+    let client;
+    try{
+        client = await getClient();
+        const selectUserText = 'SELECT * FROM users WHERE email = $1';
+        const userRes = await client.query(selectUserText, [email]);
+        
+        if (userRes.rows.length > 0) {
+            console.log('User found:', userRes.rows[0]); // Output user data
+            return userRes.rows[0]; // Return the user data
+          } else {
+            console.log('No user found with the given email.');
+            return null; // Return null if no user was found
+          }
+    } catch (error){
+        console.error('Error during fetching user:', error);
+        throw error; // Rethrow or handle error appropriately
     }
+    finally{
+        if(client){
+            await client.end(); // Close the client connection
+        }
+    }  
 }
 
 async function getTodosForUser(userId: number) {
