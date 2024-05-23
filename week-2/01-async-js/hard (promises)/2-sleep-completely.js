@@ -3,8 +3,15 @@
  * During this time the thread should not be able to do anything else.
  * the function should return a promise just like before
  */
-
-function sleep(milliseconds) {
+function promisifiedSleep(milliseconds){
+    return new Promise((resolve)=>{
+        setTimeout(()=>{
+            resolve();
+        },milliseconds)
+    })
+}
+async function sleep(milliseconds) {
+    await promisifiedSleep(milliseconds);
 }
 
 module.exports = sleep;
