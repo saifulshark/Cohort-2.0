@@ -7,7 +7,7 @@
 
 function findLargestElement(numbers) {
   if (numbers.length === 0) {
-    throw new Error("Array is Empty");
+   return undefined;
   }
 
   let largest = numbers[0];
