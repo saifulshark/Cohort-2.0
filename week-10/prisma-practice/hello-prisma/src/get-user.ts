@@ -25,14 +25,17 @@ async function main(){
 
     //Fetching posted users from a given set of ids.
     const postedUsersFiltered = await prisma.user.findMany({
+        include:{
+            posts:true
+        },
         where:{
             id:{
-                in:[1,4]
+                in:[1,3]
+            },
+            posts:{
+                some:{},
             }
         },
-        include:{
-            posts:true,
-        }
     });
     console.log("The Users who has posts: ", JSON.stringify(postedUsersFiltered));
 }
