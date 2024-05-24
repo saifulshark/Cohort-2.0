@@ -1,20 +1,23 @@
-import { client } from '../..';
+import { getClient } from '../..';
 import { createUser, getUser } from '../user';
 import { createTables, dropTables } from '../setup';
 import { createTodo, updateTodo, getTodos } from '../todo';
 
 beforeAll(async () => {
-    await client.connect();
+    const client = await getClient();
     await dropTables();
     await createTables();
 });
 
 afterAll(async () => {
+    const client = await getClient();
     await client.end();
 });
 
 describe('User Database Operations', () => {
     test('createUser inserts a new user into the database', async () => {
+        const client = await getClient();
+
         const username = 'testuser';
         const password = 'testpass';
         const name = 'Test User';
@@ -42,6 +45,7 @@ describe('Todo Operations', () => {
     let userId: number;
   
     beforeAll(async () => {
+      const client = await getClient();
       // Assuming you have a function to get a user by username for test setup
       const res = await client.query('SELECT id FROM users WHERE username = $1', ['testuser']);
       userId = res.rows[0].id;
