@@ -67,7 +67,6 @@ describe('Todo Operations', () => {
       // Assuming createTodo adds to the todos for the user
       await createTodo(userId, 'Another Todo', 'Another description');
       const todos = await getTodos(userId);
-
       expect(todos.length).toBeGreaterThan(0);
       todos.forEach(todo => {
         expect(todo).toHaveProperty('userId', userId);
