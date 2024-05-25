@@ -5,6 +5,14 @@
  */
 
 function sleep(milliseconds) {
+  for (let i = 0; i < 10000000; i++) {
+    // Busy Wait [big NUmber]
+  }
+  return new Promise((resolve, reject) => {
+    setTimeout(function () {
+      resolve();
+    }, milliseconds);
+  });
 }
 
 module.exports = sleep;
