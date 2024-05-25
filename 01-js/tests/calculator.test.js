@@ -64,6 +64,7 @@ describe('Calculator', () => {
 
 	test('calculate subtraction in expression', () => {
 		calc.calculate('10 - (4 + 2)');
+		console.log("-------resulttt>",calc.getResult());
 		expect(calc.getResult()).toBe(4);
 	});
 
