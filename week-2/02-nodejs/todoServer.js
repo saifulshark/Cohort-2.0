@@ -39,11 +39,78 @@
 
   Testing the server - run `npm run test-todoServer` command in terminal
  */
+
+  let todo = [];
   const express = require('express');
   const bodyParser = require('body-parser');
   
   const app = express();
   
   app.use(bodyParser.json());
+
+  app.get("/todos",(req,res)=>{
+    res.status(200).json(todo);
+  })
+
+  app.get("/todos/:id",(req,res)=>{
+    const id = req.params.id;
+    const reqTodoId = todo.findIndex((curTodo)=>{return curTodo.id === parseInt(id)});
+    if(reqTodoId != -1){
+      res.status(200).json(todo[reqTodoId]);
+    }else{
+      res.status(404).json({
+        msg: "todo not found"
+      })
+    }
+  })
+  function generateId(){
+    return Math.floor(Math.random()*1000000);
+  }
+
+  app.post("/todos",(req,res)=>{
+    const newId = generateId();
+    const newTodo ={
+      id: newId,
+      title: req.body.title,
+      completed: req.body.completed,
+      description: req.body.description
+    }
+    todo.push(newTodo);
+    res.status(201).json(newTodo);
+  })
   
+  app.put("/todos/:id",(req,res)=>{
+    const updateId = req.params.id;
+    for(let i=0;i<todo.length;i++){
+      if(todo[i].id == updateId){
+        todo[i].title = req.body.title;
+        todo[i].description = req.body.description;
+        todo[i].completed = req.body.completed;
+        res.status(200).json(todo[i])
+      }
+    }
+    res.status(404).json({
+      msg: "not found"
+    })
+  })
+
+  app.delete("/todos/:id",(req,res)=>{
+    const deleteId = req.params.id;
+    const updatedTodo = todo.filter((curtodo)=>{return deleteId!=curtodo.id})
+    if(todo.length == updatedTodo.length){
+      res.status(404).json({msg:"not found"})
+    }else{
+      todo = updatedTodo;
+      res.status(200).json({msg: "done deleted"})
+    }
+  })
+
+  app.use("/",(req,res)=>{
+    res.status(404).json("route not found")
+  })
+
+
+  // app.listen(3000,()=>{
+  //   console.log("listening on port 3000");
+  // })
   module.exports = app;
