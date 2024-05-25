@@ -17,5 +17,40 @@ const fs = require('fs');
 const path = require('path');
 const app = express();
 
+app.use(express.json());
+
+app.get("/files",(req,res)=>{
+  fs.readdir("files",(err,filename)=>{
+    if(err){
+      res.status(500).send("");
+    }
+    else{
+      res.status(200).json({
+        filename
+      });
+    }
+  });
+  // console.log(fileName);
+})
+
+app.get("/file/:filename",(req,res)=>{
+  const filename = req.params.filename;
+  // console.log(filename);
+  const fileName = fs.readdirSync("files");
+  if(fileName.find((name)=> {return name == filename})){
+    const data = fs.readFileSync(`files/${filename}`,"utf-8");
+    res.status(200).send(data);
+  }
+  else{
+    res.status(404).send("File not found");
+  }
+})
+app.use((req,res)=>{
+  res.status(404).send("Route not found")
+})
+// app.listen(3000,()=>{
+//  "Route not found" console.log("listening on port 3000");
+// });
+
 
 module.exports = app;
