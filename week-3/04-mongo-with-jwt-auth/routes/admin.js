@@ -17,14 +17,24 @@ router.post('/signup', (req, res) => {
     res.send("new admin created")
 });
 
-router.post('/signin', (req, res) => {
+router.post('/signin', async(req, res) => {
     // Implement admin signup logic
     const username=req.body.username;
     const password=req.body.password;
-    const token=jwt.sign({username:username},jwtPassword);
-    res.json({
-        token:token
+    const data =await Admin.findOne({
+        username:username,
+        password:password
     })
+    if(data){
+        const token=jwt.sign({username:username},jwtPassword);
+        res.json({
+            token:token
+    
+        })
+    }else{
+        res.status(403).send("invalid credentials")
+    }
+
 
 });
 
