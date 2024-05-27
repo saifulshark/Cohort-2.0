@@ -22,7 +22,7 @@ router.post('/signin',async function (req, res){
     const password = req.body.password
     if(await Admin.findOne({
         username: username,
-        passowrd: password
+        password: password
     }))
     {
         const token = jwt.sign({
@@ -36,12 +36,21 @@ router.post('/signin',async function (req, res){
     }
 });
 
-router.post('/courses', adminMiddleware, (req, res) => {
+router.post('/courses', adminMiddleware, async function (req, res) {
     // Implement course creation logic
+    const newCourse = await Course.create({
+        title: req.body.title,
+        description: req.body.description,
+        price: req.body.price,
+        imageLink: req.body.imageLink
+    })
+    res.json({msg:"Course created successfully",courseId: newCourse._id})
 });
 
-router.get('/courses', adminMiddleware, (req, res) => {
+router.get('/courses', adminMiddleware, async(req, res) => {
     // Implement fetching all courses logic
+    const allCourses = await Course.find({});  
+    res.json({courses:allCourses});      // agr directly ({allCourses}) send kareege to error aayegi coaz we are directly sending mongodb object , so {courses: all courses} - converts it into json and removes error
 });
 
 module.exports = router;
