@@ -13,6 +13,15 @@
 function findLargestElement(numbers) {
     numbers.sort((a, b) => b - a);
     return numbers[0];
+
+    // if (numbers.length > 0) {
+    //   let max = Number(numbers[0]);
+    //   for (let i = 1; i < numbers.length; i++) {
+    //     if (Number(numbers[i]) >= max) max = numbers[i];
+    //   }
+    //   return max;
+    // }
+    // return undefined;
 }
 
 module.exports = findLargestElement;

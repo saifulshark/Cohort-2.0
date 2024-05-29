@@ -39,11 +39,132 @@
 
   Testing the server - run `npm run test-todoServer` command in terminal
  */
-  const express = require('express');
-  const bodyParser = require('body-parser');
-  
-  const app = express();
-  
-  app.use(bodyParser.json());
-  
-  module.exports = app;
+const express = require("express");
+const bodyParser = require("body-parser");
+const fs = require("fs");
+const uuid = require("uuid");
+const path = require("path");
+
+const app = express();
+let filePath = path.join(__dirname, "todos.json");
+let todos = [];
+
+function saveToFile(todos) {
+  return new Promise((resolve, reject) => {
+    fs.writeFile(filePath, JSON.stringify(todos), function (error) {
+      if (!error) {
+        resolve(true);
+      } else {
+        reject(false);
+      }
+    });
+  });
+}
+
+function readFromFile() {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, "utf-8", function (error, data) {
+      if (!error) {
+        resolve(data);
+      } else {
+        reject(false);
+      }
+    });
+  });
+}
+
+app.use(bodyParser.json());
+
+app.get("/todos", function (request, response) {
+  let result = readFromFile();
+  result
+    .then((data) => {
+      todos = JSON.parse(data);
+      response.status(200).json(todos);
+    })
+    .catch(() => response.status(500).send());
+});
+
+app.get("/todos/:id", function (request, response) {
+  const id = request.params.id;
+  readFromFile()
+    .then((data) => {
+      todos = JSON.parse(data);
+      let todoIdx = todos.findIndex((todo) => todo.id === id);
+      if (todoIdx !== -1) {
+        let todo = todos[todoIdx];
+        response.status(200).json(todo);
+      } else {
+        response.status(404).send();
+      }
+    })
+    .catch(() => response.status(500).send("Error Fetching Data"));
+});
+
+// POST /todos - Create a new todo item
+app.post("/todos", function (request, response) {
+  let todo = request.body;
+  todo.id = uuid.v4();
+  readFromFile()
+    .then((data) => {
+      todos = JSON.parse(data);
+      todos.push(todo);
+      saveToFile(todos)
+        .then(() => response.status(201).json(todo))
+        .catch(() => response.status(500).send("Error Writing File"));
+    })
+    .catch(() => response.status(500).send("Error Fetching Data"));
+});
+
+// PUT /todos/:id - Update an existing todo item by ID
+app.put("/todos/:id", function (request, response) {
+  const id = request.params.id;
+  const { title, completed } = request.body;
+  readFromFile()
+    .then((data) => {
+      todos = JSON.parse(data);
+      const todoIndex = todos.findIndex((todo) => todo.id === id);
+      if (todoIndex !== -1) {
+        if (title !== undefined) todos[todoIndex].title = title;
+        if (completed !== undefined) todos[todoIndex].completed = completed;
+
+        saveToFile(todos)
+          .then(() => response.status(200).send())
+          .catch(() => response.status(500).send("Error Writing File"));
+      } else {
+        response.status(404).send();
+      }
+    })
+    .catch(() => {
+      response.status(500).send("Error Fetching Data");
+    });
+});
+
+app.delete("/todos/:id", function (request, response) {
+  const id = request.params.id;
+  readFromFile()
+    .then((data) => {
+      todos = JSON.parse(data);
+      const todoIndex = todos.findIndex((todo) => todo.id === id);
+      if (todoIndex !== -1) {
+        todos.splice(todoIndex, 1);
+        saveToFile(todos)
+          .then(() => response.status(200).send())
+          .catch(() => response.status(500).send("Error Writing File"));
+      } else {
+        response.status(404).send();
+      }
+    })
+    .catch(() => {
+      response.status(500).send("Error Fetching Data");
+    });
+});
+
+app.use((req, res) => {
+  res.status(404).send();
+});
+
+// For test cases, Keep it off.
+// app.listen(3000);
+
+module.exports = app;
