@@ -1,3 +1,4 @@
+
 /**
   You need to create an express HTTP server in Node.js which will handle the logic of a file server.
   - Use built in Node.js `fs` module
@@ -12,10 +13,46 @@
     - For any other route not defined in the server return 404
     Testing the server - run `npm run test-fileServer` command in terminal
  */
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
-const app = express();
-
-
-module.exports = app;
+    const express = require('express');
+    const fs = require('fs');
+    const path = require('path');
+    const app = express();
+    
+    app.use(express.json());
+    
+    app.get("/files",(req,res)=>{
+      fs.readdir("files",(err,filename)=>{
+        if(err){
+          res.status(500).send("");
+        }
+        else{
+          res.status(200).json({
+            filename
+          });
+        }
+      });
+      // console.log(fileName);
+    })
+    
+    app.get("/file/:filename",(req,res)=>{
+      const filename = req.params.filename;
+      // console.log(filename);
+      const fileName = fs.readdirSync("files");
+      if(fileName.find((name)=> {return name == filename})){
+        const data = fs.readFileSync(`files/${filename}`,"utf-8");
+        res.status(200).send(data);
+      }
+      else{
+        res.status(404).send("File not found");
+      }
+    })
+    app.use((req,res)=>{
+      res.status(404).send("Route not found")
+    })
+    // app.listen(3000,()=>{
+    //  "Route not found" console.log("listening on port 3000");
+    // });
+    
+    
+    module.exports = app;
+    

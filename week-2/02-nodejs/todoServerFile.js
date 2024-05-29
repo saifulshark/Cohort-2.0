@@ -40,18 +40,29 @@
   Testing the server - run `npm run test-todoServer` command in terminal
  */
 
-  let todo = [];
+  
   const express = require('express');
   const bodyParser = require('body-parser');
+  const fs = require("fs");
   
   const app = express();
   
   app.use(bodyParser.json());
 
+  let todo = JSON.parse(fs.readFileSync("todo.json","utf-8"));
+//   console.log(todo);
   app.get("/todos",(req,res)=>{
     res.status(200).json(todo);
   })
 
+  function storetodo(todo){
+    return new Promise((resolve)=>{
+        fs.writeFile("todo.txt",JSON.stringify(todo),(err)=>{
+            console.log("done");
+            resolve();
+        })
+    })
+  }
   app.get("/todos/:id",(req,res)=>{
     const id = req.params.id;
     const reqTodoId = todo.findIndex((curTodo)=>{return curTodo.id === parseInt(id)});
@@ -67,7 +78,7 @@
     return Math.floor(Math.random()*1000000);
   }
 
-  app.post("/todos",(req,res)=>{
+  app.post("/todos",async (req,res)=>{
     const newId = generateId();
     const newTodo ={
       id: newId,
@@ -76,16 +87,18 @@
       description: req.body.description
     }
     todo.push(newTodo);
+    await storetodo(todo);
     res.status(201).json(newTodo);
   })
   
-  app.put("/todos/:id",(req,res)=>{
+  app.put("/todos/:id",async (req,res)=>{
     const updateId = req.params.id;
     for(let i=0;i<todo.length;i++){
       if(todo[i].id == updateId){
         todo[i].title = req.body.title;
         todo[i].description = req.body.description;
         todo[i].completed = req.body.completed;
+        await storetodo(todo);
         res.status(200).json(todo[i])
       }
     }
@@ -94,13 +107,14 @@
     })
   })
 
-  app.delete("/todos/:id",(req,res)=>{
+  app.delete("/todos/:id",async(req,res)=>{
     const deleteId = req.params.id;
     const updatedTodo = todo.filter((curtodo)=>{return deleteId!=curtodo.id})
     if(todo.length == updatedTodo.length){
       res.status(404).json({msg:"not found"})
     }else{
       todo = updatedTodo;
+      await storetodo(todo);
       res.status(200).json({msg: "done deleted"})
     }
   })
@@ -110,7 +124,7 @@
   })
 
 
-  // app.listen(3000,()=>{
-  //   console.log("listening on port 3000");
-  // })
+//   app.listen(3000,()=>{
+//     console.log("listening on port 3000");
+//   })
   module.exports = app;
