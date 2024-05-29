@@ -23,7 +23,7 @@ router.get('/courses', async(req, res) => {
     // Implement listing all courses logic
      // Implement fetching all courses logic
      const allCourses = await Course.find({});
-     console.log(allCourses);
+    //  console.log(allCourses);
 
      res.json({
          courses: allCourses
@@ -53,7 +53,7 @@ router.get('/purchasedCourses', userMiddleware, async (req, res) => {
         username: req.headers.username
     });
 
-    console.log(user.purchasedCourses);
+    // console.log(user.purchasedCourses);
     const courses = await Course.find({
         _id: {
             "$in": user.purchasedCourses
