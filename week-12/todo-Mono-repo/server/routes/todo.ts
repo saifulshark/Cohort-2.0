@@ -1,29 +1,36 @@
 import express from 'express';
 import { authenticateJwt, SECRET } from "../middleware/index";
 import { Todo } from "../db";
+import { z } from 'zod'; // Import zod
+
 const router = express.Router();
 
-interface CreateTodoInput {
-  title: string;
-  description: string;
-}
-
-router.post('/todos', authenticateJwt, (req, res) => {
-  const { title, description } = req.body;
-  const done = false;
-  const userId = req.headers["userId"];
-
-  const newTodo = new Todo({ title, description, done, userId });
-
-  newTodo.save()
-    .then((savedTodo) => {
-      res.status(201).json(savedTodo);
-    })
-    .catch((err) => {
-      res.status(500).json({ error: 'Failed to create a new todo' });
-    });
+// Define zod schema for create todo input
+const CreateTodoInputSchema = z.object({
+  title: z.string(),
+  description: z.string()
 });
 
+router.post('/todos', authenticateJwt, (req, res) => {
+  try {
+    // Validate request body against zod schema
+    const { title, description } = CreateTodoInputSchema.parse(req.body);
+    const done = false;
+    const userId = req.headers["userId"];
+
+    const newTodo = new Todo({ title, description, done, userId });
+
+    newTodo.save()
+      .then((savedTodo) => {
+        res.status(201).json(savedTodo);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: 'Failed to create a new todo' });
+      });
+  } catch (error) {
+    res.status(400).json({ error: 'Invalid request body' });
+  }
+});
 
 router.get('/todos', authenticateJwt, (req, res) => {
   const userId = req.headers["userId"];
