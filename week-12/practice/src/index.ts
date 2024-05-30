@@ -85,3 +85,15 @@ const result = sumOfAge({
 
 printUserProfile({name: "Hashir", email:"hashir@email.com"});
 console.log(result); // Output: 4
+
+type EventO = 'click' | 'scroll' | 'mousemove';
+// Using Exclude to create a new type without 'scroll'
+type ExcludeEvent = Exclude<EventO, 'scroll'>; // 'click' | 'mousemove'
+
+// Function that accepts only 'click' and 'mousemove' events
+const handleEvent = (event: ExcludeEvent) => {
+  console.log(`Handling event: ${event}`);
+};
+
+handleEvent('click'); // OK
+handleEvent('scroll'); // Error: Argument of type '"scroll"' is not assignable to parameter of type 'ExcludeEvent'.
