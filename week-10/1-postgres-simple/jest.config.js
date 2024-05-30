@@ -11,4 +11,3 @@ module.exports = {
     // Module file extensions for importing
     moduleFileExtensions: ['ts', 'js', 'json', 'node'],
   };
-  
