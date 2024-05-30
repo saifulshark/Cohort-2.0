@@ -25,6 +25,20 @@ console.log(users['yza890'].name);
 console.log(users['yza890'].age);
 console.log(users['yza890'].email);
 
+const usersMap = new Map<string, User>();
+
+usersMap.set('xyz789', { name: 'Jane Doe', age: 25, email: 'janedoe@example.com' });
+usersMap.set('def456', { name: 'Alice Smith', age: 28, email: 'alicesmith@example.com' });
+usersMap.set('ghi012', { name: 'Bob Johnson', age: 35, email: 'bobjohnson@example.com' });
+usersMap.set('jkl345', { name: 'Carol White', age: 32, email: 'carolwhite@example.com' });
+usersMap.set('mno678', { name: 'David Brown', age: 40, email: 'davidbrown@example.com' });
+usersMap.set('pqr901', { name: 'Eva Green', age: 22, email: 'evagreen@example.com' });
+usersMap.set('stu234', { name: 'Frank Black', age: 45, email: 'frankblack@example.com' });
+usersMap.set('vwx567', { name: 'Grace Blue', age: 29, email: 'graceblue@example.com' });
+usersMap.set('yza890', { name: 'Henry Gold', age: 33, email: 'henrygold@example.com' });
+
+console.log(usersMap.get('mno678'));
+
 
 type modifyParams = Pick<User, 'name' | 'email' | 'age'>;
 type modifyAgeOrName = Partial<modifyParams>
