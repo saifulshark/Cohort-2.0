@@ -4,6 +4,26 @@ interface User {
     email: string,
 }
 
+type Users = Record<string, User>;
+const users: Users = {
+    'abc123': { name: 'John Doe', age: 30, email: 'johndoe@example.com' },
+    'xyz789': { name: 'Jane Doe', age: 25, email: 'janedoe@example.com' },
+    'def456': { name: 'Alice Smith', age: 28, email: 'alicesmith@example.com' },
+    'ghi012': { name: 'Bob Johnson', age: 35, email: 'bobjohnson@example.com' },
+    'jkl345': { name: 'Carol White', age: 32, email: 'carolwhite@example.com' },
+    'mno678': { name: 'David Brown', age: 40, email: 'davidbrown@example.com' },
+    'pqr901': { name: 'Eva Green', age: 22, email: 'evagreen@example.com' },
+    'stu234': { name: 'Frank Black', age: 45, email: 'frankblack@example.com' },
+    'vwx567': { name: 'Grace Blue', age: 29, email: 'graceblue@example.com' },
+    'yza890': { name: 'Henry Gold', age: 33, email: 'henrygold@example.com' }
+
+}
+
+console.log(users);
+console.log(users['yza890']);
+console.log(users['yza890'].name);
+console.log(users['yza890'].age);
+console.log(users['yza890'].email);
 
 
 type modifyParams = Pick<User, 'name' | 'email' | 'age'>;
