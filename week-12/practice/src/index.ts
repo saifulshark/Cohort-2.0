@@ -9,11 +9,12 @@ interface User {
 type modifyParams = Pick<User, 'name' | 'email' | 'age'>;
 type modifyAgeOrName = Partial<modifyParams>
 
-const myProfile: modifyAgeOrName = {
+const myProfile: Readonly<modifyAgeOrName> = {
     name:"Hashir Ahmed K B",
     age:24,
     email:"ahmedhashir96@gmail.com"
 }
+// myProfile.age = 35; Cannot assign to 'age' because it is a read-only property.ts(2540)
 
 const updateProfile = (input: modifyAgeOrName, profileinput: modifyAgeOrName) => {
     const profile = profileinput;
