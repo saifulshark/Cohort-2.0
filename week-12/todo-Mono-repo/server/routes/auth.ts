@@ -3,18 +3,9 @@ import express from 'express';
 import { authenticateJwt, SECRET } from "../middleware/";
 import { User } from "../db";
 import { z, ZodError } from "zod";
+import {loginSchema, signupSchema} from "@hashirakb/common";
 
 const router = express.Router();
-
-const signupSchema = z.object({
-  username: z.string().min(1, "Username is required"),
-  password: z.string().min(1, "Password is required")
-});
-
-const loginSchema = z.object({
-  username: z.string().min(1, "Username is required"),
-  password: z.string().min(1, "Password is required")
-});
 
 router.post('/signup', async (req, res) => {
   try {
