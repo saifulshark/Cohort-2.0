@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import express from 'express';
 import { authenticateJwt, SECRET } from "../middleware/";
 import { User } from "../db";
-import { z } from "zod";
+import { z, ZodError } from "zod";
 
 const router = express.Router();
 
@@ -29,8 +29,10 @@ router.post('/signup', async (req, res) => {
       const token = jwt.sign({ id: newUser._id }, SECRET, { expiresIn: '1h' });
       res.json({ message: 'User created successfully', token });
     }
-  } catch (e) {
-    res.status(400).json({ message: e.errors });
+  } catch (error) {
+    if(error instanceof ZodError){
+      res.status(400).json({ message: error.errors });
+    }
   }
 });
 
@@ -45,8 +47,10 @@ router.post('/login', async (req, res) => {
     } else {
       res.status(403).json({ message: 'Invalid username or password' });
     }
-  } catch (e) {
-    res.status(400).json({ message: e.errors });
+  } catch (error) {
+    if(error instanceof ZodError){
+      res.status(400).json({ message: error.errors });
+    }
   }
 });
 
