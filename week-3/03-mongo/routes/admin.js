@@ -31,10 +31,10 @@ router.post('/courses', adminMiddleware, async(req, res) => {
     const price = req.body.price;
 
     const newCourse = new Course({
-        title: title,
-        description: description,
-        imageLink: imageLink,
-        price: price
+        title,
+        description,
+        imageLink,
+        price
     })
     await Course.create(newCourse);
     res.json({
