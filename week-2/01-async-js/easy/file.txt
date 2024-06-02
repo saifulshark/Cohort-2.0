@@ -1,0 +1,1 @@
+new data that will added through writing file javascript new data appended to file
