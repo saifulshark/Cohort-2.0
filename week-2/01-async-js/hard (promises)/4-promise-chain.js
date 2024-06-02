@@ -36,5 +36,4 @@ function calculateTime(t1, t2, t3) {
         return end-start
     })
 }
-
 module.exports = calculateTime;

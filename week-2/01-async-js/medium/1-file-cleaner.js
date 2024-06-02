@@ -10,5 +10,4 @@ async function fileCleaner() {
         console.error("Error:", err);
     }
 }
-
 fileCleaner();

@@ -7,5 +7,4 @@ function wait(n) {
         setInterval(resolve,n*1000);
     })
 }
-
 module.exports = wait;

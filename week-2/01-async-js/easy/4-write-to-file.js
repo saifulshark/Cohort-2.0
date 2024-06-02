@@ -10,6 +10,7 @@ fs.writeFile('file.txt',content,(err)=>{
     else{
         console.log("file written successfully");
     }
+    
 })
 
 //append content to the file

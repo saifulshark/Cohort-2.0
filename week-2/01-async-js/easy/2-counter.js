@@ -12,5 +12,4 @@ async function counter(){
         countNum++;
     }
 }
-
 counter();

@@ -9,5 +9,4 @@ function sleep(milliseconds) {
         setTimeout(resolve,milliseconds)
     })
 }
-
 module.exports = sleep;
