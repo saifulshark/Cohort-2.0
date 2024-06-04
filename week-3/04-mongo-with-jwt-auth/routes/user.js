@@ -3,7 +3,7 @@ const router = Router();
 const userMiddleware = require("../middleware/user");
 const { User, Course } = require('../db/index')
 const jwt = require('jsonwebtoken')
-const jwt_secret = require('../config') //98765
+const { jwt_secret } = require("../config")
 // User Routes
 router.post('/signup', async (req, res) => {
     // Implement user signup logic
@@ -59,7 +59,7 @@ router.post('/courses/:courseId', userMiddleware, async (req, res) => {
     // Implement course purchase logic
     try{
         const courseId = req.params.courseId;
-        const course = await Course.findOne({ courseId });
+        const course = await Course.findOne({ _id: courseId  });
         if (!course) return res.status(404).json({ message: 'Course not found' });
         const user = await User.findOne({ username: req.headers.username });
         if (!user) return res.status(401).json({ message: 'Unauthorized' });
@@ -81,11 +81,20 @@ router.post('/courses/:courseId', userMiddleware, async (req, res) => {
 
 router.get('/purchasedCourses', userMiddleware, async (req, res) => {
     // Implement fetching purchased courses logic
-    const { username, password } = req.headers;
-    const user = await User.findOne({ username, password }).populate('purchasedCourses');
-    if (!user) return res.status(401).json({ message: 'Unauthorized' });
+    const user = await User.findOne({
+        username: req.headers.username
+    });
 
-    res.json({ purchasedCourses: user.purchasedCourses });
+    console.log(user.purchasedCourses);
+    const courses = await Course.find({
+        _id: {
+            "$in": user.purchasedCourses
+        }
+    });
+
+    res.json({
+        courses: courses
+    })
 });
 
 module.exports = router
