@@ -4,7 +4,14 @@
 */
 
 function isPalindrome(str) {
-  return true;
+  // Normalize the string: remove non-alphanumeric characters and convert to lowercase
+  const normalizedStr = str.toLowerCase().replace(/[^a-z0-9]/g, '');
+  
+  // Split the string into characters, reverse the array, and join back to a string
+  const reversedStr = normalizedStr.split('').reverse().join('');
+  
+  // Compare the normalized string with its reversed version
+  return normalizedStr === reversedStr;
 }
 
 module.exports = isPalindrome;
