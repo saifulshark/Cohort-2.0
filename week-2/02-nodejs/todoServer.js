@@ -45,5 +45,102 @@
   const app = express();
   
   app.use(bodyParser.json());
-  
+
+  let todo = [];
+  let id = 1;
+
+  app.get('/todos',(req,res)=>{
+    res.status(200).json(todo)
+  })
+
+  app.get('/todos/:id',(req,res)=>{
+    let id = req.params.id;
+
+    if(id>0){
+      let findItem = todo.find((item)=>item.id==id)
+      if(findItem){
+        res.status(200).json(findItem)
+      }
+      else{
+        res.status(404).json({
+          msg: "item not found"
+        })
+      }
+    }
+    else{
+      res.status(404).json({
+        msg: "item not found"
+      })
+    }
+  })
+
+  app.post('/todos',(req,res)=>{
+    
+    let title = req.body.title;
+    let completed = req.body.completed;
+    let description = req.body.description;
+    
+    todolist = {
+      id: id,
+      title: title,
+      completed: completed,
+      description: description
+    };
+
+    if(todo.push(todolist)){
+      res.status(201).json({
+        id: id
+      })
+    }
+    
+    id++;
+  })
+
+  app.put('/todos/:id',(req,res)=>{
+    let title = req.body.title;
+    let completed = req.body.completed;
+    let id = req.params.id;
+
+    if(id <= todo.length && id > 0){
+      todo.find((item)=>{
+        if(item.id == id){
+          item.title = title,
+          item.completed = completed
+        }
+      });
+      res.status(200).json({
+        msg: "Item updated successfully!"
+      });
+    }
+    else{
+      res.status(404).json({
+        msg: "Item not found"
+      })
+    }
+  })
+
+  app.delete('/todos/:id',(req,res)=>{
+    let id = req.params.id;
+
+    if(id <= todo.length && id > 0){
+      let updatedTodo = todo.filter((e)=> e.id != id);
+      todo = updatedTodo
+      res.status(200).json({
+        msg: "Item deleted successfully!"
+      })
+    }
+    else{
+      res.status(404).json({
+        msg: "Item not found"
+      })
+    }
+
+  })
+
+  app.use((req,res,next)=>{
+    res.status(404).json({
+      msg: "Page not found"
+    })
+  })
+
   module.exports = app;
