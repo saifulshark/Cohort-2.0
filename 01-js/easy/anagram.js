@@ -5,7 +5,9 @@
 */
 
 function isAnagram(str1, str2) {
-
+  const a = new Set(str1.toLowerCase())
+  const b = new Set(str2.toLowerCase())
+  return a.size === b.size && [...a].every((x) => b.has(x))
 }
 
 module.exports = isAnagram;
