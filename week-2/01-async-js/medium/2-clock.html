@@ -1,0 +1,25 @@
+<!-- Using `1-counter.md` or `2-counter.md` from the easy section, can you create a
+clock that shows you the current machine time?
+
+Can you make it so that it updates every second, and shows time in the following formats - 
+
+ - HH:MM::SS (Eg. 13:45:23)
+
+ - HH:MM::SS AM/PM (Eg 01:45:23 PM) -->
+
+ <!DOCTYPE html>
+ <html>
+    <head>
+        <title>My Clock</title>
+    </head>
+    <body>
+        <center>
+            <h1>
+                <div>Digital clock</div>
+                <div>12 hour format: <span id="time24h"></span></div>
+                <div>24 hour format: <span id="time12h"></span></div>
+                <script src="clock.js"></script>
+            </h1>
+        </center>
+    </body>
+ </html>
