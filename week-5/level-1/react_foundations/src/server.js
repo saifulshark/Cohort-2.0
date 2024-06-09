@@ -16,6 +16,8 @@ const CardSchema = new mongoose.Schema({
     name: String,
     description: String,
     interests: String,
+    linkedin: String,
+    twitter: String
 })
 
 const Card = mongoose.model('Card', CardSchema)
@@ -26,7 +28,6 @@ app.get('/api/cards', async (req, res) => {
   });
   
   app.post('/api/cards', async (req, res) => {
-    console.log('inside post method /api/cards')
     const newCard = new Card(req.body);
     await newCard.save();
     res.json(newCard);
