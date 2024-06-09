@@ -8,6 +8,23 @@ Hint - use Date class exposed in JS
 There is no automated test for this one, this is more for you to understand time goes up as computation goes up
 */
 
-function calculateTime(n) {
-    return 0.01;
+function getTime(){
+    const date = new Date();
+    return date;
 }
+
+function calculateTime(n) {
+    const firstTime = getTime();
+    let sum =0;
+    for(let i=0;i<n;i++){
+        sum+=i;
+    }
+    const lastTime = getTime();
+
+    const timeTaken = (lastTime-firstTime)/1000;
+    console.log(`Time taken to solve 1 to ${n} sum is ${sum} and time is ${timeTaken}`);
+}
+
+calculateTime(100);
+calculateTime(100000);
+calculateTime(10000000);
