@@ -16,7 +16,7 @@ function App() {
     axios.get('api/cards').then(response => {
       setCards(response.data);
     });
-  }, []);
+  }, [cards]);
 
   async function handleSubmit(e) {
     try{
