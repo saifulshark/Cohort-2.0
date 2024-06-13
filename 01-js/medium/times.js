@@ -14,11 +14,11 @@ function calculateTime(n) {
     for (let i = 0; i < n; i++) {
       sum = sum + i;
     }
-    let finalTime = new Date().getTime();
-  return finalTime - currentTime;
+    console.log(`it takes ${(new Date().getTime() - currentTime)} ms`);
+    return;
 }
   
-console.log(`${calculateTime(1000000000000)} ms`);
-console.log(`${calculateTime(10000000000)} ms`);
-console.log(`${calculateTime(1000000)} ms`);
+calculateTime(1000000)
+calculateTime(10000000)
+calculateTime(1000000000)
    

@@ -7,14 +7,12 @@
 
 function countVowels(str) {
   let count = 0;
-  let vowels = ['a','e','i','o','u','A','E','I','O','U'];
-  for(let i=0;i<str.length;i++){
-    for(let j=0;j<vowels.length;j++){
-      if(vowels[j] === str[i]){
-        count++;
-      }
+  const vowels = new Set(['a','e','i','o','u','A','E','I','O','U'])
+  for(var i of str){
+    if(vowels.has(i)) {
+      count += 1
     }
-  }
+  } 
   return count;
 }
 
