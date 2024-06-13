@@ -14,7 +14,17 @@
 */
 
 function calculateTotalSpentByCategory(transactions) {
-  return [];
-}
+  
+  let final = transactions.reduce((acc,transaction)=>{
+    let category = transaction.category;
+    let price = transaction.price;
 
+    if(acc.has(category)) acc.set(category, acc.get(category)+price)
+    else acc.set(category,price)
+    return acc;
+  },new Map())
+
+  return Array.from(final, ([category,totalSpent])=>({category,totalSpent}))
+  
+}
 module.exports = calculateTotalSpentByCategory;
