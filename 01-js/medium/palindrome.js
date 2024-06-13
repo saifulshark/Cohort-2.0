@@ -4,7 +4,17 @@
 */
 
 function isPalindrome(str) {
-  return true;
+  
+  let original = removeSpacesAndSpecialChars(str).toLowerCase();
+  let reversed = ""+original.split("").reverse().join("")
+  return original == reversed;
+
+
+}
+
+function removeSpacesAndSpecialChars(str) {
+  // Remove spaces and special characters using regular expressions
+  return str.replace(/[\s~`!@#$%^&*(){}\[\];:"'<,.>?\/\\|_+=-]/g, '');
 }
 
 module.exports = isPalindrome;

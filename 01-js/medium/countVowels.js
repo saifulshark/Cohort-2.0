@@ -7,6 +7,15 @@
 
 function countVowels(str) {
     // Your code here
-}
+    let vowels = Array.from('aeiouAEIOU');
 
+    let total = 0;
+    let stringArray = Array.from(str)
+      stringArray.forEach(element => {
+      if(vowels.includes(element)){
+        total= total+1;}
+      
+    });
+    return total;
+}
 module.exports = countVowels;
