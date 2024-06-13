@@ -14,7 +14,32 @@
 */
 
 function calculateTotalSpentByCategory(transactions) {
-  return [];
+
+  const categoryTotals = new Map();
+
+    // Iterate over each transaction
+    transactions.forEach(transaction => {
+        // Extract category and price from the transaction
+        const { category, price } = transaction;
+
+        // Check if the category is already in the map
+        if (categoryTotals.has(category)) {
+            // If it is, add the current price to the total
+            categoryTotals.set(category, categoryTotals.get(category) + price);
+        } else {
+            // If not, initialize the total with the current price
+            categoryTotals.set(category, price);
+        }
+    });
+
+    // Convert the map to an array of objects
+    const result = Array.from(categoryTotals, ([category, totalSpent]) => ({
+        category,
+        totalSpent
+    }));
+
+    return result;
+
 }
 
 module.exports = calculateTotalSpentByCategory;

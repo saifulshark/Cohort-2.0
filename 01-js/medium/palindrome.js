@@ -4,7 +4,18 @@
 */
 
 function isPalindrome(str) {
-  return true;
+  // It will change all char into lowercase 
+  str = str.toLowerCase();
+  // It will remove all special characters from the string
+  str = str.replace(/[^a-zA-Z0-9]/g, '');
+
+
+  for(let i =0;i<str.length;i++)
+    {
+      if(str[i]!=str[str.length-i-1])
+        return false;
+    }
+    return true;
 }
 
 module.exports = isPalindrome;
