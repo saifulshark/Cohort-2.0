@@ -6,11 +6,11 @@
 
 function isAnagram(str1, str2) {
   if(str1.length==str2.length){
-    console.log(str1.sort())
-    console.log(str2.sort())
+    
+    return str1.toLowerCase().trim().replace("/\s+/g","").split("").sort().join("") === str2.toLowerCase().trim().replace("/\s+/g","").split("").sort().join("")
+
 
   }
   else return false
 }
-
-//module.exports = isAnagram;
+module.exports = isAnagram;
