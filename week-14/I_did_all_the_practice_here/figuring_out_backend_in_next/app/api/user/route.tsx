@@ -2,10 +2,12 @@ import { NextRequest, NextResponse } from "next/server"
 import { PrismaClient } from "@prisma/client";
 const client = new PrismaClient;
 
-export function GET(){
-    return Response.json({
-        email:"ahmedhashir96@gmail.com",
-        name:"Hashirahmed K B"
+export async function GET(){
+    const userData = await client.user.findFirst();
+    console.log(userData);
+    return NextResponse.json({
+        username:userData?.username,
+        password:userData?.password
     })
 }
 
