@@ -1,12 +1,18 @@
 import Image from "next/image";
-
+import { NextRequest, NextResponse } from "next/server"
+import { PrismaClient } from "@prisma/client";
+const client = new PrismaClient;
 import axios from 'axios';
 
 async function getUserDetails() {
-  await new Promise((r) => setTimeout(r,2000));
-  const response = await axios.get('http://localhost:3000/api/user');
-  return response.data;
+    const userData = await client.user.findFirst();
+    console.log(userData);
+    return({
+        username:userData?.username,
+        password:userData?.password
+    })
 }
+
 // made this into async component. [This won't work in client side rendering components.]
 export default async function Home() {
   const userDetails = await getUserDetails();
@@ -15,9 +21,9 @@ export default async function Home() {
       <div className="flex justify-center">
         <div className="border p-8 rounded">
           <div>
-            Name: {userDetails?.name}
+            Name: {userDetails?.username}
           </div>
-          {userDetails?.email}
+          {userDetails?.password}
         </div>
       </div>
     </div>
