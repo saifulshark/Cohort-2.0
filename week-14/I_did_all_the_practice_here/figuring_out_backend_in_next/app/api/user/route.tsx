@@ -1,27 +1,13 @@
 import client from "@/db"
-
+import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
+import { signup } from "@/app/actions/user";
+import { json } from "stream/consumers";
+
 export async function POST(req: NextRequest){
-    console.log("Hello!!!")
     const body: {username: string, password: string} = await req.json();
-    try{
-        const user = await client.user.create({
-            data:{
-                username: body.username,
-                password: body.password
-            }
-        })
-        return NextResponse.json({
-            msg:"SignUp successfull.",
-            userId: user.id,
-        });
-    }
-    catch(Error){
-        return NextResponse.json({
-            ErrorHappend:Error
-        })
-    }
-    
+    const response = await signup(body.username, body.password);  
+    return NextResponse.json(response);
 }
 
 
