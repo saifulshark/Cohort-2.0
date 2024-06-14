@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { NextRequest, NextResponse } from "next/server"
-import { PrismaClient } from "@prisma/client";
-const client = new PrismaClient;
+import client from "@/db"
 import axios from 'axios';
 
 async function getUserDetails() {
