@@ -15,7 +15,51 @@
 
   Once you've implemented the logic, test your code by running
 */
+const math = require('mathjs');
 
-class Calculator {}
+class Calculator {
+   constructor(){
+    this.result = 0
+   }
+   getResult(){
+      return this.result;
+   }
+   add(val){
+    this.result = this.result+val;
+   }
+   subtract(val){
+    this.result = this.result-val;
+
+   }
+   multiply(val){
+    this.result = this.result*val;
+   }
+   divide(val){
+    if(val==0){
+      throw new Error;
+    }
+    else this.result = this.result/val
+   }
+   clear(){
+    this.result = 0;
+   }
+   calculate(str){
+    let values = str.replaceAll(" ","")
+    let nonNumbericRegex = /[^0-9+-\/*()]/gm
+    let divisionByZeroRegex = /\/0(\.0+)?(?![0-9])/gm;
+    if(nonNumbericRegex.test(values)){
+      throw new Error;
+
+    }else if(divisionByZeroRegex.test(values)){
+        throw new Error;
+    }else {
+    try{
+      this.result = math.evaluate(values);
+    }catch(e){
+      throw new Error;
+    }
+  }
+    }
+}
 
 module.exports = Calculator;
