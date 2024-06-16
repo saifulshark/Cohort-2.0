@@ -4,4 +4,3 @@ import { DB_URL } from './config';
 export const client = new Client({
     connectionString: DB_URL
 });
-client.connect();
