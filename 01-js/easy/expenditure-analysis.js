@@ -14,31 +14,38 @@
 */
 
 function calculateTotalSpentByCategory(transactions) {
-  // Initialize an empty object to keep track of total spending per category
+  //  Initialize an empty object to keep track of total spending per category
   const spendingByCategory = {};
 
-  // Iterate through each transaction in the list
+  //  Iterate through each transaction in the list
+  //  The forEach method is used to iterate over each element in the transactions array. The transaction parameter represents the current transaction object in each iteration. This is an example of using an arrow function as the callback for forEach.
   transactions.forEach(transaction => {
+      //  In this line, we access the category property of the current transaction object and assign its value to a constant named category. This allows us to refer to the category of the transaction within the rest of the block of code.
       const category = transaction.category;
+      //  In this line accesses the price property of the current transaction object and assigns its value to a constant named price. This allows us to use the price of the transaction within the rest of the block of code.
       const price = transaction.price;
+      
 
-      // If the category is already in the object, add the price to the existing total
+      //  If the category is already in the object, add the price to the existing total
       if (spendingByCategory[category]) {
           spendingByCategory[category] += price;
       } 
-      // If the category is not in the object, add a new entry with the price
+      //  If the category is not in the object, add a new entry with the price
       else {
           spendingByCategory[category] = price;
       }
   });
 
-  // Convert the object to an array of objects with the required format
+  //  Convert the object to an array of objects with the required format
+  //  Object.keys(spendingByCategory) returns an array of the property names (keys) of the spendingByCategory object. These keys are the unique categories that have been processed from the transactions.
+  //  The map method is called on the array of category keys. map creates a new array by applying a function to each element of the array. In this case, the function takes each category key and transforms it into a new object.
   const result = Object.keys(spendingByCategory).map(category => ({
+      //  category => ({ category: category, totalSpent: spendingByCategory[category] }) is an arrow function used to transform each category key into an object with two properties: category and totalSpent.
       category: category,
       totalSpent: spendingByCategory[category]
   }));
 
-  // Return the resulting array
+  //  Return the resulting array
   return result;
 }
 
