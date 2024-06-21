@@ -11,11 +11,23 @@ export const Assignment3 = () => {
         // Add more items as needed
     ]);
 
+    const [show, setShow] = useState(false)
+
     // Your code starts here
-    const totalValue = 0;
+    const totalValue = useMemo(() => {
+        let sum = 0;
+        for(let i=0; i<items.length;i++)
+        {
+            sum += items[i].value
+        }
+        console.log(sum)
+
+        return sum
+    },[items]);
     // Your code ends here
     return (
         <div>
+            <button onClick={()=> setShow(!show)}>{show ? "You clicked me": "click me plz"}</button>
             <ul>
                 {items.map((item, index) => (
                     <li key={index}>{item.name} - Price: ${item.value}</li>
