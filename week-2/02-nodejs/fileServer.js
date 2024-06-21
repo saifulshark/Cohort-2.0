@@ -17,5 +17,20 @@ const fs = require('fs');
 const path = require('path');
 const app = express();
 
+app.get("/files",function(req,res){
+  fs.readdir('./files',(err,files)=>{
+      if (err) {
+      console.error('Error reading directory:', err);
+      return res.status(500).send('Internal Server Error');
+    }
+    res.status(200).json(files);
+  })
+})
+
+app.get("./file/:filename",(req,res)=>{
+    const filename = req.params.filename;
+    const filepath = path.join(FILES_DIRECTORY, filename);
+    
+})
 
 module.exports = app;
