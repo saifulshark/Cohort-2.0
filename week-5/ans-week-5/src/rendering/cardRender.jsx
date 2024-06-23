@@ -3,7 +3,7 @@ export function CardRendering({card}){
         <h1>{card.name}</h1>
         <h5>{card.desciption}</h5>
         <div>
-            <h3>Interests</h3>
+            <h3>Interests</h3>  
         {card.interest.map((values,index)=>{
             return <p key={index}>{values}</p>
         })}
