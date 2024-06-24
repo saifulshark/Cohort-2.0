@@ -5,7 +5,14 @@
 */
 
 function isAnagram(str1, str2) {
+  //remove any Non-alphanumeric characters and convert it into the lower case 
+    const newStr1= str1.replace(/[^\w]/g, '').toLowerCase();
+    const newStr2= str2.replace(/[^\w]/g, '').toLowerCase();
 
+    const Sort1= newStr1.split('').sort().join('');
+    const Sort2= newStr2.split('').sort().join('');
+
+    return Sort1==Sort2;
 }
 
 module.exports = isAnagram;

@@ -5,6 +5,16 @@
  */
 
 function sleep(milliseconds) {
+    return new Promise((resolve)=>{
+        setTimeout(resolve,milliseconds)
+    })
 }
-
 module.exports = sleep;
+
+//using await 
+async function demiSleep(){
+    console.log('Before sleep');
+    await sleep(1000);
+    console.log('After sleep');
+}
+demiSleep();
