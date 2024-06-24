@@ -16,6 +16,40 @@
   Once you've implemented the logic, test your code by running
 */
 
-class Calculator {}
+class Calculator {
+constructor(){
+  this.result =0;
 
+} add(n){
+  this.result+=n;
+}
+ subtract(n){
+  this.result-=n;
+}
+ multiply(n){
+  this.result*=n;
+}
+divide(n){
+  if(n==0)throw new Error("Invalid response");
+  else this.result/=n;
+}
+clear(){
+this.result =0;
+}
+getResult(){
+  return this.result;
+}
+calculate(str){
+  this.clear();
+  str=str.replace('/\s/g','');
+  try{
+    let result =eval(str);
+    if(isNaN(result)||!isFinite(result)){
+       throw new Error("Invalid Input");
+    }return this.result=result;
+  }catch(error){
+    throw new Error(error);
+  }
+  }
+}
 module.exports = Calculator;
