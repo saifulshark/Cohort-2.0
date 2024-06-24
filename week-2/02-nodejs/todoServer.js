@@ -44,6 +44,55 @@
   
   const app = express();
   
+  let todo=[{
+    id:1,
+    title:"todo 1",
+    completed:false,
+    description:"this is first todo added in in memory array"
+  }]
   app.use(bodyParser.json());
-  
+  app.get("/todos",function(req,res){
+    if(err){
+      res.status(400).json("not found")
+    }
+    res.json(todo)
+  })
+  app.get("/todos/:id",(res,req)=>{
+    const idToRetrieve=parseInt(req.paramer.id);
+    if(err){
+      res.status(400).json("not found")
+    }
+    res.json(todos[idToRetrieve])
+  })
+  app.post('/todos',(res,req)=>{
+    //user will be sending title and body separately as thus we need to make object
+
+    const newTodo={
+      id:Math.floor(Math.random*10000000),//random id,
+      title:req.body.title,
+      description:req.body.description
+    };
+    todo.push(newTodo)
+    res.status(201).json("new todo added")
+  })
+  app.put('/todos/:id',(req,res)=>{
+    const idtoupdate=parseInt(req.params.id);
+    
+    todos[idtoupdate].title=req.body.title;
+    todos[idtoupdate].title=req.body.description;
+    res.json(todo);
+  })
+  app.delete('/todo/:id',(req,res)=>{
+    const idtoDelete=parseInt(req.params.id);
+    let newtodos=[];
+    // for(let i=0;i<todos.length;i++){
+    //   if(i!=idtoDelete){
+    //     newtodos.push[todos[i]]
+    //   }
+    // }
+    //other method to delete
+    todos.splice(idtoDelete,1);
+    res.json("todo with particular id is deleted")
+
+  })
   module.exports = app;
