@@ -39,11 +39,75 @@
 
   Testing the server - run `npm run test-todoServer` command in terminal
  */
-  const express = require('express');
-  const bodyParser = require('body-parser');
-  
-  const app = express();
-  
-  app.use(bodyParser.json());
-  
-  module.exports = app;
+const express = require("express");
+const bodyParser = require("body-parser");
+
+const app = express();
+
+const todos = [];
+
+app.use(express.json());
+
+app.get("/todos", (req, res) => {
+  res.status(200).send(todos);
+});
+
+app.get("/todos/:id", (req, res) => {
+  const id = req.params.id;
+  console.log("id", id);
+  if (!todos[id - 1]) {
+    res.status(404).send("Not Found");
+  }
+
+  res.status(200).send(todos[id]);
+});
+
+app.post("/todos", (req, res) => {
+  const { title, completed, description } = req.body;
+  const todoId = todos.length + 1;
+
+  todos.push({
+    id: todoId,
+    title,
+    completed,
+    description,
+  });
+
+  res.status(201).json({ id: todoId });
+});
+
+app.put("/todos/:id", (req, res) => {
+  const id = req.params.id;
+  const { title, completed, description } = req.body;
+
+  if (!todos[id - 1]) {
+    res.status(404).send("Not Found");
+  }
+
+  todos[id - 1] = {
+    title,
+    completed,
+    description,
+  };
+
+  res.status(200).send("OK");
+});
+
+app.delete("/todos/:id", (req, res) => {
+  const id = req.params.id;
+  if (!todos[id - 1]) {
+    res.status(404).send("Not Found");
+  }
+
+  todos.slice(id, 1);
+
+  res.status(200).send("OK");
+});
+
+app.listen(3000, function () {
+  console.log("listening on PORT 3000");
+});
+
+app.use(bodyParser.json());
+
+module.exports = app;
