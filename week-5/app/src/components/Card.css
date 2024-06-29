@@ -1,0 +1,119 @@
+/* src/components/Card.css */
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 16px;
+    width: 300px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .interests h4 {
+    margin-bottom: 10px;
+  }
+  
+  .interests ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .interests li {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .social-media {
+    margin-top: 20px;
+  }
+  
+  .social-button {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+  
+  .social-button:hover {
+    background-color: #0056b3;
+  }
+  /* src/components/Card.css */
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 16px;
+    width: 300px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .interests h4 {
+    margin-bottom: 10px;
+  }
+  
+  .interests ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .interests li {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .social-media {
+    margin-top: 20px;
+  }
+  
+  .social-button {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+  
+  .social-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .delete-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .delete-button:hover {
+    background-color: #cc0000;
+  }
+  

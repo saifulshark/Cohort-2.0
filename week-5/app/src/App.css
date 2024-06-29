@@ -1,0 +1,11 @@
+/* src/App.css */
+.App {
+  text-align: center;
+}
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
