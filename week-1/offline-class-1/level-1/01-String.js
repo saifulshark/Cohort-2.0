@@ -52,7 +52,7 @@ function splitString(str, separator) {
   console.log("Original String:", str);
   console.log("After split:", str.split(separator));
 }
-splitString("Hello World", " ");
+splitString("Hello World", " "); //this will convert ans into array which will make comparision easy and join('')is used to join array elems into str 
 
 // trim
 function trimString(str) {
