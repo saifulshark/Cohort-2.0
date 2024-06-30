@@ -93,7 +93,7 @@ function findExample(arr) {
 }
 findExample([1, 2, 3, 4, 5]);
 
-// sort()
+// sort() -> arranging in order. sort funcn is not defined on str, to be able to sort str 1st they are converted to arrays and this is done by split funcn
 function sortExample(arr) {
   console.log("Original Array:", arr);
 
@@ -102,4 +102,16 @@ function sortExample(arr) {
   });
   console.log("After sort:", arr);
 }
-sortExample([5, 2, 3, 4, 1]);
+sortExample([5, 2, 3, 4, 1]); 
+
+//slice
+function sliceExample(arr, start, end) {
+  console.log("Original Array:", arr);
+  console.log("New array ",arr.slice(start, end));
+}
+sliceExample([5, 2, 3, 4, 1], 1, 4);
+
+function spliceExample (arr,ind, howManyDelete, newValue) {
+  console.log(arr.splice(ind, howManyDelete, newValue));
+}
+spliceExample([5, 2, 3, 4, 1], 1, 0, 7);
