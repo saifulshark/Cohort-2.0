@@ -16,29 +16,32 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const app = express();
-const port = 3000;
+const port = 3001;
 
 app.get('/files',function(req,res){
-  fs.readdir(path.join(__dirname,'./files/'),(err,files)=>{
+  fs.readdir(path.join(__dirname,'./files/'),(err,data)=>{
     if(err){
-      return res.status(500).json({error:'500 Internal error'})
+      res.status(500).json({msg:'500 Internal error'});
+    }else{
+    res.status(200).json(data);
     }
-    res.json(files)
-  })
-})
-
-app.get('/files/:filename',function(req,res){
-  const filepath = path.join(__dirname,'./files/',req.params.filename)
-
-  fs.readFile(filepath,'utf-8',(err,data)=>{
-  if(err){
-    return res.status(404).send('File not found');
-  }
-  res.send(data);
   });
 });
 
+app.get('/file/:filename',function(req,res){
+  const filepath = path.join(__dirname,'./files/',req.params.filename)
+  fs.readFile(filepath,'utf-8',(err,data)=>{
+    if(err){
+      res.status(404).send('File not found');
+    }else{
+    res.status(200).send(data);
+    }
+  });
+});
 
+app.use((req,res)=>{
+  res.status(404).send("Route not found");
+});
 
 app.listen(port);
 
