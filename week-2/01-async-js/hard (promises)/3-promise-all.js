@@ -25,7 +25,6 @@ function calculateTime(t1, t2, t3) {
 
 const start= new Date().getTime();
 return
-
 Promise.all([wait(t1),wait2(t2),wait3(t3)]).then(()=>{
     const end=new Date().getTime();
     
