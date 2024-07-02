@@ -4,6 +4,21 @@
 */
 
 function isPalindrome(str) {
+  //Normalize the string
+  let normalizedString = str.replace(/[^a-zA-Z0-9]/g,'').toLowerCase();
+
+  // Initalize two pointers
+  let left = 0;
+  let right = normalizedString.length - 1;
+
+  //Compare the pointers if same increment left and decrement right if not they are not palindrome
+  while(left < right){
+    if(normalizedString[left] != normalizedString[right]){
+      return false;
+    }
+    left++;
+    right--;
+  }
   return true;
 }
 
