@@ -9,5 +9,22 @@ There is no automated test for this one, this is more for you to understand time
 */
 
 function calculateTime(n) {
-    return 0.01;
+    
+    const start = new Date();
+    const startTime = start.getTime();
+
+    let sum = 0;
+    
+    for (let i = 0; i < n; i++) {
+      sum += i;
+    }
+    
+    const last = new Date();
+    const lastTime = last.getTime();
+    
+    const timeDiff = (lastTime - startTime) / 1000;
+    
+    console.log(`Time taken to solve ${n} sum is ${sum} and time is ${timeDiff} milliseconds`);
+    
 }
+calculateTime(100000000);
