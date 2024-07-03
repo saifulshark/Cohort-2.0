@@ -7,7 +7,18 @@ Try running it for
 Hint - use Date class exposed in JS
 There is no automated test for this one, this is more for you to understand time goes up as computation goes up
 */
-
+// let n=10000000;
 function calculateTime(n) {
-    return 0.01;
+    for(let i=0;i<n;i++){
+        n=n+i
+    }
+    // return 0.01;
+    return n;
 }
+
+const beforeDate=new Date()
+const before=beforeDate.getTime();
+
+const afterDate=new Date()
+const after=afterDate.getTime();
+console.log(afterDate-beforeDate);
