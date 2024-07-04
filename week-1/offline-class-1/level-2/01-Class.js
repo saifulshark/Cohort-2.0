@@ -8,5 +8,6 @@ class Animal {
     return `${this.name} has ${this.legCount} legs`
   }
 }
-
+const dog = new Animal("Dog", 4);
+console.log(dog.describe());
 

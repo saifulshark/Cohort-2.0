@@ -1,0 +1,2 @@
+This is the content that we will write to the file.
+It can span multiple lines.
