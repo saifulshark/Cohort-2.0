@@ -1,5 +1,12 @@
 ## Create a course selling website
 
+### feat: Implement course selling website with admin and user functionalities
+
+- Implemented routes for admin and user functionalities as described in the task description.
+- Created endpoints for admin signup, course creation, and course listing.
+- Created endpoints for user signup, course listing, course purchase, and purchased course listing.
+- Utilized MongoDB to persistently store all data.
+
 ### Description
 
 Same as the last assignment but you need to use jwts for authentication.
