@@ -17,13 +17,13 @@ function calculateTime(n) {
     let end = Date.now();
     return (end-start)/1000; //convert milliseconds to seconds
 }
-// console.log('Time for n=10 is:',calculateTime(100));
-// console.log('Time for n=100 is:',calculateTime(100));
-// console.log('Time for n=1000 is:',calculateTime(1000));
-// console.log('Time for n=10000 is:',calculateTime(10000));
-// console.log('Time for n=100000 is:',calculateTime(100000));
-// console.log('Time for n=1000000 is:',calculateTime(1000000));
-// console.log('Time for n=10000000 is:',calculateTime(10000000));
-// console.log('Time for n=100000000 is:',calculateTime(100000000));
-// console.log('Time for n=1000000000 is:',calculateTime(1000000000));
+// console.log('Time for n=10 is:',calculateTime(100));                 0
+// console.log('Time for n=100 is:',calculateTime(100));                0
+// console.log('Time for n=1000 is:',calculateTime(1000));              0.001
+// console.log('Time for n=10000 is:',calculateTime(10000));            0.003
+// console.log('Time for n=100000 is:',calculateTime(100000));          0.005
+// console.log('Time for n=1000000 is:',calculateTime(1000000));        0.002
+// console.log('Time for n=10000000 is:',calculateTime(10000000));      0.019
+// console.log('Time for n=100000000 is:',calculateTime(100000000));    0.133
+// console.log('Time for n=1000000000 is:',calculateTime(1000000000));  1.14
 
