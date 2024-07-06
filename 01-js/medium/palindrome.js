@@ -2,24 +2,17 @@
   Implement a function `isPalindrome` which takes a string as argument and returns true/false as its result.
   Note: the input string is case-insensitive which means 'Nan' is a palindrom as 'N' and 'n' are considered case-insensitive.
 */
-
 function isPalindrome(str) {
-  // Normalize the string: remove non-alphanumeric characters and convert to lowercase
-  let normalizedString = str.toLowerCase().replace(/[^a-z0-9]/g, '');
-  
-  // Get the length of the normalized string
-  let length = normalizedString.length;
-  
-  // Check each character from the start with the corresponding character from the end
-  for (let i = 0; i < length / 2; i++) {
-    if (normalizedString[i] !== normalizedString[length - 1 - i]) {
-      // Return false if any character does not match
-      return false;
-    }
-  }
-  
-  // If no mismatch is found, the string is a palindrome
-  return true;
+  str = str.toLowerCase().replace(/[\W_]/g, "");
+  //  Converting the string to Lower Case and removing punctuation, spaces, and special characters. 
+  let new_str = str.split("").reverse().join("");
+  //  Creating a new string by reversing the previous string.
+  if (new_str == str){
+    return true
+  };
+  //  Comparing the reversed string and main string wether they are equal or not.If equal then return true
+  return false
+  //  If they are not equal then return false.
 }
 
 module.exports = isPalindrome;
