@@ -16,7 +16,7 @@ fs.readFile('week-2/01-async-js/easy/file.txt', 'utf-8', (error, data) => {
     expensiveFunction();
 });
 
-function expensiveFunction() {
+export default function expensiveFunction() {
     let result = 0;
     for (let i = 0; i < 100000000; i++) {
         result += Math.random();
