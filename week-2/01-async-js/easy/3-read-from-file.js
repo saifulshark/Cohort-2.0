@@ -23,3 +23,4 @@ function expensiveFunction() {
     }
     console.log('The expensive function result is:', Math.floor(result));
 }
+
