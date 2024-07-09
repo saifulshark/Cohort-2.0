@@ -1,0 +1,3 @@
+Hello there, 
+I hope you are doing well.
+This text file is for an exercise of reading from the file.
