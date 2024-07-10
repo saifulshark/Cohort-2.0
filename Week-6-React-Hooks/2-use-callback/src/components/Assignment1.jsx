@@ -6,7 +6,9 @@ import { useState } from "react";
 const PerfromComponent = memo(() => {
     console.log("fefe");
     return (
-       <div></div>
+       <div>
+        dwdwdwwdw
+       </div>
     );
 });
 
@@ -42,6 +44,9 @@ export function Assignment1() {
 const CounterButtons = memo(({ onIncrement, onDecrement }) => (
     <div>
         <button onClick={onIncrement}>Increment</button>
+        <br/>
+        <PerfromComponent/>
+        <br/>
         <button onClick={onDecrement}>Decrement</button>
     </div>
 )
