@@ -39,11 +39,44 @@
 
   Testing the server - run `npm run test-todoServer` command in terminal
  */
-  const express = require('express');
-  const bodyParser = require('body-parser');
-  
+  const express = require("express");
+  const bodyParser = require("body-parser");
+  const uuid = require("uuid");
+  const fs = require("fs");
+  const path = require("path");
+  const port = 3000;
+
+
   const app = express();
-  
+
+  //This is the Middleware to parse the json request body 
   app.use(bodyParser.json());
-  
+
+  //Arrays to store todo Item 
+  let todos = [];
+
+  //Below is the helper function to save the todos in a file
+  function saveTodoasaFile() {
+    const filepath = path.join(__dirname, 'todos.json');
+    fs.writeFileSync(filepath, JSON.stringify(todos), 'utf-8');
+  }
+
+
+  //The below is the post request to save the todo item inside a file
+  app.post("/todos", (req, res) => {
+    const {title , description} = req.body;
+    const newtodo = {
+      id : todos.length + 1,
+      title, 
+      description
+    };
+    todos.push(newtodo);
+    saveTodoasaFile();
+    res.status(201).json({id : newtodo.id});
+  })
+
+  app.listen(port, (req, res) => {
+    console.log(`Server is running on the port no. ${port}`);
+  })
+
   module.exports = app;
