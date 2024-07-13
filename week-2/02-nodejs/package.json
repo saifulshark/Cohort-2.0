@@ -8,7 +8,7 @@
     "test-fileServer": "npx jest ./tests/fileServer.test.js",
     "test-todoServer": "npx jest ./tests/todoServer.test.js",
     "start": "node todoServer.js",
-    "run start" : "nodemon todoServer.js"
+    "run start": "nodemon todoServer.js"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +22,6 @@
   },
   "dependencies": {
     "express": "^4.19.2",
-    "uuid": "^9.0.0"
+    "uuid": "^10.0.0"
   }
 }
