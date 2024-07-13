@@ -9,20 +9,29 @@ router.post('/signup', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    await User.create({
-        username : username,
-        password : password
-    });
+    const existingUser = await User.findOne({username: username});
 
-    res.status(200).json({
-        msg: " User created successfully"
+    if(existingUser){
+       return res.json({
+            msg: "Your already have an account"
+        });
+    }
+
+    const user = new User({
+        username: username,
+        password:password
     })
+
+    user.save();
+    return res.status(200).json({
+        msg: "Signup successfully"
+    });
 
 });
 
 router.get('/courses',async (req, res) => {
     // Implement listing all courses logic
-    const response = await Course.findOne({});
+    const response = await Course.find({});
 
     res.json({
         courses : response
@@ -31,21 +40,27 @@ router.get('/courses',async (req, res) => {
 
 router.post('/courses/:courseId',  userMiddleware, async (req, res) => {
     // Implement course purchase logic
+    try {
+        const username = req.headers.username;
+        const courseId = req.params.courseId;
+    
+        await User.updateOne({
+            username: username
+        },{
+            "$push" :{
+                purchasedCourses : courseId
+            }
+        });
+    
+        res.json({
+            msg: "course purchase successful"
+        });
 
-    const username = req.params.username;
-    const courseId = req.headers.courseId;
-
-    await User.updateOne({
-        username : username,
-    }, {
-        "$push" : {
-            purchasedCourses : courseId
-        }
-    });
-
-    res.status(200).json({
-        msg: "course purchase successful"
-    });
+    } catch (error) {
+        res.json({
+            msg: "something went wrong"
+        });
+    }
 });
 
 router.get('/purchasedCourses', userMiddleware, async (req, res) => {
@@ -54,15 +69,12 @@ router.get('/purchasedCourses', userMiddleware, async (req, res) => {
         username : req.headers.username
     });
 
-    console.log(user.purchasedCourses);
-
     const courses = await Course.find({
      _id:{
        "$in":user.purchasedCourses 
      }   
 
     });
-
 
     res.status(200).json({
         purchasedCourses : courses
