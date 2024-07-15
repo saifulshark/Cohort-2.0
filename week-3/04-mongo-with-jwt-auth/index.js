@@ -4,7 +4,8 @@ const app = express();
 const adminRouter = require("./routes/admin");
 const userRouter = require("./routes/user");
 const JWT_SECRET = "shorya_server";
-const jwt = require("jsonwebtoken"); // correct
+const jwt = require('jsonwebtoken'); // correct
+
 
 // Middleware for parsing request bodies
 app.use(bodyParser.json());
