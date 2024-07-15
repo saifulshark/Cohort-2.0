@@ -7,7 +7,10 @@ function wait(n) {
         setTimeout(function () {
             resolve();
         }, n * 1000);
+        console.log(n);
     })
 }
+
+console.log(wait());
 
 module.exports = wait;
