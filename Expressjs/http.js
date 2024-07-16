@@ -185,70 +185,155 @@
 
 // app.listen(3000);
 
+// const express = require("express");
+// const app = express();
+// app.use(express.json());
+// let users = [
+//   {
+//     id: 1,
+//     name: "John",
+//     kidneys: [
+//       { id: 1, health: true },
+//     ],
+//   },
+// ];
+
+// app.get("/", (req, res) => {
+//   res.status(200).json(users);
+// });
+
+// app.post("/", (req, res) => {
+//   const {name , kidneys} = req.body;
+//   const id = users.length + 1;
+//   const newUser = {
+//     id, name, kidneys
+//   };
+//    users.push(newUser);
+//   res.status(200).json(newUser);
+// });
+
+// app.put("/:id", (req, res) => {
+//   const id = req.params.id;
+//   const {name , kidneys} = req.body;
+//   const index = users.findIndex((item) => item.id === parseInt(id));
+//   if(index != -1)
+//   {
+//     users[index] = {
+//       id : parseInt(id),
+//       name : name,
+//       kidneys : kidneys
+//     };
+//     res.status(200).json(users[index]);
+
+//   }
+//   else
+//   {
+//     res.status(404).send("Something went wrong");
+//   }
+// });
+
+// app.delete("/:id", (req, res) => {
+//   const id = req.params.id;
+//   const index = users.findIndex((item) => item.id === parseInt(id));
+//   if(index != -1)
+//   {
+//     users.splice(index, 1);
+//     res.status(200).send("User Deleted Successfully");
+//   }
+//   else
+//   {
+//     res.status(404).send("Something went wrong");
+//   }
+// })
+
+// app.listen(3000);
+
+
+
+
 const express = require("express");
 const app = express();
-app.use(express.json());
-let users = [
-  {
-    id: 1,
-    name: "John",
-    kidneys: [
-      { id: 1, health: true },
-    ],
-  },
-];
 
 
+const users = [{
+  name : "john",
+  Kidneys : [{
+    healthy : false
+  }]
+}]
+
+
+app.use(express.json())
 app.get("/", (req, res) => {
-  res.status(200).json(users);
-});
-
-app.post("/", (req, res) => {
-  const {name , kidneys} = req.body;
-  const id = users.length + 1;
-  const newUser = {
-    id, name, kidneys
-  };
-   users.push(newUser);
-  res.status(200).json(newUser);
-});
-
-
-app.put("/:id", (req, res) => {
-  const id = req.params.id;
-  const {name , kidneys} = req.body;
-  const index = users.findIndex((item) => item.id === parseInt(id));
-  if(index != -1)
+  const johnkidneys = users[0].Kidneys;
+  const numberOfKidneys = johnkidneys.length;
+  const numberofHealthyKidneys = 0;
+  for(let i=0; i<johnkidneys.length; i++)
   {
-    users[index] = {
-      id : parseInt(id),
-      name : name, 
-      kidneys : kidneys
-    };
-    res.status(200).json(users[index]);
+    if(johnkidneys[i].healthy)
+    {
+      numberofHealthyKidneys = numberofHealthyKidneys + 1;
+    }
+  }
 
-  }
-  else 
-  {
-    res.status(404).send("Something went wrong");
-  }
+  const numberofUnhealthyKidneys = numberOfKidneys - numberofHealthyKidneys;
+  res.json({
+    johnkidneys,
+    numberOfKidneys,
+    numberofHealthyKidneys,
+    numberofUnhealthyKidneys
+  });
+})
+
+
+app.post("/", (req,res) => {
+  const isHealthy = req.body.isHealthy;
+  users[0].Kidneys.push({
+    healthy : isHealthy
+  });
+  res.json({
+      msg:"Done"
+  })
 });
 
-app.delete("/:id", (req, res) => {
+
+app.put("/", (req,res) => {
   const id = req.params.id;
   const index = users.findIndex((item) => item.id === parseInt(id));
-  if(index != -1)
+  const isHealthy = req.body.isHealthy;
+  users[index].Kidneys.push({
+    healthy : isHealthy
+  });
+  res.json({
+    users
+  })
+
+  
+})
+
+app.put("/all", (req, res) => {
+  for(let i=0; i<users[0].Kidneys.length; i++)
   {
-    users.splice(index, 1);
-    res.status(200).send("User Deleted Successfully");
-  }
-  else 
-  {
-    res.status(404).send("Something went wrong");
+    users[0].Kidneys.isHealthy = true;
   }
 })
 
 
 
+app.delete("/", (req, res) => {
+  const newKidneys = [];
+  for(let i=0; i<users[0].Kidneys.length; i++)
+  {
+    if(users[0].Kidneys[i].healthy)
+    {
+      newKidneys.push({
+        Kidneys : true
+      })
+    }
+  }
+
+  users[0].Kidneys = newKidneys;
+  res.json({msg : "done"});
+})
 
 app.listen(3000);
