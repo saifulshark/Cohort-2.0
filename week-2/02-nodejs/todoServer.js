@@ -41,9 +41,103 @@
  */
   const express = require('express');
   const bodyParser = require('body-parser');
-  
+  const fs  = require('fs');
   const app = express();
   
+
+
   app.use(bodyParser.json());
+
+  let todo = [];
+
+  const jsonData = JSON.stringify(todo,null,2);
+  const filePath = 'todos.json'
+
+  //this method is to read file 
+  const readFileSync = (filePath)=>{
+  try{
+      const data = fs.readFileSync(filePath,'utf-8');
+      console.log("lets console",data);
+      return JSON.parse(data || '[]');
+  }catch (err) {
+    console.error('Error reading file:', err);
+    return [];
+}
+  }
+ //this method is to write file
+  const writeFileSync = (filePath,data)=>{
+    fs.writeFileSync(filePath,JSON.stringify(data,null,2),'utf-8');
+  }
+
+  app.get('/todo',(req,res)=>{
+    const todoList = readFileSync(filePath);
+    res.status(200).json(todoList);
+  })
+
+  app.get('/todo/:id',(req,res)=>{
+    const todoList = readFileSync(filePath);
+    const id = req.params.id;
+    const todoItem = todoList.find((item)=>item.id === id);
+    if(!todoItem){
+      res.status(404).json({message:'Todo item not found'});
+    }
+    else{
+      res.status(200).json(todoItem);
+    }
+  })
+
+
+  app.post('/todo',(req,res)=>{
+    const {title,description} = req.body;
+    if( !title || !description){
+      return res.status(400).json({error:"Id, title and description is required"})
+    }
+    const jsonData = readFileSync(filePath);
+    const id = jsonData.length.toString();
+    const newData = {id,title,description};
   
+  
+    jsonData.push(newData);
+    writeFileSync(filePath,jsonData);
+    res.status(201).json({message:"Todo added successfully"});
+
+  })
+  
+
+  app.put('/todo/:id',(req,res)=>{
+    const {title,description} =req.body;
+    const id = req.params.id;
+    const jsonData = readFileSync(filePath);
+    const todoItem = jsonData.find((item)=>item.id === id);
+    if(!todoItem){
+      return res.status(404).json({error:"todo status not found"});
+    }
+    if(!title && !description){
+      return res.status(400).json({error:"title and description is required"});
+    }
+    const index = jsonData.indexOf(todoItem);
+    jsonData[index].title = title;
+    jsonData[index].description = description;
+    writeFileSync(filePath,jsonData);
+    res.status(200).json({message:"status change successfully"});
+  });
+
+  app.delete('/todo/:id',(req,res)=>{
+    const id = req.params.id;
+    const jsonData = readFileSync(filePath);
+    const todoItem = jsonData.find((item)=>item.id === id);
+    if(!todoItem){
+      return res.status(404).json({error:"todo status not found"});
+    }
+    const index = jsonData.indexOf(todoItem);
+    jsonData.splice(index,1); //is to remove data from the array
+    writeFileSync(filePath,jsonData);
+    res.status(200).json({message:"status deleted successfully"});
+  });
+
   module.exports = app;
+
+
+  app.listen(3000,(portNumber = 3000)=>{
+    console.log(`this is the port number ${portNumber}`);
+  })
