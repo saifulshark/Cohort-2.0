@@ -251,89 +251,142 @@
 
 
 
-const express = require("express");
-const app = express();
+// const express = require("express");
+// const app = express();
 
 
-const users = [{
-  name : "john",
-  Kidneys : [{
-    healthy : false
-  }]
-}]
+// const users = [{
+//   name : "john",
+//   Kidneys : [{
+//     healthy : false
+//   }]
+// }]
 
 
-app.use(express.json())
-app.get("/", (req, res) => {
-  const johnkidneys = users[0].Kidneys;
-  const numberOfKidneys = johnkidneys.length;
-  const numberofHealthyKidneys = 0;
-  for(let i=0; i<johnkidneys.length; i++)
-  {
-    if(johnkidneys[i].healthy)
-    {
-      numberofHealthyKidneys = numberofHealthyKidneys + 1;
-    }
-  }
+// app.use(express.json())
+// app.get("/", (req, res) => {
+//   const johnkidneys = users[0].Kidneys;
+//   const numberOfKidneys = johnkidneys.length;
+//   const numberofHealthyKidneys = 0;
+//   for(let i=0; i<johnkidneys.length; i++)
+//   {
+//     if(johnkidneys[i].healthy)
+//     {
+//       numberofHealthyKidneys = numberofHealthyKidneys + 1;
+//     }
+//   }
 
-  const numberofUnhealthyKidneys = numberOfKidneys - numberofHealthyKidneys;
-  res.json({
-    johnkidneys,
-    numberOfKidneys,
-    numberofHealthyKidneys,
-    numberofUnhealthyKidneys
-  });
-})
-
-
-app.post("/", (req,res) => {
-  const isHealthy = req.body.isHealthy;
-  users[0].Kidneys.push({
-    healthy : isHealthy
-  });
-  res.json({
-      msg:"Done"
-  })
-});
+//   const numberofUnhealthyKidneys = numberOfKidneys - numberofHealthyKidneys;
+//   res.json({
+//     johnkidneys,
+//     numberOfKidneys,
+//     numberofHealthyKidneys,
+//     numberofUnhealthyKidneys
+//   });
+// })
 
 
-app.put("/", (req,res) => {
-  const id = req.params.id;
-  const index = users.findIndex((item) => item.id === parseInt(id));
-  const isHealthy = req.body.isHealthy;
-  users[index].Kidneys.push({
-    healthy : isHealthy
-  });
-  res.json({
-    users
-  })
+// app.post("/", (req,res) => {
+//   const isHealthy = req.body.isHealthy;
+//   users[0].Kidneys.push({
+//     healthy : isHealthy
+//   });
+//   res.json({
+//       msg:"Done"
+//   })
+// });
+
+
+// app.put("/", (req,res) => {
+//   const id = req.params.id;
+//   const index = users.findIndex((item) => item.id === parseInt(id));
+//   const isHealthy = req.body.isHealthy;
+//   users[index].Kidneys.push({
+//     healthy : isHealthy
+//   });
+//   res.json({
+//     users
+//   })
 
   
-})
+// })
 
-app.put("/all", (req, res) => {
-  for(let i=0; i<users[0].Kidneys.length; i++)
+// app.put("/all", (req, res) => {
+//   for(let i=0; i<users[0].Kidneys.length; i++)
+//   {
+//     users[0].Kidneys.isHealthy = true;
+//   }
+// })
+
+
+
+// app.delete("/", (req, res) => {
+//   const newKidneys = [];
+//   for(let i=0; i<users[0].Kidneys.length; i++)
+//   {
+//     if(users[0].Kidneys[i].healthy)
+//     {
+//       newKidneys.push({
+//         Kidneys : true
+//       })
+//     }
+//   }
+
+//   users[0].Kidneys = newKidneys;
+//   res.json({msg : "done"});
+// })
+
+// app.listen(3000);
+
+
+
+let input = [1,2,3,4,5];
+
+let newArray = [];
+const arr = [2,3,4];
+const ans = arr.filter((i) => {
+  if(i % 2 == 0)
   {
-    users[0].Kidneys.isHealthy = true;
+    return true;
   }
-})
-
-
-
-app.delete("/", (req, res) => {
-  const newKidneys = [];
-  for(let i=0; i<users[0].Kidneys.length; i++)
+  else 
   {
-    if(users[0].Kidneys[i].healthy)
-    {
-      newKidneys.push({
-        Kidneys : true
-      })
-    }
+    return false;
+  }
+});
+const ans1 = arr.filter((item) => item % 2 == 0 ? true : false);
+// console.log(ans1);
+
+const ans11 = arr.filter((item) => item % 2 == 0 ? true : false);
+// console.log(ans11);
+
+// console.log(ans);
+
+newArray = input.map((item) => item * 2);
+newArray = input.filter((item) => item % 2 != 0);
+// console.log(newArray);
+
+
+//Another Assignment
+//Create a map function that takes an array and a transform function as an input and returns the transformed array as input
+
+
+const mapArray = (arrs1, transformcArr) => {
+  const newTransformedArray = [];
+  for(let i=0; i<arrs1.length; i++)
+  {
+    newTransformedArray.push(transformcArr(arrs1[i]));
   }
 
-  users[0].Kidneys = newKidneys;
-  res.json({msg : "done"});
-})
+  return newTransformedArray;
+}
 
-app.listen(3000);
+const numbers = [1,2,3,4,5];
+
+function square(x)
+{
+  return x * x;
+}
+
+const squareNumbers = mapArray(numbers, square);
+console.log("Square Numbers are " , squareNumbers);
