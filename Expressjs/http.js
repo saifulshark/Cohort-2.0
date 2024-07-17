@@ -390,3 +390,25 @@ function square(x)
 
 const squareNumbers = mapArray(numbers, square);
 console.log("Square Numbers are " , squareNumbers);
+
+
+
+const evenNumbers= [2,4,6,8];
+const cubeRoot = (x) => {
+  return x * x * x
+};
+
+const mappedArray = (arrays, transformedArray) => {
+  const newTransformedArray1 = [];
+  for(let i=0; i<arrays.length; i++)
+  {
+    newTransformedArray1.push(transformedArray(arrays[i]));
+  }
+
+  return newTransformedArray1;
+};
+
+
+const cubeRootOfANumber = mappedArray(evenNumbers, cubeRoot);
+console.log("Cube Root of a Number" ,cubeRootOfANumber);
+
