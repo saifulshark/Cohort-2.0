@@ -4,6 +4,6 @@
 const fs = require('fs');
 const prompt = require('prompt-sync')();
 let dataToBeWrriten=prompt("Enter the data you want to write:");
-fs.writeFileSync('read.txt',dataToBeWrriten,function(err){
+fs.writeFile('read.txt',dataToBeWrriten,function(err){
     console.log("Sucessful!");
 })

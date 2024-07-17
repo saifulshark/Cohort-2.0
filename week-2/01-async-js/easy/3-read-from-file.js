@@ -7,7 +7,7 @@
 
 const fs = require('fs');
 
-fs.readFile("read.txt","utf8",function (err, data) {
+fs.readFile("read.txt","utf8",function (err, data){
         console.log(data);
 });
 for(let i =0;i<100000000;i++){
