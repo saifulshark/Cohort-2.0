@@ -14,6 +14,7 @@ const app = express();
 
 app.use((req, res, next)=>{
   //Checking if the userId exists
+  const userId = req.headers["user-id"]
   if(!userId){
     res.status(400).json({
       error : 'User id is required' 
@@ -46,5 +47,6 @@ app.get('/user', function(req, res) {
 app.post('/user', function(req, res) {
   res.status(200).json({ msg: 'created dummy user' });
 });
+
 
 module.exports = app;
