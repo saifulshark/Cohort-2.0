@@ -87,4 +87,16 @@ app.put('/todos/:id', (req, res) => {
 })
 
 
+app.delete('/todos/:id', (req, res) => {
+  const findtodo = todos.findIndex(t => t.id === parseInt(req.params.id));
+  if (findtodo===-1) {
+    res.status(404).send()
+  }
+  else {
+  todos.splice(findtodo,1);
+  res.status(200).send();
+  }
+})
+
+
 module.exports = app;
