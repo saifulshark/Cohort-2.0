@@ -53,25 +53,37 @@ app.get('/todos', (req, res) => {
 
 })
 
-app.get('/todos/:id',(req,res)=>{
-  const todo=todos.find(t=>t.id===parseInt(req.params.id));
-  if(!todo){
+app.get('/todos/:id', (req, res) => {
+  const todo = todos.find(t => t.id === parseInt(req.params.id));
+  if (!todo) {
     res.status(404).send();
   }
-  else{
+  else {
     res.json(todo);
   }
-  
+
 });
 
-app.post('/todos',(req,res)=>{
-  const newTodo={
-    id:Math.floor(Math.random() * 10000),
-    title:req.body.title,
-    description:req.body.description
+app.post('/todos', (req, res) => {
+  const newTodo = {
+    id: Math.floor(Math.random() * 10000),
+    title: req.body.title,
+    description: req.body.description
   };
   todos.push(newTodo);
   res.status(201).json(newTodo);
+})
+
+app.put('/todos/:id', (req, res) => {
+  const findtodo = todos.findIndex(t => t.id === parseInt(req.params.id));
+  if (!findtodo) {
+    res.status(404).send()
+  }
+  else {
+    todos[findtodo].title = req.body.title;
+    todos[findtodo].description = req.body.description;
+    res.json(todos[findtodo]);
+  }
 })
 
 
