@@ -1,6 +1,7 @@
 const z = require("zod");
+const { User } = require("../db");
 
-function userMiddleware(req, res, next) {
+async function userMiddleware(req, res, next) {
      // Implement admin auth logic
   const username = req.headers["username"];
   const password = req.headers["password"];
@@ -23,11 +24,16 @@ function userMiddleware(req, res, next) {
       errors: response.error.issues,
     });
   }
+
+  const user = await User.findOne({username,password});
+  if(!user){
+    return res.status(401).send({
+      message: "User not found",
+    });
+  }
   
 
   next()
-    // Implement user auth logic
-    // You need to check the headers and validate the user from the user DB. Check readme for the exact headers to be expected
 }
 
 module.exports = userMiddleware;
