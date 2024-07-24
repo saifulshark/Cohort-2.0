@@ -8,8 +8,12 @@ fs.readFile("a.txt","utf-8",(err,data) => {
 	});
 });
 
+// setTimeout(() => {
+// 	console.log("in set timeout");
+// },1000)
+
 let a=0;
-for(let i=0;i<10000000;i++){
+for(let i=0;i<1000000000;i++){
 	a++;
 }
 console.log("after expensive load - 1");

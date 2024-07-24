@@ -3,10 +3,10 @@
 */
 
 function wait(n) {
-    return new Promise(function(resolve) {
+    return new Promise((resolve) => {
         setTimeout(function(){
-            resolve("the resolved stuff");
-        },n)
+            resolve();
+        },n*1000)
     })
 }
 
@@ -15,7 +15,7 @@ function wait(n) {
 // })
 
 async function main(){
-    let data = await wait(1000);
+    let data = await wait(2);
     console.log(data);
 }
 

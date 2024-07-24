@@ -5,17 +5,15 @@
  */
 
 function sleep(milliseconds) {
-	let a = 0;
 	return new Promise((resolve) => {
-		for(let i = 0;i < milliseconds;i++){
-			a += i;
-		};
-		resolve("resolved data");
+		setTimeout(() => {
+			resolve()
+		},milliseconds)
 	})
 }
 
 async function main(){
-	let value = await sleep(1000000000000);
+	let value = await sleep(5000);
 	console.log(value);
 }
 
