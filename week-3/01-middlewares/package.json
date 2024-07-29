@@ -2,9 +2,10 @@
   "name": "01-middlewares",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "02-ratelimitter.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node 02-ratelimitter.js",
+    "dev": "nodemon 02-ratelimitter.js"
   },
   "keywords": [],
   "author": "",
