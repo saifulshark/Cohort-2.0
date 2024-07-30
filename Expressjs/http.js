@@ -555,3 +555,7 @@ app.post("/login", (req, res) => {
 })
 
 app.listen(3000)
+
+
+//Zod is like it's strictly validation for example if you give 12 size of character should be passed inside the password variable and if you passed greater than 12 or less than 12 then it will throw an error 
+//But in the case of coercion if you want to give validation which is more lean or like less strictly as compared to the zod then you have to go for the coercion
