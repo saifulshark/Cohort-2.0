@@ -469,13 +469,13 @@
 //   });
 // });
 
-// app.listen(3000);
-const express = require('express');
-const zod = require('zod');
-const app = express();
+// // app.listen(3000);
+// const express = require('express');
+// const zod = require('zod');
+// const app = express();
 
 
-const schema = zod.array(zod.number());
+// const schema = zod.array(zod.number());
 
 
 // {
@@ -484,29 +484,74 @@ const schema = zod.array(zod.number());
 //   "country" : "IN" OR "US"
 // }
 
-const schemaa = zod.object({
-  email : zod.string(),
-  password : zod.string(),
-  country : zod.literal('IN').or(zod.literal('US')),
-  kidneys : zod.array(zod.number()) 
+// const schemaa = zod.object({
+//   email : zod.string(),
+//   password : zod.string(),
+//   country : zod.literal('IN').or(zod.literal('US')),
+//   kidneys : zod.array(zod.number()) 
+// })
+
+
+// app.use(express.json());
+
+// app.post("/health-checkup", (req,res) => {
+//   const kidneys = req.body.kidneys;
+//   const kidneyLength = kidneys.length;
+//   const response = schema.safeParse(kidneys);
+//   res.send({
+//     response
+//   })
+// });
+
+// app.use((err,req,res,next) => {
+//   res.json({
+//     msg : "Sorry something is up with the server"
+//   })
+// });
+
+// app.listen(3000);
+
+
+//The thing which we are going to do with the if else condition like if we need to put some validation
+//for something then we need to add some if else condition to do that
+
+//But without adding some if else condition or OR , AND operation inside the if condition
+//It's better to use zod 
+//Below is an example for it
+
+const zod = require('zod');
+const express = require('express')
+const app = express();
+
+
+function validate(obj)
+{
+  const schema  = zod.object({
+    email : zod.string().email(),
+    password : zod.string().min(8)
+  })
+  const response = schema.safeParse(obj);
+  console.log(response);
+}
+
+// validate([1,2,3]);
+
+
+
+
+//Now how to add this validation inside the http request
+
+app.post("/login", (req, res) => {
+  const response = validate(req.body);
+  if(!response.success)
+  {
+    res.json({
+      msg : "Your inputs are invalid"
+    })
+    return ;
+  }
+
+  res.json({msg : "Your inputs are correct and you can loggedin"})
 })
 
-
-app.use(express.json());
-
-app.post("/health-checkup", (req,res) => {
-  const kidneys = req.body.kidneys;
-  const kidneyLength = kidneys.length;
-  const response = schema.safeParse(kidneys);
-  res.send({
-    response
-  })
-});
-
-app.use((err,req,res,next) => {
-  res.json({
-    msg : "Sorry something is up with the server"
-  })
-});
-
-app.listen(3000);
+app.listen(3000)
