@@ -38,14 +38,20 @@ You need to use mongodb to store all the data persistently.
   Description: Logs in a user account.
   Input: { username: 'user', password: 'pass' }
   Output: { token: 'your-token' }
+
 - GET /users/courses
   Description: Lists all the courses.
   Input: Headers: { 'Authorization': 'Bearer <your-token>' }
   Output: { courses: [ { id: 1, title: 'course title', description: 'course description', price: 100, imageLink: 'https://linktoimage.com', published: true }, ... ] }
+
+
 - POST /users/courses/:courseId
   Description: Purchases a course. courseId in the URL path should be replaced with the ID of the course to be purchased.
   Input: Headers: { 'Authorization': 'Bearer <your-token>' }
   Output: { message: 'Course purchased successfully' }
+
+
+  
 - GET /users/purchasedCourses
   Description: Lists all the courses purchased by the user.
   Input: Headers: { 'Authorization': 'Bearer <your-token>' }

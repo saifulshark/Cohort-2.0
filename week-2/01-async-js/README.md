@@ -24,7 +24,7 @@ Recommended order below but feel free to make a mess in any order you like.
 2. If you don't, you can copy these over to repl.it and run it there.
 
 #### How to Run Tests
-1. Your working directory must be /assignments/week-2/01-async-js 
+1. Your working directory must be /assignments/week-2/01-async-js
 2. Do npm install
 3. To run tests run `npx jest ./tests/<filename-of-test>` 
    for example, `npx jest ./tests/1-promisify-setTimeout.test.js`
