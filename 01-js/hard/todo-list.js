@@ -31,7 +31,7 @@ class Todo {
   get(indexOfTodo) {
     if (indexOfTodo >= 0 && indexOfTodo < this.todo_list.length) {
       return this.todo_list[indexOfTodo]; // Use this.todo_list
-    }
+    } 
     return null;
   }
   clear(){
