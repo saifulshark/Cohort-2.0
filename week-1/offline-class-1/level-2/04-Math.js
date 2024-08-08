@@ -4,7 +4,7 @@ function mathMethods(value) {
   let rounded = Math.round(value);
   console.log("After round():", rounded);
 
-  let ceiling = Math.ceil(value);
+  let ceiling = Math.ceil(value); 
   console.log("After ceil():", ceiling);
 
   let flooring = Math.floor(value);
