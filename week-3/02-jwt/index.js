@@ -63,9 +63,6 @@ function decodeJwt(token) {
         return false; // Unable to decode a valid JWT
     }
 }
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
-
 module.exports = {
   signJwt,
   verifyJwt,
