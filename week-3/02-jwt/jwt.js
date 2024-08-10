@@ -6,35 +6,45 @@ const emailSchema = zod.string().email();
 const passwordSchema = zod.string().min(6);
 
 function signJwt(username, password) {
-    const emailResponse = emailSchema.safeParse(username);
+
+   const emailResponse = emailSchema.safeParse(username);
     const passwordResponse = passwordSchema.safeParse(password);
 
-    if (!emailResponse.success || !passwordResponse.success) {
+    if(!emailResponse.success || !passwordResponse.success){
+
         return null;
     }
 
-    const tokenSignature = jwt.sign({ username }, jwtPassword);
+    const tokenSignuture = jwt.sign({username}, jwtPassword);
 
-    return tokenSignature;
+    return tokenSignuture;
 }
 
+
+
 function verifyJwt(token) {
-    try {
-        const verified = jwt.verify(token, jwtPassword);
-        return !!verified; // Return true if verified, otherwise false
-    } catch (error) {
-        return false;
+
+    try
+    {
+        jwt.verify(tokenSignuture, jwtPassword);
+        return true;
+
+    } catch(erro){
+
     }
+    return false;
 }
 
 function decodeJwt(token) {
-    const decodedToken = jwt.decode(token);
 
-    if (decodedToken) {
-        return true; // Successfully decoded a valid JWT
-    } else {
-        return false; // Unable to decode a valid JWT
+    const decodeTokenSignuture =  jwt.decode(tokenSignuture);
+
+    if(decodeTokenSignuture){
+        return true
+    }else{
+        return false
     }
+ 
 }
 
 module.exports = {
@@ -42,4 +52,4 @@ module.exports = {
     verifyJwt,
     decodeJwt,
     jwtPassword
-};
+}
