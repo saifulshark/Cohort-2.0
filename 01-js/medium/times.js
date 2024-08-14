@@ -9,5 +9,16 @@ There is no automated test for this one, this is more for you to understand time
 */
 
 function calculateTime(n) {
-    return 0.01;
+    let sum = 0;
+    let currentTime = new Date().getTime();
+    for (let i = 0; i < n; i++) {
+      sum = sum + i;
+    }
+    console.log(`it takes ${(new Date().getTime() - currentTime)} ms`);
+    return;
 }
+  
+calculateTime(1000000)
+calculateTime(10000000)
+calculateTime(1000000000)
+   

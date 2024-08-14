@@ -6,7 +6,20 @@
 */
 
 function countVowels(str) {
-    // Your code here
+  let count = 0;
+  const vowels = new Set(['a','e','i','o','u','A','E','I','O','U'])
+  for(var i of str){
+    if(vowels.has(i)) {
+      count += 1
+    }
+  } 
+  return count;
 }
+
+console.log(countVowels('programming')); //3
+console.log(countVowels('OpenAI')); //4
+console.log(countVowels('Keep smiling, boo.'));//6
+console.log(countVowels('EaSiEr '));//4
+console.log(countVowels('aeiouAE rrr,,'));//7
 
 module.exports = countVowels;
