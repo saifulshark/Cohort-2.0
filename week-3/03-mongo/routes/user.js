@@ -24,6 +24,7 @@ router.post("/signup", async (req, res) => {
     }
 });
 
+
 router.get("/courses", async (req, res) => {
     // Implement listing all courses logic
     const courses = await Course.find({});
