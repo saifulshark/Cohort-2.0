@@ -3,7 +3,9 @@ const { type } = require('os');
 const { title } = require('process');
 
 // Connect to MongoDB
-mongoose.connect('your-mongodb-url');
+mongoose.connect('mongodb+srv://khandayharoon0811:<password>@cluster.rnf5b.mongodb.net/l');
+//i hide the password for obi reasons
+
 
 // Define schemas
 const AdminSchema = new mongoose.Schema({
