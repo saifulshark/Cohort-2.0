@@ -3,7 +3,7 @@ const { type } = require('os');
 const { title } = require('process');
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://khandayharoon0811:<password>@cluster.rnf5b.mongodb.net/l');
+mongoose.connect('mongodb+srv://khandayharoon0811:khandayharoon0811@cluster.rnf5b.mongodb.net/courses');
 //i hide the password for obi reasons
 
 
@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema({
     password:String(),
     purchasedCourses: [{
         type:mongoose.Schema.Types.ObjectId,
-        reference : `Course`,
+        reference : `Courses`,
     }]
 });
 
