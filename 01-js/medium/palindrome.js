@@ -4,7 +4,25 @@
 */
 
 function isPalindrome(str) {
-  return true;
+  let isPalindrome = false;
+  // level
+  let reverse = "";
+  for (let i = str.length - 1; i >= 0; i--) {
+    if (str[i].toLowerCase() === "?" || str[i].toLowerCase() === "!") {
+      continue;
+    } else {
+      reverse = reverse + str[i].toLowerCase();
+    }
+  }
+  console.log("reverse", reverse);
+  if (str.toLowerCase() === reverse) {
+    isPalindrome = true;
+  } else {
+    isPalindrome = false;
+  }
+
+  return isPalindrome;
 }
 
 module.exports = isPalindrome;
+isPalindrome("Eva, can I see bees in a cave?");
