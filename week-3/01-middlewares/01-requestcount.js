@@ -27,5 +27,5 @@ app.post('/user', function(req, res) {
 app.get('/requestCount', function(req, res) {
   res.status(200).json({ requestCount });
 });
-
+app.listen(3000);
 module.exports = app;
