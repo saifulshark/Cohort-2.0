@@ -4,6 +4,12 @@ const express = require('express');
 
 const app = express();
 let requestCount = 0;
+app.use((req,res,next)=>
+{
+  if(req){
+    requestCount++;
+  }next();
+})
 
 // You have been given an express server which has a few endpoints.
 // Your task is to create a global middleware (app.use) which will
@@ -21,5 +27,5 @@ app.post('/user', function(req, res) {
 app.get('/requestCount', function(req, res) {
   res.status(200).json({ requestCount });
 });
-
+app.listen(3000);
 module.exports = app;
