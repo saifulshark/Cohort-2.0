@@ -474,20 +474,28 @@
 // const zod = require('zod');
 // const app = express();
 
-// const schema = zod.array(zod.number());
 
-// // {
-// //   "email": string -> email
-// //   "password" : atleast 8 characters required
-// //   "country" : "IN" OR "US"
-// // }
+//   const userSchema = new mongoose.Schema({
+//     name: String,
+//     email: String,
+//     password: String,
+//   });
 
-// const schemaa = zod.object({
-//   email : zod.string(),
-//   password : zod.string(),
-//   country : zod.literal('IN').or(zod.literal('US')),
-//   kidneys : zod.array(zod.number())
-// })
+//   const User = mongoose.model("User", userSchema);
+
+//   const user = new User({
+//     name: "Harkirat Singh",
+//     email: "Harkirat@gmail.com",
+//     password: "harkirat",
+//   });
+
+const schemaa = zod.object({
+  email : zod.string(),
+  password : zod.string(),
+  country : zod.literal('IN').or(zod.literal('US')),
+  kidneys : zod.array(zod.number()) 
+})
+
 
 // app.use(express.json());
 
@@ -507,80 +515,6 @@
 // });
 
 // app.listen(3000);
-
-// const express = require('express');
-// const jwt = require('jsonwebtoken');
-// const jwtPassword = '123456';
-// const mongoose = require('mongoose');
-
-// mongoose.connect("your mongo url");
-
-// const User = mongoose.model("User", {
-//   name : String,
-//   username : String,
-//   password : String
-// });
-
-// const app = express();
-// app.use(express.json());
-
-// app.post("signin",async function(req,res) {
-//   const username = req.body.username;
-//   const password = req.body.password;
-//   if(!userExists(username , password))
-//   {
-//     return res.status(403).json({
-//       msg : "User doesn't exist in our memory database"
-//     })
-//   }
-//   var token = jwt.sign({username : username, password : password}, jwtPassword);
-//   return res.json({
-//     token
-//   });
-// } )
-
-// app.get("/users", function(req, res) {
-//   const token = req.headers.authorization;
-//   try
-//   {
-//     let decoded = jwt.verify(token, password);
-//     const username = decoded.username;
-
-//   }
-//   catch(Exception)
-//   {
-//     return res.status(404).json({
-//       msg : "Invalid Token"
-//     })
-//   }
-// })
-// const mongoose = require("mongoose");
-
-// mongoose.connect(
-//   "mongodb+srv://bainganlala:bainganlala@cluster0.syeyq.mongodb.net/user_app?retryWrites=true&w=majority",
-//   { useNewUrlParser: true, useUnifiedTopology: true }
-// ).then(() => {
-//   console.log("Database connection successful");
-
-//   const userSchema = new mongoose.Schema({
-//     name: String,
-//     email: String,
-//     password: String,
-//   });
-
-//   const User = mongoose.model("User", userSchema);
-
-//   const user = new User({
-//     name: "Harkirat Singh",
-//     email: "Harkirat@gmail.com",
-//     password: "harkirat",
-//   });
-
-//   user.save()
-//     .then(() => console.log("User saved successfully"))
-//     .catch(err => console.error("Error saving user:", err));
-// })
-// .catch(err => console.error("Database connection error:", err));
 
 
 const mongoose = require('mongoose');
@@ -608,3 +542,5 @@ mongoose.connect(
   .catch(err => console.log("Error saving User",err));
 }).catch(err => console.log("Database connection error", err));
 
+
+app.listen(3000);
