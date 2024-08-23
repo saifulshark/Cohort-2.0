@@ -6,7 +6,8 @@
 */
 
 function countVowels(str) {
-    // Your code here
+  str = str.replace(/[^aeiouAEIOU]/g, "");
+  return str.length;
 }
 
 module.exports = countVowels;
