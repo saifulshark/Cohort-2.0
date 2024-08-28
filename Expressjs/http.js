@@ -489,12 +489,12 @@
 //     password: "harkirat",
 //   });
 
-const schemaa = zod.object({
-  email : zod.string(),
-  password : zod.string(),
-  country : zod.literal('IN').or(zod.literal('US')),
-  kidneys : zod.array(zod.number()) 
-})
+// const schemaa = zod.object({
+//   email : zod.string(),
+//   password : zod.string(),
+//   country : zod.literal('IN').or(zod.literal('US')),
+//   kidneys : zod.array(zod.number()) 
+// })
 
 
 // app.use(express.json());
@@ -543,4 +543,4 @@ mongoose.connect(
 }).catch(err => console.log("Database connection error", err));
 
 
-app.listen(3000);
+// app.listen(3000);
