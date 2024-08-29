@@ -519,7 +519,7 @@
 
 const mongoose = require('mongoose');
 mongoose.connect(
-  "mongodb+srv://bainganlala:bainganlala@cluster0.syeyq.mongodb.net/user_app?retryWrites=true&w=majority",
+  "mongodb+srv://@cluster0.syeyq.mongodb.net/user_app?retryWrites=true&w=majority",
   {useNewUrlParser : true, useUnifiedTopology : true})
   .then(() => {
     console.log("Database connection Successful");
