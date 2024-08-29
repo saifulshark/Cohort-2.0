@@ -17,7 +17,7 @@ router.post('/signup', async (req, res) => {
     res.json({
         message: 'Admin created successfully'
     })
-    
+
 });
 
 router.post('/courses', adminMiddleware, async (req, res) => {
