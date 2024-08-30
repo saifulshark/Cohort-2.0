@@ -8,7 +8,7 @@ mongoose
   })
   .then(() => {
     console.log("Connection Successful");
-    testConnection(); // Call the test function after a successful connection to check whether the connection is establshed or the data has been entered inside the database or not
+    //testConnection(); // Call the test function after a successful connection to check whether the connection is establshed or the data has been entered inside the database or not
   })
   .catch((err) => {
     console.error("Connection Error", err);
