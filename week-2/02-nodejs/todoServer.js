@@ -39,11 +39,78 @@
 
   Testing the server - run `npm run test-todoServer` command in terminal
  */
-  const express = require('express');
-  const bodyParser = require('body-parser');
-  
-  const app = express();
-  
-  app.use(bodyParser.json());
-  
-  module.exports = app;
+const express = require("express");
+const bodyParser = require("body-parser");
+
+const app = express();
+
+app.use(bodyParser.json());
+
+let todos = [];
+
+app.get("/todos", (req, res) => {
+  res.status(200).json(todos);
+});
+
+app.get("/todos/:id", (req, res) => {
+  let id = req.params.id;
+  let specific_item = todos.find((item) => item.id == id);
+  if (specific_item) {
+    res.status(200).json(specific_item);
+  } else {
+    res.status(404).json({
+      msg: "item not found",
+    });
+  }
+});
+
+app.post("/todos", (req, res) => {
+  let id = Math.floor(Math.random() * 100);
+  let title = req.body.title;
+  let description = req.body.description;
+
+  let todo_item = {
+    id: id,
+    title: title,
+    description: description,
+  };
+  todos.push(todo_item);
+  res.status(201).json(todo_item);
+});
+
+app.put("/todos/:id", (req, res) => {
+  let id = req.params.id;
+  let todo_index = todos.findIndex((index) => index.id == id);
+  let title = req.body.title;
+  let description = req.body.description;
+  if (todo_index !== -1) {
+    todos[todo_index].title = title;
+    todos[todo_index].description = description;
+    res.status(200).json({
+      msg: "Item updated successfully",
+    });
+  } else {
+    res.status(404).json({
+      msg: "Item not found",
+    });
+  }
+});
+
+app.delete("/todos/:id", (req, res) => {
+  let id = req.params.id;
+  let todo_index = todos.findIndex((index) => index.id == id);
+  if (todo_index !== -1) {
+    let updatedTodos = todos.filter((todo) => todo.id != id);
+    todos = updatedTodos;
+    res.status(200).json({
+      msg: "Item deleted successfully",
+    });
+  } else {
+    res.status(404).json({
+      msg: "Item not found",
+    });
+  }
+});
+
+module.exports = app;
+
