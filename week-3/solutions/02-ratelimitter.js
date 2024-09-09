@@ -8,7 +8,7 @@ const app = express();
 // should block them with a 404.
 // User will be sending in their user id in the header as 'user-id'
 // You have been given a numberOfRequestsForUser object to start off with which
-// clears every one second
+// clears every one second 
 
 let numberOfRequestsForUser = {};
 setInterval(() => {
