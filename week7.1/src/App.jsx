@@ -1,4 +1,4 @@
-import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil'
+import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import {counterAtom} from '../store/atoms/CountAtom'
 
 export default function  App(){
@@ -22,6 +22,7 @@ function Count(){
 
 function CountRender(){
   const count = useRecoilValue(counterAtom)
+  // console.log("re-render");
   return(
     <div>
         {count}
@@ -30,17 +31,25 @@ function CountRender(){
 }
 
 function Buttons(){
-  const [count, setRecoilCount] = useRecoilState(counterAtom);
+  // Here  we dont need count as it is causing re-rendering the buttons in that case we will useSetRecoilState
+  // const [count, setRecoilCount] = useRecoilState(counterAtom);
+  // setRecoilCount(count=> count + 1)
+  // setRecoilCount(function(count){
+  //   return count + 1
+  // })
+
+  const setRecoilCount = useSetRecoilState(counterAtom);
+  console.log("re-render");
   return(
   <div>
         {/* First Button */}
       <div>
-        <button onClick={()=>{setRecoilCount(count + 2)}} > Increase + 2 </button>
+        <button onClick={()=>{setRecoilCount(count => count + 2)}} > Increase + 2 </button>
      </div>
 
         {/* Second Button */}
         <div>
-        <button onClick={()=>{setRecoilCount(count - 1)}} > Derease - 1 </button>
+        <button onClick={()=>{setRecoilCount(count => count - 1)}} > Derease - 1 </button>
       </div>
   </div>
     
