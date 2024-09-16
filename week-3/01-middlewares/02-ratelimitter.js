@@ -1,5 +1,3 @@
-const request = require('supertest');
-const assert = require('assert');
 const express = require('express');
 const app = express();
 // You have been given an express server which has a few endpoints.
@@ -12,16 +10,34 @@ const app = express();
 // clears every one second
 
 let numberOfRequestsForUser = {};
-setInterval(() => {
-    numberOfRequestsForUser = {};
+let intervalId = setInterval(() => {
+  numberOfRequestsForUser = {};
 }, 1000)
 
-app.get('/user', function(req, res) {
+app.use(function rateLimitter(req, res, next) {
+  let userId = req.headers['user-id'];
+  let reqCount = numberOfRequestsForUser[userId];
+  if (reqCount) {
+    numberOfRequestsForUser[userId] = reqCount + 1;
+  } else {
+    numberOfRequestsForUser[userId] = 1;
+  }
+  if (reqCount > 5) {
+    res.status(404).json({});
+  }
+  next();
+})
+
+app.get('/user', function (req, res) {
   res.status(200).json({ name: 'john' });
 });
 
-app.post('/user', function(req, res) {
+app.post('/user', function (req, res) {
   res.status(200).json({ msg: 'created dummy user' });
 });
+// app.listen(3000);
 
+setTimeout(() => {
+  clearInterval(intervalId);
+}, 5000)
 module.exports = app;
