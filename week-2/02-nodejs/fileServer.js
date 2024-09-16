@@ -16,6 +16,50 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const app = express();
+const port = 3000;
+
+
+app.get('/files', (req, res)=>{
+  //fs.readdir to get the contents of the directory
+
+  fs.readdir(path.join(__dirname, "./files"), (err, files)=>{
+      if(err){
+        res.status(500).json({
+          msg: "Invalid Internal Error"
+        })
+      }
+      else{
+        // If the file directory exists, send the files as response.
+        res.json(files);
+      }
+
+  }) 
+})
+
+//Route for getting the contents of a specific file
+app.get('/file/:filename', (req, res)=>{
+  const currfile = path.join(__dirname, "./files/", req.params.filename);
+  //Now for reading the file content
+  fs.readFile(currfile,"utf8" , (err, data)=>{
+    if(err){
+      return res.status(404).send("Error in reading the contents")
+    }
+    else{
+       res.status(200).send(data);
+    }
+  })
+})
+
+// if other than specified routes
+app.all("*", (req, res) => {
+  res.status(404).send("Route not found");
+});
+
+
+app.listen(port, () => {
+  console.log(`Server listening at http://localhost:${port}`);
+});
+
 
 
 module.exports = app;

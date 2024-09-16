@@ -40,10 +40,106 @@
   Testing the server - run `npm run test-todoServer` command in terminal
  */
   const express = require('express');
-  const bodyParser = require('body-parser');
-  
-  const app = express();
-  
-  app.use(bodyParser.json());
-  
-  module.exports = app;
+const bodyParser = require('body-parser');
+const port = 3000;
+const app = express();
+
+app.use(bodyParser.json());
+
+// For sorting out the id thing, we can make an array
+var todos = [];
+
+// To get all the todos from the server
+app.get("/todos", (req, res) => {
+  res.status(200).json(todos);
+});
+
+// Now want to retrieve a particular Task by [id]
+app.get("/todos/:id", (req, res) => {
+  const ind = parseInt(req.params.id);
+
+  // Find function to find the specific todo
+  const access = todos.find((reqid) => reqid === ind);
+
+  if (!access) {
+    // Error Logic
+    res.status(404).json({
+      message: "Todo doesn't exist!",
+    });
+  }
+
+  res.status(200).json(access);
+});
+
+// To add a new todo
+app.post("/todos", (req, res) => {
+  const Newdata = {
+    id: Math.floor(Math.random() * 1000000),
+    title: req.body.title,
+    completed: req.body.completed,
+    description: req.body.description,
+  };
+
+  todos.push(Newdata);
+  res.status(201).json({
+    msg: "Created with the ID of the created todo item in JSON format",
+    Newdata,
+  });
+});
+
+// To update a Task
+app.put("/todos/:id", (req, res) => {
+  // Update logic here
+  const i = parseInt(req.params.id)
+
+  const toUpdate = todos.findIndex((reqind) => {reqind === i});
+
+  if(toUpdate == -1){
+    //Error Logic
+      res.status(404).json({
+      message: "Todo doesn't exist!",
+    });
+  }
+  else{
+    todos[toUpdate].title = req.body.title
+    todos[toUpdate].completed = req.body.completed
+    todos[toUpdate].description =  req.body.description
+
+    res.status(201).json({
+      message: "Todo Updated successfuly!",
+    });
+  }
+ 
+
+});
+
+app.delete("/todos/:id", (req, res) => {
+  // Delete logic here
+    const todoIndex = todos.findIndex(
+    (reqTodo) => reqTodo.id === parseInt(req.params.id)
+  );
+  // If todo doesen't exists.
+  if (todoIndex === -1) {
+    // Give response with 404 status code stating the error.
+    res.status(404).json({
+      message: "Todo doesen't exists!",
+    });
+  } else {
+    // If the todo exists, remove it from the array using splice() function and send as response to update.
+    todos.splice(todoIndex, 1);
+    res.status(200).send();
+  }
+});
+
+// For any other route not defined in the server return 404
+app.use((req, res) => {
+  res.status(404).json({
+    message: "Not Found",
+  });
+});
+
+app.listen(port, () => {
+  console.log(`Listening on: http://localhost:${port}/`);
+});
+
+module.exports = app;
