@@ -10,7 +10,6 @@ export default function  App(){
     </div>
   )
 }
-
 function Count(){
   return(
       <div>
@@ -20,7 +19,6 @@ function Count(){
       </div>
   )
 }
-
 function CountRender(){
   const count = useRecoilValue(counterAtom)
   return(
@@ -29,7 +27,6 @@ function CountRender(){
     </div>
   )
 }
-
 function Buttons(){
   const setRecoilCount = useSetRecoilState(counterAtom);
   return(
@@ -47,7 +44,6 @@ function Buttons(){
     
   )
 }
-
 function IsEven(){
   const isEven = useRecoilValue(evenNum);
   return(
